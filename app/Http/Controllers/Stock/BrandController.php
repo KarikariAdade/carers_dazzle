@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\Stock;
 
-use App\DataTables\ProductCategoryDatatable;
+use App\DataTables\BrandDataTable;
 use App\Http\Controllers\Controller;
-use App\Models\ProductCategory;
+use App\Models\Brands;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class ProductCategoryController extends Controller
+class BrandController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    public function index(ProductCategoryDatatable $datatable)
+
+    public function index(BrandDataTable $dataTable)
     {
-        return $datatable->render('stock.categories.index');
+        return $dataTable->render('stock.brands.index');
     }
 
 
@@ -34,17 +35,16 @@ class ProductCategoryController extends Controller
             return $this->failResponse($validate->errors()->first());
         }
 
-        ProductCategory::query()->create([
+        Brands::query()->create([
             'name' => $data['name'],
             'description' => $data['description']
         ]);
 
-        return $this->successResponse('Product Category added successfully');
+        return $this->successResponse('Brand added successfully');
     }
 
 
-
-    public function update(Request $request, ProductCategory $category)
+    public function update(Request $request, Brands $brands)
     {
         $data = $request->all();
 
@@ -58,22 +58,19 @@ class ProductCategoryController extends Controller
             return $this->failResponse($validate->errors()->first());
         }
 
-        $category->update([
+        $brands->update([
             'name' => $data['name'],
             'description' => $data['description']
         ]);
 
-        return $this->successResponse('Product Category updated successfully');
+        return $this->successResponse('Brand updated successfully');
     }
 
 
-    public function delete(ProductCategory $category)
+    public function delete(Brands $brands)
     {
-        $category->delete();
+        $brands->delete();
 
-        return $this->successResponse('Category successfully deleted');
-
+        return $this->successResponse('Brand deleted successfully');
     }
-
-
 }

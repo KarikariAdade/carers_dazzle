@@ -193,7 +193,7 @@
                         <a href="{{ route('product.category.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Category</span></a>
                     </li>
                     <li class="dropdown">
-                        <a href="" class="nav-link"><i data-feather="monitor"></i><span>Product Brands</span></a>
+                        <a href="{{ route('product.brands.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Brands</span></a>
                     </li>
                     <li class="dropdown">
                         <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Product Expiry</span></a>
