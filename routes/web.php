@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\ProductCategory;
+
+use App\Http\Controllers\Stock\ProductCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,12 +30,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
     #========================================== PRODUCT CATEGORY START=================================================#
 
     Route::prefix('product/category')->group(function (){
-        Route::get('/', [ProductCategory::class, 'index'])->name('product.category.index');
-        Route::get('create', [ProductCategory::class, 'create'])->name('product.category.create');
-        Route::post('store', [ProductCategory::class, 'store'])->name('product.category.store');
-        Route::get('edit/{category}', [ProductCategory::class, 'edit'])->name('product.category.edit');
-        Route::patch('update/{category}', [ProductCategory::class, 'update'])->name('product.category.update');
-        Route::get('delete/{category}', [ProductCategory::class, 'delete'])->name('product.category.delete');
+        Route::get('/', [ProductCategoryController::class, 'index'])->name('product.category.index');
+        Route::get('create', [ProductCategoryController::class, 'create'])->name('product.category.create');
+        Route::post('store', [ProductCategoryController::class, 'store'])->name('product.category.store');
+        Route::get('edit/{category}', [ProductCategoryController::class, 'edit'])->name('product.category.edit');
+        Route::patch('update/{category}', [ProductCategoryController::class, 'update'])->name('product.category.update');
+        Route::get('delete/{category}', [ProductCategoryController::class, 'delete'])->name('product.category.delete');
     });
 
     #============================================ PRODUCT CATEGORY END=================================================#
@@ -42,4 +43,4 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
 });
 
 
-require __DIR__.'/auth.php';
+//require __DIR__.'/auth.php';

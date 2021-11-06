@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers\Stock;
 
+use App\DataTables\ProductCategoryDatatable;
 use App\Http\Controllers\Controller;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductCategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth');
+//    }
 
-    public function index()
+    public function index(ProductCategoryDatatable $datatable)
     {
-        return view('stock.categories.index');
+        return $datatable->render('stock.categories.index');
     }
 
 
@@ -27,7 +29,23 @@ class ProductCategoryController extends Controller
 
     public function store(Request $request)
     {
-        return $request->all();
+        $data = $request->all();
+
+        $validate = Validator::make($data, [
+            'name' => 'required',
+            'description' => 'nullable'
+        ]);
+
+        if ($validate->fails()){
+            return $this->failResponse($validate->errors()->first());
+        }
+
+        ProductCategory::query()->create([
+            'name' => $data['name'],
+            'description' => $data['description']
+        ]);
+
+        return $this->successResponse('Product Category added successfully');
     }
 
 
