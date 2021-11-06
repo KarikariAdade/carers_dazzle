@@ -15,7 +15,7 @@ $(document).ready(function (){
 
     form_loader.hide();
 
-    $('.product_category_form').submit(async function (e) {
+    $('.product_category_form').submit(function (e) {
         e.preventDefault();
 
         url = $(this).attr('action')
@@ -36,13 +36,71 @@ $(document).ready(function (){
     })
 
 
+    $('#dataTable').on('click', '#deleteCategory', function (e) {
+        e.preventDefault();
+        runAjaxPrompt($(this).attr('href'));
+    })
+
+    $('#dataTable').on('click', '#updateCategory', function (e){
+        e.preventDefault();
+
+        let name = $(this).closest('tr').children('td:eq(0)').text(),
+            description = $(this).closest('tr').children('td:eq(1)').text();
+
+        $('#editDescription').val(description);
+        $('#editName').val(name);
+        $('.updateCategoryForm').attr('action', $(this).attr('href'));
+        $('#editCategoryModal').modal('show');
+    })
+
+    $('.updateCategoryForm').submit(function (e){
+        e.preventDefault();
+        url = $(this).attr('action');
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: $(this).serialize(),
+        }).done((response)=>{
+            if(response.code == '200'){
+                runToast(response.msg, response.code)
+                setInterval($('#dataTable').DataTable().draw(), 3000)
+                $('#editCategoryModal').modal('hide');
+            }else{
+                setInterval($('#dataTable').DataTable().draw(), 3000)
+                runToast(response.msg, response.code)
+            }
+        })
+    })
+
+
+    function runAjaxPrompt(url){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.post(url, function (response){
+                    if(response.code == '200'){
+                        runToast(response.msg, response.code)
+                        setInterval($('#dataTable').DataTable().draw(), 3000)
+                    }else{
+                        runToast(response.msg, response.code)
+                        setInterval($('#dataTable').DataTable().draw(), 3000)
+                    }
+                });
+            }
+        })
+    }
 
     function returnMessage(msg, code) {
         if (code == '200') {
-
             return '<p class="alert alert-success text-white"><i class="fa fa-exclamation-circle"></i> ' + msg + '</p>';
         } else {
-
             return '<p class="alert alert-danger text-white"><i class="fa fa-exclamation-circle"></i> ' + msg + '</p>';
         }
     }

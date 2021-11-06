@@ -57,14 +57,32 @@ class ProductCategoryController extends Controller
 
     public function update(Request $request, ProductCategory $category)
     {
-        return $category;
+        $data = $request->all();
+
+
+        $validate = Validator::make($data, [
+            'name' => 'required',
+            'description' => 'nullable'
+        ]);
+
+        if ($validate->fails()){
+            return $this->failResponse($validate->errors()->first());
+        }
+
+        $category->update([
+            'name' => $data['name'],
+            'description' => $data['description']
+        ]);
+
+        return $this->successResponse('Product Category updated successfully');
     }
 
 
     public function delete(ProductCategory $category)
     {
-        return $category;
         $category->delete();
+
+        return $this->successResponse('Category successfully deleted');
 
 //        return route()
     }

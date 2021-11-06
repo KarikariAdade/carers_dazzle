@@ -23,7 +23,13 @@ class ProductCategoryDatatable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'productcategorydatatable.action');
+            ->addColumn('action', function ($query){
+                return '
+                        <div style="display: inline-flex;">
+                        <a href="'.route('product.category.update', $query->id).'" title="Edit Category" id="updateCategory" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
+                        <a href="'.route('product.category.delete', $query->id).'" title="Delete Category" id="deleteCategory" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
+                        </div>';
+            });
     }
 
     /**
@@ -60,7 +66,6 @@ class ProductCategoryDatatable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
             Column::make('name'),
             Column::make('description'),
             Column::computed('action')

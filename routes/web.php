@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
         Route::post('store', [ProductCategoryController::class, 'store'])->name('product.category.store');
         Route::get('edit/{category}', [ProductCategoryController::class, 'edit'])->name('product.category.edit');
         Route::patch('update/{category}', [ProductCategoryController::class, 'update'])->name('product.category.update');
-        Route::get('delete/{category}', [ProductCategoryController::class, 'delete'])->name('product.category.delete');
+        Route::any('delete/{category}', [ProductCategoryController::class, 'delete'])->name('product.category.delete');
     });
 
     #============================================ PRODUCT CATEGORY END=================================================#
