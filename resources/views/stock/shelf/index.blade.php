@@ -2,25 +2,29 @@
 @section('content')
     <section class="container card card-primary">
         <div class="card-header">
-            <h4>Product Categories</h4>
+            <h4>Product</h4>
         </div>
         <div class="card-body">
             <div class="errorMsg">
 
             </div>
-            <form class="row product_category_form" action="{{ route('product.category.store') }}">
+            <form class="row product_shelf_form" action="{{ route('product.shelf.store') }}">
                 @method('POST')
                 @csrf
-                <div class="form-group col-md-5">
-                    <label>Category Name <span class="text-danger">*</span></label>
+                <div class="form-group col-md-3">
+                    <label>Shelf Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="name">
                 </div>
-                <div class="form-group col-md-5">
-                    <label>Category Description</label>
+                <div class="form-group col-md-3">
+                    <label>Shelf Location <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="location">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Shelf Description</label>
                     <textarea class="form-control" name="description"></textarea>
                 </div>
                 <div class="col-md-2 mt-4 pt-2">
-                    <button type="submit" class="btn btn-success">Add Category</button>
+                    <button type="submit" class="btn btn-success">Add Shelf</button>
                 </div>
             </form>
 
@@ -31,7 +35,7 @@
             </div>
         </div>
     </section>
-    <div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModal"
+    <div class="modal fade" id="editShelfModal" tabindex="-1" role="dialog" aria-labelledby="editShelfModal"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -41,28 +45,31 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="updateCategoryForm" action="" method="POST">
-                <div class="modal-body">
-                    @method('PATCH')
-                    @csrf
+                <form class="updateShelfForm" action="" method="POST">
+                    <div class="modal-body">
+                        @method('PATCH')
+                        @csrf
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" name="name" class="form-control" id="editName">
                         </div>
                         <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" name="location" class="form-control" id="editLocation">
+                        </div>
+                        <div class="form-group">
                             <label>Description</label>
                             <textarea class="form-control" name="description" id="editDescription"></textarea>
                         </div>
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="submit" class="btn btn-success">Update Category</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke br">
+                        <button type="submit" class="btn btn-success">Update Shelf</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-
 @endsection
 @push('custom-js')
     {!! $dataTable->scripts() !!}

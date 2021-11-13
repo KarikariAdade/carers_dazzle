@@ -196,6 +196,9 @@
                         <a href="{{ route('product.brands.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Brands</span></a>
                     </li>
                     <li class="dropdown">
+                        <a href="{{ route('product.shelf.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Brands</span></a>
+                    </li>
+                    <li class="dropdown">
                         <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Product Expiry</span></a>
                     </li>
 

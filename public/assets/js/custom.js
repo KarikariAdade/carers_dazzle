@@ -1,7 +1,4 @@
 $(document).ready(function (){
-
-
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -10,6 +7,7 @@ $(document).ready(function (){
 
     let errorMsg = $('.errorMsg'),
         url = '',
+        dataTable = $('#dataTable');
         form_loader = $('.form-loader');
     // Add Product Category Form
 
@@ -41,6 +39,14 @@ $(document).ready(function (){
         runAjaxPrompt($(this).attr('href'));
     })
 
+
+    dataTable.on('click', '#deleteShelf', function (e){
+        e.preventDefault();
+        runAjaxPrompt($(this).attr('href'));
+    })
+
+
+
     $('#dataTable').on('click', '#updateCategory', function (e){
         e.preventDefault();
 
@@ -52,6 +58,51 @@ $(document).ready(function (){
         $('.updateCategoryForm').attr('action', $(this).attr('href'));
         $('#editCategoryModal').modal('show');
     })
+
+
+    dataTable.on('click', '#updateShelf', function (e){
+        e.preventDefault();
+
+        let name = $(this).closest('tr').children('td:eq(0)').text(),
+            location = $(this).closest('tr').children('td:eq(1)').text(),
+            description = $(this).closest('tr').children('td:eq(2)').text();
+
+        $('#editDescription').val(description);
+        $('#editLocation').val(location);
+        $('#editName').val(name);
+        $('.updateShelfForm').attr('action', $(this).attr('href'));
+        showModal($('#editShelfModal'));
+    })
+
+
+    function showModal(modal){
+        modal.modal('show');
+    }
+
+    function hideModal(modal){
+        modal.modal('hide');
+    }
+
+
+    $('.updateShelfForm').submit(function (e){
+        e.preventDefault();
+        url = $(this).attr('action');
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: $(this).serialize(),
+        }).done((response)=>{
+            if(response.code == '200'){
+                runToast(response.msg, response.code)
+                setInterval($('#dataTable').DataTable().draw(), 3000)
+                hideModal($('#editShelfModal'));
+            }else{
+                setInterval($('#dataTable').DataTable().draw(), 3000)
+                runToast(response.msg, response.code)
+            }
+        })
+    })
+
 
     $('.updateCategoryForm').submit(function (e){
         e.preventDefault();
@@ -65,6 +116,25 @@ $(document).ready(function (){
                 runToast(response.msg, response.code)
                 setInterval($('#dataTable').DataTable().draw(), 3000)
                 $('#editCategoryModal').modal('hide');
+            }else{
+                setInterval($('#dataTable').DataTable().draw(), 3000)
+                runToast(response.msg, response.code)
+            }
+        })
+    })
+
+
+    $('.product_shelf_form').submit(function (e){
+        e.preventDefault();
+        url = $(this).attr('action');
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: $(this).serialize(),
+        }).done((response) => {
+            if(response.code == '200'){
+                runToast(response.msg, response.code)
+                setInterval($('#dataTable').DataTable().draw(), 3000)
             }else{
                 setInterval($('#dataTable').DataTable().draw(), 3000)
                 runToast(response.msg, response.code)

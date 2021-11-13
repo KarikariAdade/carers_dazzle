@@ -2,7 +2,7 @@
 @section('content')
     <section class="container card card-primary">
         <div class="card-header">
-            <h4>Product Categories</h4>
+            <h4>Product</h4>
         </div>
         <div class="card-body">
             <div class="errorMsg">
@@ -42,9 +42,9 @@
                     </button>
                 </div>
                 <form class="updateCategoryForm" action="" method="POST">
-                <div class="modal-body">
-                    @method('PATCH')
-                    @csrf
+                    <div class="modal-body">
+                        @method('PATCH')
+                        @csrf
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" name="name" class="form-control" id="editName">
@@ -53,16 +53,15 @@
                             <label>Description</label>
                             <textarea class="form-control" name="description" id="editDescription"></textarea>
                         </div>
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="submit" class="btn btn-success">Update Category</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke br">
+                        <button type="submit" class="btn btn-success">Update Category</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-
 @endsection
 @push('custom-js')
     {!! $dataTable->scripts() !!}
