@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Stock\BrandController;
 use App\Http\Controllers\Stock\ProductCategoryController;
+use App\Http\Controllers\Stock\ProductController;
 use App\Http\Controllers\Stock\ShelfController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,7 +59,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
     #============================================ PRODUCT BRANDS END ==================================================#
 
 
-    #========================================== PRODUCT SHELF START ==================================================#
+    #========================================== PRODUCT SHELF START ===================================================#
 
     Route::prefix('shelf')->group(function (){
         Route::get('/', [ShelfController::class, 'index'])->name('product.shelf.index');
@@ -67,6 +68,18 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
         Route::get('edit/{shelf}', [ShelfController::class, 'edit'])->name('product.shelf.edit');
         Route::patch('update/{shelf}', [ShelfController::class, 'update'])->name('product.shelf.update');
         Route::any('delete/{shelf}', [ShelfController::class, 'delete'])->name('product.shelf.delete');
+    });
+
+    #========================================== PRODUCT SHELF END =====================================================#
+
+
+    Route::prefix('product')->group(function (){
+        Route::get('/', [ProductController::class, 'index'])->name('product.index');
+        Route::get('create', [ProductController::class, 'create'])->name('product.create');
+        Route::post('store', [ProductController::class, 'store'])->name('product.store');
+        Route::get('edit/{product}', [ProductController::class, 'edit'])->name('product.edit');
+        Route::patch('update/{product}', [ProductController::class, 'update'])->name('product.update');
+        Route::any('delete/{product}', [ProductController::class, 'delete'])->name('product.delete');
     });
 
 });

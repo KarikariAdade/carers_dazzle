@@ -201,4 +201,51 @@ $(document).ready(function (){
             })
         }
     }
+
+
+
+    $('.productAddForm').submit(function (e){
+        e.preventDefault();
+        url = $(this).attr('action');
+        let formdata = new FormData(this);
+
+        runSubmission(url, formdata, true);
+
+    })
+
+
+    $('#updateProductForm').submit(function (e) {
+        e.preventDefault();
+        url = $(this).attr('action');
+        let formdata = new FormData(this);
+
+        runSubmission(url, formdata );
+    })
+
+    function runSubmission(url, form, withDatatable = false){
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: form,
+            dataType: 'JSON',
+            contentType: false,
+            cache: false,
+            processData: false,
+        }).done((response) => {
+            console.log(response)
+            if(response.code == '200'){
+                runToast(response.msg, response.code)
+                if(withDatatable == true){
+                    setTimeout($('#dataTable').DataTable().draw(), 3000)
+                }
+            }else{
+                runToast(response.msg, response.code)
+                if(withDatatable == true){
+                    setTimeout($('#dataTable').DataTable().draw(), 3000)
+                }
+            }
+        })
+    }
 });
+
+

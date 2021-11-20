@@ -14,6 +14,7 @@
 {{--    <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">--}}
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
     @stack('custom-css')
 </head>
 
@@ -187,7 +188,7 @@
                     </li>
                     <li class="menu-header">Stock Management</li>
                     <li class="dropdown">
-                        <a href="" class="nav-link"><i data-feather="monitor"></i><span>Products</span></a>
+                        <a href="{{ route('product.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Products</span></a>
                     </li>
                     <li class="dropdown">
                         <a href="{{ route('product.category.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Category</span></a>
@@ -196,7 +197,7 @@
                         <a href="{{ route('product.brands.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Brands</span></a>
                     </li>
                     <li class="dropdown">
-                        <a href="{{ route('product.shelf.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Brands</span></a>
+                        <a href="{{ route('product.shelf.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Shelf</span></a>
                     </li>
                     <li class="dropdown">
                         <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Product Expiry</span></a>
@@ -242,7 +243,12 @@
 <script src="{{ asset('assets/js/sweet_alert.min.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
-
+<script src="{{ asset('assets/js/select2.full.min.js') }}"></script>
+<script>
+    $('select').select2({
+        theme: 'bootstrap4',
+    });
+</script>
 @stack('custom-js')
 </body>
 </html>
