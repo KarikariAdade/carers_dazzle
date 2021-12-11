@@ -58,6 +58,7 @@ class CouponsController extends Controller
     {
         $coupon->delete();
 
+        return $this->successResponse('Coupon deleted successfully');
 
     }
 

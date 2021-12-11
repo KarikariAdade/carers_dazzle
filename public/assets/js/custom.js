@@ -45,6 +45,11 @@ $(document).ready(function (){
     })
 
 
+    dataTable.on('click', '#deleteCoupon', function (e){
+        e.preventDefault();
+        runAjaxPrompt($(this).attr('href'), 'coupon');
+    })
+
 
     $('#dataTable').on('click', '#updateCategory', function (e){
         e.preventDefault();
@@ -141,10 +146,15 @@ $(document).ready(function (){
     })
 
 
-    function runAjaxPrompt(url){
+    function runAjaxPrompt(url, type = null){
+        let msg = 'You won\'t be able to revert this!';
+
+        if (type == 'coupon'){
+            msg = 'Coupon will be removed from all instances where it was added.';
+        }
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: msg,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

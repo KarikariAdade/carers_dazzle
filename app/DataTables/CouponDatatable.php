@@ -32,7 +32,7 @@ class CouponDatatable extends DataTable
                 return '
                         <div style="display: inline-flex;">
                         <a href="'.route('product.coupon.update', $query->id).'" title="Edit Coupon: '.$query->name.'" id="updateShelf" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
-                        <a href="'.route('product.coupon.delete', $query->id).'" title="Delete Coupon: '.$query->name.'" id="deleteShelf" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
+                        <a href="'.route('product.coupon.delete', $query->id).'" title="Delete Coupon: '.$query->name.'" id="deleteCoupon" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
                         </div>';
     });
     }
