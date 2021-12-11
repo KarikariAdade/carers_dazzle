@@ -182,3 +182,20 @@ textarea{
 .colored-toast .swal2-html-container {
     color: white;
 }
+
+.select2{
+    width:100% !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 42px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 26px !important;
+    top: 8px !important;
+    width: 24px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 41px !important;
+}

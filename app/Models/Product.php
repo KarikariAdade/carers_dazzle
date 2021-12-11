@@ -23,8 +23,8 @@ class Product extends Model
     }
 
 
-    public function getShelf()
+    public function getSubCategory()
     {
-        return $this->belongsTo(Shelf::class, 'shelf_id');
+        return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
 }

@@ -26,7 +26,7 @@ class MakeProductImageNullInProductDatatable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('product_image');
+            $table->string('product_image')->change();
         });
     }
 }

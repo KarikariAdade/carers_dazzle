@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brands;
 use App\Models\Product;
 use App\Models\ProductCategory;
-use App\Models\Shelf;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -98,7 +98,7 @@ class ProductController extends Controller
             'brand_id' => $data['brand'],
             'price' => $data['price'],
             'product_image' => $data['image'] ?? null,
-            'shelf_id' => $data['shelf'],
+            'sub_category_id' => $data['sub_category'],
             'description' => $data['description'],
             'quantity' => $data['quantity'],
         ];
@@ -114,7 +114,7 @@ class ProductController extends Controller
             'brand' => 'required',
             'price' => 'required',
             'product' => 'nullable|mimes:jpeg,jpg,png|max:2048',
-            'shelf' => 'required',
+            'sub_category' => 'required',
             'description' => 'nullable',
             'quantity' => 'required',
         ];
@@ -145,7 +145,7 @@ class ProductController extends Controller
     {
         return [
             'categories' => ProductCategory::query()->get(),
-            'shelves' => Shelf::query()->get(),
+            'sub_categories' => SubCategory::query()->get(),
             'brands' => Brands::query()->get(),
         ];
 

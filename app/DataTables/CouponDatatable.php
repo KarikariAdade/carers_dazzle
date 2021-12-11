@@ -2,45 +2,50 @@
 
 namespace App\DataTables;
 
-use App\Models\Shelf;
+use App\Models\Coupon;
 use Illuminate\Database\Eloquent\Builder;
-use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ShelfDataTable extends DataTable
+class CouponDatatable extends DataTable
 {
     /**
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
-     * @return DataTableAbstract
+     * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
     {
         return datatables()
             ->eloquent($query)
+            ->editColumn('amount_type', function ($query) {
+                return ucfirst($query->amount_type);
+            })
+            ->editColumn('created_at', function ($query){
+                return date('l M d, Y', strtotime($query->created_at));
+            })
             ->addColumn('action', function ($query){
                 return '
                         <div style="display: inline-flex;">
-                        <a href="'.route('product.shelf.update', $query->id).'" title="Edit Shelf" id="updateShelf" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
-                        <a href="'.route('product.shelf.delete', $query->id).'" title="Delete Shelf" id="deleteShelf" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
+                        <a href="'.route('product.coupon.update', $query->id).'" title="Edit Coupon: '.$query->name.'" id="updateShelf" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
+                        <a href="'.route('product.coupon.delete', $query->id).'" title="Delete Coupon: '.$query->name.'" id="deleteShelf" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
                         </div>';
-            });
+    });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param Shelf $model
+     * @param Coupon $model
      * @return Builder
      */
-    public function query(Shelf $model)
+    public function query(Coupon $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderByDesc('id');
     }
 
     /**
@@ -67,8 +72,10 @@ class ShelfDataTable extends DataTable
     {
         return [
             Column::make('name'),
-            Column::make('location'),
+            Column::make('amount'),
+            Column::make('amount_type'),
             Column::make('description'),
+            Column::make('created_at'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -84,6 +91,6 @@ class ShelfDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Shelf_' . date('YmdHis');
+        return 'Coupon_' . date('YmdHis');
     }
 }

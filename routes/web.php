@@ -2,9 +2,11 @@
 
 
 use App\Http\Controllers\Stock\BrandController;
+use App\Http\Controllers\Stock\CouponsController;
 use App\Http\Controllers\Stock\ProductCategoryController;
 use App\Http\Controllers\Stock\ProductController;
-use App\Http\Controllers\Stock\ShelfController;
+use App\Http\Controllers\Stock\SubCategoryController;
+use App\Http\Controllers\Stock\TaxController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,13 +63,13 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
 
     #========================================== PRODUCT SHELF START ===================================================#
 
-    Route::prefix('shelf')->group(function (){
-        Route::get('/', [ShelfController::class, 'index'])->name('product.shelf.index');
-        Route::get('create', [ShelfController::class, 'create'])->name('product.shelf.create');
-        Route::post('store', [ShelfController::class, 'store'])->name('product.shelf.store');
-        Route::get('edit/{shelf}', [ShelfController::class, 'edit'])->name('product.shelf.edit');
-        Route::patch('update/{shelf}', [ShelfController::class, 'update'])->name('product.shelf.update');
-        Route::any('delete/{shelf}', [ShelfController::class, 'delete'])->name('product.shelf.delete');
+    Route::prefix('sub_category')->group(function (){
+        Route::get('/', [SubCategoryController::class, 'index'])->name('product.sub_category.index');
+        Route::get('create', [SubCategoryController::class, 'create'])->name('product.sub_category.create');
+        Route::post('store', [SubCategoryController::class, 'store'])->name('product.sub_category.store');
+        Route::get('edit/{sub_category}', [SubCategoryController::class, 'edit'])->name('product.sub_category.edit');
+        Route::patch('update/{sub_category}', [SubCategoryController::class, 'update'])->name('product.sub_category.update');
+        Route::any('delete/{sub_category}', [SubCategoryController::class, 'delete'])->name('product.sub_category.delete');
     });
 
     #========================================== PRODUCT SHELF END =====================================================#
@@ -80,6 +82,25 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
         Route::get('edit/{product}', [ProductController::class, 'edit'])->name('product.edit');
         Route::patch('update/{product}', [ProductController::class, 'update'])->name('product.update');
         Route::any('delete/{product}', [ProductController::class, 'delete'])->name('product.delete');
+    });
+
+
+    Route::prefix('coupon')->group(function (){
+        Route::get('/', [CouponsController::class, 'index'])->name('product.coupon.index');
+        Route::get('create', [CouponsController::class, 'create'])->name('product.coupon.create');
+        Route::post('store', [CouponsController::class, 'store'])->name('product.coupon.store');
+        Route::get('edit/{coupon}', [CouponsController::class, 'edit'])->name('product.coupon.edit');
+        Route::patch('update/{coupon}', [CouponsController::class, 'update'])->name('product.coupon.update');
+        Route::any('delete/{coupon}', [CouponsController::class, 'delete'])->name('product.coupon.delete');
+    });
+
+    Route::prefix('tax')->group(function (){
+        Route::get('/', [TaxController::class, 'index'])->name('product.tax.index');
+        Route::get('create', [TaxController::class, 'create'])->name('product.tax.create');
+        Route::post('store', [TaxController::class, 'store'])->name('product.tax.store');
+        Route::get('edit/{tax}', [TaxController::class, 'edit'])->name('product.tax.edit');
+        Route::patch('update/{tax}', [TaxController::class, 'update'])->name('product.tax.update');
+        Route::any('delete/{tax}', [TaxController::class, 'delete'])->name('product.tax.delete');
     });
 
 });

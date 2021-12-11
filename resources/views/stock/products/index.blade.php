@@ -35,25 +35,25 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label>Category <span class="text-danger">*</span></label>
-                            <select name="category" class="form-control">
+                            <select name="category" class="form-control select2">
                                 <option></option>
-                                @foreach($item['categories'] as $category)
+                                @foreach($items['categories'] as $category)
                                     <option {{ old('category') == $category->id ? 'selected' : ''}} value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-4">
-                            <label>Shelf <span class="text-danger">*</span></label>
-                            <select name="shelf" class="form-control">
+                            <label>Sub Category <span class="text-danger">*</span></label>
+                            <select name="sub_category" class="form-control select2">
                                 <option></option>
-                                @foreach($items['shelves'] as $shelf)
+                                @foreach($items['sub_categories'] as $shelf)
                                     <option {{ old('category') == $shelf->id ? 'selected' : ''}} value="{{ $shelf->id }}">{{ $shelf->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Brand <span class="text-danger">*</span></label>
-                            <select name="brand" class="form-control">
+                            <select name="brand" class="form-control select2">
                                 <option></option>
                                 @foreach($items['brands'] as $brand)
                                     <option {{ old('brand') == $brand->id ? 'selected' : ''}} value="{{ $brand->id }}">{{ $brand->name }}</option>

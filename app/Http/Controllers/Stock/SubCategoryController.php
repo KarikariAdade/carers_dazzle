@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Stock;
 
-use App\DataTables\ShelfDataTable;
+use App\DataTables\SubCategoryDatatable;
 use App\Http\Controllers\Controller;
-use App\Models\Shelf;
+use App\Models\ProductCategory;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\Calculation\Category;
 
-class ShelfController extends Controller
+class SubCategoryController extends Controller
 {
     public function __construct()
     {
@@ -16,13 +18,15 @@ class ShelfController extends Controller
     }
 
 
-    public function index(ShelfDataTable $dataTable)
+    public function index(SubCategoryDatatable $dataTable)
     {
-        return $dataTable->render('stock.shelf.index');
+        $categories = ProductCategory::query()->get();
+
+        return $dataTable->render('stock.sub_category.index', compact('categories'));
     }
 
 
-    public function update(Shelf $shelf, Request $request)
+    public function update(SubCategory $shelf, Request $request)
     {
         $data = $request->all();
 
@@ -34,7 +38,7 @@ class ShelfController extends Controller
 
         $shelf->update($this->dumpData($data));
 
-        return $this->successResponse('Shelf updated successfully');
+        return $this->successResponse('SubCategory updated successfully');
     }
 
 
@@ -45,28 +49,28 @@ class ShelfController extends Controller
         $validate = Validator::make($data, $this->validation());
 
         if ($validate->fails()){
-            return $this->failResponse($validate->errors()->first());
+            return $this->successResponse($validate->errors()->first());
         }
 
-        Shelf::query()->create($this->dumpData($data));
+        SubCategory::query()->create($this->dumpData($data));
 
-        return $this->successResponse('Shelf added successfully');
+        return $this->successResponse('SubCategory added successfully');
 
     }
 
 
-    public function delete(Shelf $shelf)
+    public function delete(SubCategory $shelf)
     {
         $shelf->delete();
 
-        return $this->successResponse('Shelf successfully deleted');
+        return $this->successResponse('SubCategory successfully deleted');
     }
 
     public function validation()
     {
         return [
-            'name' => 'required:unique:shelf,name',
-            'location' => 'required',
+            'name' => 'required:unique:sub_category,name',
+            'category' => 'required',
             'description' => 'nullable'
         ];
     }
@@ -76,7 +80,7 @@ class ShelfController extends Controller
     {
         return [
             'name' => $data['name'],
-            'location' => $data['location'],
+            'category_id' => $data['category'],
             'description' => $data['description'],
         ];
     }

@@ -25,9 +25,8 @@ $(document).ready(function (){
         }).done((response)=>{
             if(response.code == '200'){
                 runToast(response.msg, response.code)
-                setInterval($('#dataTable').DataTable().draw(), 3000)
+                $('#dataTable').DataTable().ajax.reload();
             }else{
-                setInterval($('#dataTable').DataTable().draw(), 3000)
                 runToast(response.msg, response.code)
             }
         })
@@ -94,10 +93,9 @@ $(document).ready(function (){
         }).done((response)=>{
             if(response.code == '200'){
                 runToast(response.msg, response.code)
-                setInterval($('#dataTable').DataTable().draw(), 3000)
+                $('#dataTable').DataTable().ajax.reload();
                 hideModal($('#editShelfModal'));
             }else{
-                setInterval($('#dataTable').DataTable().draw(), 3000)
                 runToast(response.msg, response.code)
             }
         })
@@ -114,10 +112,9 @@ $(document).ready(function (){
         }).done((response)=>{
             if(response.code == '200'){
                 runToast(response.msg, response.code)
-                setInterval($('#dataTable').DataTable().draw(), 3000)
+                $('#dataTable').DataTable().ajax.reload();
                 $('#editCategoryModal').modal('hide');
             }else{
-                setInterval($('#dataTable').DataTable().draw(), 3000)
                 runToast(response.msg, response.code)
             }
         })
@@ -134,9 +131,10 @@ $(document).ready(function (){
         }).done((response) => {
             if(response.code == '200'){
                 runToast(response.msg, response.code)
-                setInterval($('#dataTable').DataTable().draw(), 3000)
+                $('#dataTable').DataTable().ajax.reload();
+                // setTimeout($('#dataTable').DataTable().ajax.reload(), 3000)
             }else{
-                setInterval($('#dataTable').DataTable().draw(), 3000)
+                // setInterval($('#dataTable').DataTable().draw(), 3000)
                 runToast(response.msg, response.code)
             }
         })
@@ -157,10 +155,9 @@ $(document).ready(function (){
                 $.post(url, function (response){
                     if(response.code == '200'){
                         runToast(response.msg, response.code)
-                        setInterval($('#dataTable').DataTable().draw(), 3000)
+                        $('#dataTable').DataTable().ajax.reload();
                     }else{
                         runToast(response.msg, response.code)
-                        setInterval($('#dataTable').DataTable().draw(), 3000)
                     }
                 });
             }
@@ -222,6 +219,16 @@ $(document).ready(function (){
         runSubmission(url, formdata );
     })
 
+
+
+    $('.coupon_form').submit(function (e){
+        e.preventDefault();
+        url = $(this).attr('action');
+        let formData = new FormData(this);
+
+        runSubmission(url, formData, true);
+    })
+
     function runSubmission(url, form, withDatatable = false){
         $.ajax({
             url: url,
@@ -236,16 +243,15 @@ $(document).ready(function (){
             if(response.code == '200'){
                 runToast(response.msg, response.code)
                 if(withDatatable == true){
-                    setTimeout($('#dataTable').DataTable().draw(), 3000)
+                    $('#dataTable').DataTable().ajax.reload();
                 }
             }else{
                 runToast(response.msg, response.code)
                 if(withDatatable == true){
-                    setTimeout($('#dataTable').DataTable().draw(), 3000)
+                    $('#dataTable').DataTable().ajax.reload();
                 }
             }
         })
     }
 });
-
 
