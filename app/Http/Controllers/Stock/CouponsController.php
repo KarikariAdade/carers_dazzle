@@ -42,6 +42,8 @@ class CouponsController extends Controller
     {
         $data = $request->all();
 
+        return $data;
+
         $validate = Validator::make($data, $this->runValidation());
 
         if ($validate->fails()){

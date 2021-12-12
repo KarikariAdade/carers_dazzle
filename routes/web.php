@@ -90,7 +90,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
         Route::get('create', [CouponsController::class, 'create'])->name('product.coupon.create');
         Route::post('store', [CouponsController::class, 'store'])->name('product.coupon.store');
         Route::get('edit/{coupon}', [CouponsController::class, 'edit'])->name('product.coupon.edit');
-        Route::patch('update/{coupon}', [CouponsController::class, 'update'])->name('product.coupon.update');
+        Route::post('update/{coupon}', [CouponsController::class, 'update'])->name('product.coupon.update');
         Route::any('delete/{coupon}', [CouponsController::class, 'delete'])->name('product.coupon.delete');
     });
 
@@ -99,7 +99,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
         Route::get('create', [TaxController::class, 'create'])->name('product.tax.create');
         Route::post('store', [TaxController::class, 'store'])->name('product.tax.store');
         Route::get('edit/{tax}', [TaxController::class, 'edit'])->name('product.tax.edit');
-        Route::patch('update/{tax}', [TaxController::class, 'update'])->name('product.tax.update');
+        Route::post('update/{tax}', [TaxController::class, 'update'])->name('product.tax.update');
         Route::any('delete/{tax}', [TaxController::class, 'delete'])->name('product.tax.delete');
     });
 

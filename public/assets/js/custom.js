@@ -79,6 +79,37 @@ $(document).ready(function (){
     })
 
 
+    dataTable.on('click', '#updateCoupon', function (e){
+        e.preventDefault();
+
+        let name = $(this).closest('tr').children('td:eq(0)').text(),
+            amount = $(this).closest('tr').children('td:eq(1)').text(),
+            amount_type = $(this).closest('tr').children('td:eq(2)').text(),
+            description = $(this).closest('tr').children('td:eq(3)').text();
+
+
+        $('#editName').val(name);
+        $('#editAmountType').val(amount_type);
+        $('#editAmount').val(amount);
+        $('#editDescription').val(description);
+
+        updateSubmitAttrAndShowModal('updateShelfForm', $(this).attr('href'), 'editShelfModal', 'class')
+
+    });
+
+
+    function updateSubmitAttrAndShowModal(form, url, modal, formType){
+        if (formType == 'class'){
+            form = $('.'+form);
+        }else{
+            form = $('#'+form);
+        }
+
+        form.attr('action', url);
+
+        showModal($('#'+modal));
+    }
+
     function showModal(modal){
         modal.modal('show');
     }
@@ -232,6 +263,14 @@ $(document).ready(function (){
 
 
     $('.coupon_form').submit(function (e){
+        e.preventDefault();
+        url = $(this).attr('action');
+        let formData = new FormData(this);
+
+        runSubmission(url, formData, true);
+    })
+
+    $('.updateCouponForm').submit(function (e) {
         e.preventDefault();
         url = $(this).attr('action');
         let formData = new FormData(this);

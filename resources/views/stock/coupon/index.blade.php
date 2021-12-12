@@ -52,21 +52,27 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="updateShelfForm" action="" method="POST">
+                <form class="updateCouponForm" action="" method="POST">
                     <div class="modal-body">
-                        @method('PATCH')
+                        @method('POST')
                         @csrf
                         <div class="form-group">
-                            <label>Name</label>
+                            <label>Name <span class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control" id="editName">
                         </div>
-                        <div class="form-group">
-                            <label>Amount Type</label>
-                            <select class="form-control select2" name="category" id="editCategory">
-                                <option value="percentage">Percentage</option>
-                                <option value="fixed">Fixed</option>
-                            </select>
-                        </div>
+                       <div class="row">
+                           <div class="form-group col-md-6">
+                               <label>Amount Type <span class="text-danger">*</span></label>
+                               <select class="form-control select2" name="amount_type" id="editAmountType">
+                                   <option value="percentage">Percentage</option>
+                                   <option value="fixed">Fixed</option>
+                               </select>
+                           </div>
+                           <div class="form-group col-md-6">
+                               <label>Amount <span class="text-danger">*</span></label>
+                               <input class="form-control" name="amount" id="editAmount">
+                           </div>
+                       </div>
                         <div class="form-group">
                             <label>Description</label>
                             <textarea class="form-control" name="description" id="editDescription"></textarea>
