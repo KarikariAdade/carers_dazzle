@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CouponsController extends Controller
 {
@@ -42,9 +43,7 @@ class CouponsController extends Controller
     {
         $data = $request->all();
 
-        return $data;
-
-        $validate = Validator::make($data, $this->runValidation());
+        $validate = Validator::make($data, $this->runValidation($coupon->id));
 
         if ($validate->fails()){
             return $this->failResponse($validate->errors()->first());
@@ -65,10 +64,10 @@ class CouponsController extends Controller
     }
 
 
-    public function runValidation()
+    public function runValidation($coupon = null)
     {
         return [
-            'name' => 'required|unique:coupons,name',
+            'name' => 'required|unique:coupons,name,'.$coupon,
             'amount' => 'required',
             'amount_type' => 'required',
             'description' => 'nullable'

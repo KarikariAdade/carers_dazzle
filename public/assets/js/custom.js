@@ -93,7 +93,7 @@ $(document).ready(function (){
         $('#editAmount').val(amount);
         $('#editDescription').val(description);
 
-        updateSubmitAttrAndShowModal('updateShelfForm', $(this).attr('href'), 'editShelfModal', 'class')
+        updateSubmitAttrAndShowModal('updateCouponForm', $(this).attr('href'), 'editShelfModal', 'class')
 
     });
 
@@ -105,7 +105,9 @@ $(document).ready(function (){
             form = $('#'+form);
         }
 
-        form.attr('action', url);
+
+        form.prop('action', url);
+        console.log(form.prop('action'))
 
         showModal($('#'+modal));
     }
@@ -274,8 +276,11 @@ $(document).ready(function (){
         e.preventDefault();
         url = $(this).attr('action');
         let formData = new FormData(this);
+        console.log(url)
 
         runSubmission(url, formData, true);
+
+        hideModal($('#updateCouponForm'));
     })
 
     function runSubmission(url, form, withDatatable = false){

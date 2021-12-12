@@ -251,7 +251,7 @@
 <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
 <script src="{{ asset('assets/js/select2.full.min.js') }}"></script>
 <script>
-    $('select').select2({
+    $('.select2').select2({
         theme: 'bootstrap4',
     });
 </script>

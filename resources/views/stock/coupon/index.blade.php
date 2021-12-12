@@ -54,7 +54,6 @@
                 </div>
                 <form class="updateCouponForm" action="" method="POST">
                     <div class="modal-body">
-                        @method('POST')
                         @csrf
                         <div class="form-group">
                             <label>Name <span class="text-danger">*</span></label>
@@ -64,6 +63,7 @@
                            <div class="form-group col-md-6">
                                <label>Amount Type <span class="text-danger">*</span></label>
                                <select class="form-control select2" name="amount_type" id="editAmountType">
+                                   <option></option>
                                    <option value="percentage">Percentage</option>
                                    <option value="fixed">Fixed</option>
                                </select>

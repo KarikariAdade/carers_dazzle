@@ -87,10 +87,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
 
     Route::prefix('coupon')->group(function (){
         Route::get('/', [CouponsController::class, 'index'])->name('product.coupon.index');
-        Route::get('create', [CouponsController::class, 'create'])->name('product.coupon.create');
         Route::post('store', [CouponsController::class, 'store'])->name('product.coupon.store');
-        Route::get('edit/{coupon}', [CouponsController::class, 'edit'])->name('product.coupon.edit');
-        Route::post('update/{coupon}', [CouponsController::class, 'update'])->name('product.coupon.update');
+        Route::post('{coupon}/update', [CouponsController::class, 'update'])->name('product.coupon.update');
         Route::any('delete/{coupon}', [CouponsController::class, 'delete'])->name('product.coupon.delete');
     });
 
