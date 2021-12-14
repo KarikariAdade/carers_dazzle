@@ -94,10 +94,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
 
     Route::prefix('tax')->group(function (){
         Route::get('/', [TaxController::class, 'index'])->name('product.tax.index');
-        Route::get('create', [TaxController::class, 'create'])->name('product.tax.create');
         Route::post('store', [TaxController::class, 'store'])->name('product.tax.store');
-        Route::get('edit/{tax}', [TaxController::class, 'edit'])->name('product.tax.edit');
-        Route::post('update/{tax}', [TaxController::class, 'update'])->name('product.tax.update');
+        Route::patch('update/{tax}', [TaxController::class, 'update'])->name('product.tax.update');
         Route::any('delete/{tax}', [TaxController::class, 'delete'])->name('product.tax.delete');
     });
 

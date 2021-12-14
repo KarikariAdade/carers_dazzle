@@ -185,6 +185,10 @@ $(document).ready(function (){
         if (type == 'coupon'){
             msg = 'Coupon will be removed from all instances where it was added.';
         }
+
+        if (type == 'tax'){
+            msg = 'Tax will be removed from all instances where it was used.';
+        }
         Swal.fire({
             title: 'Are you sure?',
             text: msg,
@@ -282,6 +286,50 @@ $(document).ready(function (){
 
         hideModal($('#updateCouponForm'));
     })
+
+
+
+    $('.taxForm').submit(function (e) {
+        e.preventDefault();
+
+        url = $(this).attr('action');
+        let formData = new FormData(this);
+
+        runSubmission(url, formData, true);
+    })
+
+
+    dataTable.on('click', '#updateTax', function (e){
+        e.preventDefault();
+
+        let name = $(this).closest('tr').children('td:eq(0)').text(),
+            amount = $(this).closest('tr').children('td:eq(1)').text().replace(/[^0-9\.]+/g, "")
+            description = $(this).closest('tr').children('td:eq(2)').text();
+
+        alert(amount)
+
+        $('#editName').val(name);
+        $('#editAmount').val(amount);
+        $('#editDescription').val(description);
+
+        updateSubmitAttrAndShowModal('updateTaxForm', $(this).attr('href'), 'editShelfModal', 'class')
+
+    });
+
+    $('.updateTaxForm').submit(function (e) {
+        e.preventDefault();
+        url = $(this).attr('action');
+        let formData = new FormData(this);
+
+        runSubmission(url, formData, true);
+    })
+
+
+    dataTable.on('click', '#deleteTax', function (e){
+        e.preventDefault();
+        runAjaxPrompt($(this).attr('href'), 'tax');
+    })
+
 
     function runSubmission(url, form, withDatatable = false){
         $.ajax({

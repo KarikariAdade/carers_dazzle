@@ -8,7 +8,7 @@
             <div class="errorMsg">
 
             </div>
-            <form method="POST" class="row product_shelf_form" action="{{ route('product.sub_category.store') }}">
+            <form method="POST" class="row taxForm" action="{{ route('product.tax.store') }}">
                 @method('POST')
                 @csrf
                 <div class="form-group col-md-3">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label>Tax Amount <span class="text-danger">*</span></label>
-                    <input type="number" class="form-control" name="amount">
+                    <input type="number" step="0.01" class="form-control" name="amount">
                 </div>
                 <div class="form-group col-md-4">
                     <label>Description</label>
@@ -40,24 +40,22 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Category</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Update Tax</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="updateShelfForm" action="" method="POST">
+                <form class="updateTaxForm" action="" method="POST">
                     <div class="modal-body">
                         @method('PATCH')
                         @csrf
                         <div class="form-group">
-                            <label>Name</label>
+                            <label>Name <span class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control" id="editName">
                         </div>
                         <div class="form-group">
-                            <label>Category</label>
-                            <select class="form-control select2" name="category" id="editCategory">
-
-                            </select>
+                            <label>Amount <span class="text-danger">*</span></label>
+                            <input type="number" step="0.01" name="amount" class="form-control" id="editAmount">
                         </div>
                         <div class="form-group">
                             <label>Description</label>
@@ -65,7 +63,7 @@
                         </div>
                     </div>
                     <div class="modal-footer bg-whitesmoke br">
-                        <button type="submit" class="btn btn-success">Update Shelf</button>
+                        <button type="submit" class="btn btn-success">Update Tax</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                 </form>
