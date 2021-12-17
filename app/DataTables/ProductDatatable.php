@@ -30,7 +30,7 @@ class ProductDatatable extends DataTable
                 return $query->getCategory->name ?? 'N/A';
             })
             ->editColumn('shelf_id', function ($query){
-                return $query->getShelf->name ?? 'N/A';
+                return $query->getSubCategory->name ?? 'N/A';
             })
             ->editColumn('price', function ($query){
                 return 'GHS '.number_format($query->price, 2);

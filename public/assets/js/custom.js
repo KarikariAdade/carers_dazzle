@@ -331,6 +331,13 @@ $(document).ready(function (){
     })
 
 
+    dataTable.on('click', '#deleteProduct', function (e){
+        e.preventDefault(0);
+
+        runAjaxPrompt($(this).attr('href'));
+    })
+
+
     function runSubmission(url, form, withDatatable = false){
         $.ajax({
             url: url,

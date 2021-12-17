@@ -29,7 +29,7 @@
                     <label>Shelf <span class="text-danger">*</span></label>
                     <select name="shelf" class="form-control">
                         <option></option>
-                        @foreach($items['shelves'] as $shelf)
+                        @foreach($items['sub_categories'] as $shelf)
                             <option {{ $product->shelf_id == $shelf->id ? 'selected' : ''}} value="{{ $shelf->id }}">{{ $shelf->name }}</option>
                         @endforeach
                     </select>

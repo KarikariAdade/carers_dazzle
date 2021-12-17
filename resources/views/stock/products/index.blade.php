@@ -69,8 +69,23 @@
                             <input type="number" name="price" step="0.1" class="form-control">
                         </div>
                         <div class="form-group col-md-4">
+                            <label>Taxes </label>
+                            <select class="form-control" multiple="multiple" name="taxes[]" >
+                                @foreach($items['taxes'] as $tax)
+                                    <option value="{{ $tax->id }}">{{ $tax->name }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
                             <label>Product Image </label>
-                            <input type="file" name="image" class="form-control">
+                            <input type="file" name="image[]" multiple class="form-control">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Status</label>
+                            <select class="status select2" name="status">
+                                <option value="1">Active</option>
+                                <option value="0">Not Active</option>
+                            </select>
                         </div>
                         <div class="form-group col-md-8">
                             <label>Description</label>
