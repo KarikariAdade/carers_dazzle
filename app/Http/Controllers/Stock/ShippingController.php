@@ -50,9 +50,39 @@ class ShippingController extends Controller
     }
 
 
+    public function edit(Shipping $shipping)
+    {
+        $regions = Regions::query()->orderBy('name', 'ASC')->get();
+
+        return view('stock.shipping.edit', compact('shipping', 'regions'));
+    }
+
+
     public function update(Request $request, Shipping $shipping)
     {
-        return $shipping;
+        $data = $request->all();
+
+        $validate = Validator::make($data,[
+            'region' => 'required',
+            'town' => 'required',
+            'amount' => 'required',
+            'set_default' => 'nullable'
+        ]);
+
+        if ($validate->fails()){
+            return $this->failResponse($validate->errors()->first());
+        }
+
+        DB::transaction(function () use ($data, $shipping){
+            if ($data['set_default'] === '1'){
+                DB::table('shippings')->update(['is_default' => false]);
+            }
+
+            $shipping->update($this->dumpData($data));
+        });
+
+        return $this->successResponse('Shipping Charge updated successfully');
+
     }
 
 
@@ -103,7 +133,7 @@ class ShippingController extends Controller
             'region_id' => $data['region'],
             'town_id' => $data['town'],
             'amount' => $data['amount'],
-            'is_default' => $data['set_default']
+            'is_default' => $data['set_default'] ?? false
         ];
     }
 

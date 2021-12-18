@@ -2,7 +2,8 @@
 
 namespace App\DataTables;
 
-use App\Models\CustomersDatatable;
+use App\Models\Customer;
+use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -27,10 +28,10 @@ class CustomersDatatable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\CustomersDatatable $model
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Customer $model
+     * @return Builder
      */
-    public function query(CustomersDatatable $model)
+    public function query(Customer $model)
     {
         return $model->newQuery();
     }
@@ -43,7 +44,7 @@ class CustomersDatatable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('customersdatatable-table')
+                    ->setTableId('dataTable')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
@@ -71,7 +72,6 @@ class CustomersDatatable extends DataTable
                   ->width(60)
                   ->addClass('text-center'),
             Column::make('id'),
-            Column::make('add your columns'),
             Column::make('created_at'),
             Column::make('updated_at'),
         ];

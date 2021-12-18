@@ -217,7 +217,7 @@
                         <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Sales Report</span></a>
                     </li>
                     <li class="dropdown">
-                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Customers</span></a>
+                        <a href="{{ route('sales.customer.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Customers</span></a>
                     </li>
                     <li class="dropdown">
                         <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Invoices</span></a>

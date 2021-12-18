@@ -382,6 +382,23 @@ $(document).ready(function (){
         runAjaxPrompt($(this).attr('href'));
     });
 
+    dataTable.on('click', '#updateShipping', function (e){
+        e.preventDefault();
+
+        let name = $(this).closest('tr').children('td:eq(0)').text(),
+            amount = $(this).closest('tr').children('td:eq(1)').text().replace(/[^0-9\.]+/g, "")
+        description = $(this).closest('tr').children('td:eq(2)').text();
+
+        alert(amount)
+
+        $('#editName').val(name);
+        $('#editAmount').val(amount);
+        $('#editDescription').val(description);
+
+        updateSubmitAttrAndShowModal('updateShippingForm', $(this).attr('href'), 'editShippingModal', 'class')
+
+    });
+
     function runSubmission(url, form, withDatatable = false){
         $.ajax({
             url: url,

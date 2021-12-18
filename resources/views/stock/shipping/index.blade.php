@@ -49,7 +49,7 @@
             </div>
         </div>
     </section>
-    <div class="modal fade" id="editShelfModal" tabindex="-1" role="dialog" aria-labelledby="editShelfModal"
+    <div class="modal fade" id="editShippingModal" tabindex="-1" role="dialog" aria-labelledby="editShippingModal"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -62,27 +62,35 @@
                 <form class="updateCouponForm" action="" method="POST">
                     <div class="modal-body">
                         @csrf
-                        <div class="form-group">
-                            <label>Name <span class="text-danger">*</span></label>
-                            <input type="text" name="name" class="form-control" id="editName">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                            <label>Region <span class="text-danger">*</span></label>
+                            <select class="select2 form-control" name="region" id="shippingRegion">
+                                <option></option>
+                                @foreach($regions as $region)
+                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Town <span class="text-danger">*</span></label>
+                            <select class="form-control select2" name="town" id="shippingTown">
+
+                            </select>
+                        </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-6">
-                                <label>Amount Type <span class="text-danger">*</span></label>
-                                <select class="form-control select2" name="amount_type" id="editAmountType">
-                                    <option></option>
-                                    <option value="percentage">Percentage</option>
-                                    <option value="fixed">Fixed</option>
+                            <div class="form-group col-md-2">
+                                <label>Shipping Amount <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="amount">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Set Default</label>
+                                <select class="form-control select2" name="set_default">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label>Amount <span class="text-danger">*</span></label>
-                                <input class="form-control" name="amount" id="editAmount">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="form-control" name="description" id="editDescription"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer bg-whitesmoke br">

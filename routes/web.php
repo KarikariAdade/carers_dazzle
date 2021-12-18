@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Stock\BrandController;
 use App\Http\Controllers\Stock\CouponsController;
+use App\Http\Controllers\Stock\CustomersController;
 use App\Http\Controllers\Stock\ProductCategoryController;
 use App\Http\Controllers\Stock\ProductController;
 use App\Http\Controllers\Stock\ShippingController;
@@ -31,7 +32,9 @@ Route::get('/dashboard', function () {
 
 
 
-Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
+Route::group(['middleware' => 'auth'], function (){
+
+    Route::prefix('stock')->group(function (){
 
     #========================================== PRODUCT CATEGORY START=================================================#
 
@@ -105,10 +108,23 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
     Route::prefix('shipping')->group(function (){
         Route::get('/', [ShippingController::class, 'index'])->name('product.shipping.index');
         Route::post('store', [ShippingController::class, 'store'])->name('product.shipping.store');
-        Route::patch('update/{shipping}', [ShippingController::class, 'update'])->name('product.shipping.update');
+        Route::get('edit/{shipping}', [ShippingController::class, 'edit'])->name('product.shipping.edit');
+        Route::post('update/{shipping}', [ShippingController::class, 'update'])->name('product.shipping.update');
         Route::any('delete/{shipping}', [ShippingController::class, 'delete'])->name('product.shipping.delete');
         Route::any('set/default/{shipping}', [ShippingController::class, 'setDefault'])->name('product.shipping.set.default');
         Route::post('get/towns', [ShippingController::class, 'getTowns'])->name('product.shipping.get.town');
+    });
+    });
+
+
+    Route::prefix('sales/management')->group(function (){
+        Route::prefix('customer')->group(function (){
+            Route::get('/', [CustomersController::class, 'index'])->name('sales.customer.index');
+            Route::post('store', [CustomersController::class, 'store'])->name('sales.customer.store');
+            Route::get('details/{customer}', [CustomersController::class, 'details'])->name('sales.customer.details');
+            Route::patch('update/{customer}', [CustomersController::class, 'update'])->name('sales.customer.update');
+            Route::any('delete/{customer}', [CustomersController::class, 'delete'])->name('sales.customer.delete');
+        });
     });
 
 });

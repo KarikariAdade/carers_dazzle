@@ -45,7 +45,7 @@ class ShippingDatatable extends DataTable
                         ';
                 }
                 $output .= '
-                        <a href="'.route('product.shipping.update', $query->id).'" title="Edit Shipping Charge" id="updateShipping" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
+                        <a href="'.route('product.shipping.edit', $query->id).'" title="Edit Shipping Charge" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
                         <a href="'.route('product.shipping.delete', $query->id).'" title="Delete Shipping Charge" id="deleteShipping" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
                         </div>';
 
