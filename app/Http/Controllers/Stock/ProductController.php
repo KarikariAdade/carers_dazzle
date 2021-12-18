@@ -73,9 +73,21 @@ class ProductController extends Controller
     }
 
 
+    public function details(Product $product)
+    {
+        $taxes = [];
+
+        if (!empty($product->taxes)){
+            $taxes = Taxes::query()->whereIn('id', json_decode($product->taxes))->get();
+        }
+
+        return view('stock.products.show', compact('product', 'taxes'));
+    }
+
     public function update(Request $request, Product $product)
     {
         $data = $request->all();
+
 
         $validate = Validator::make($data, $this->validateData($product->id));
 
@@ -83,24 +95,23 @@ class ProductController extends Controller
             return $this->failResponse($validate->errors()->first());
         }
 
+        if (!empty($request->file('image'))) {
 
-        if (!empty($request->file('image'))){
+            $images = collect();
 
-
-            if (File::exists($product->product_image)) {
-                File::delete($product->product_image);
+            foreach ($request->file('image') as $image) {
+                $images->push([
+                    'product_id' => $product->id,
+                    'path' => $this->performUpload($image),
+                    'created_at' => now()
+                ]);
             }
 
-            $data['image'] = $this->performUpload($request->file('image'));
-
-
-            $product->update($this->dump($data));
-        }else{
-
-            $data['image'] = $product->product_image;
-
-            $product->update($this->dump($data));
+            DB::table('product_pictures')->insert($images->toArray());
         }
+
+
+        $product->update($this->dump($data));
 
         return $this->successResponse("Product: $product->name updated successfully");
     }
@@ -127,6 +138,18 @@ class ProductController extends Controller
 
         return $this->successResponse('Product deleted successfully');
 
+    }
+
+
+    public function deleteProductPicture(ProductPicture $picture)
+    {
+        if (File::exists($picture->path)){
+            File::delete($picture->path);
+        }
+
+        $picture->delete();
+
+        return back()->withInput()->with('success', 'Image deleted successfully');
     }
 
     public function dump($data)

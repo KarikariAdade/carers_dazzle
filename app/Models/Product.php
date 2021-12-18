@@ -33,4 +33,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductPicture::class, 'product_id');
     }
+
+
+    public function getTaxes()
+    {
+        return $this->hasMany(Taxes::class, 'id');
+    }
 }

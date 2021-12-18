@@ -80,8 +80,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
         Route::get('create', [ProductController::class, 'create'])->name('product.create');
         Route::post('store', [ProductController::class, 'store'])->name('product.store');
         Route::get('edit/{product}', [ProductController::class, 'edit'])->name('product.edit');
+        Route::get('details/{product}', [ProductController::class, 'details'])->name('product.details');
         Route::patch('update/{product}', [ProductController::class, 'update'])->name('product.update');
         Route::any('delete/{product}', [ProductController::class, 'delete'])->name('product.delete');
+        Route::any('delete/product/picture/{picture}', [ProductController::class, 'deleteProductPicture'])->name('product.delete.picture');
     });
 
 

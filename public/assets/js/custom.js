@@ -200,6 +200,7 @@ $(document).ready(function (){
         }).then((result) => {
             if (result.isConfirmed) {
                 $.post(url, function (response){
+                    console.log(response)
                     if(response.code == '200'){
                         runToast(response.msg, response.code)
                         $('#dataTable').DataTable().ajax.reload();
@@ -335,6 +336,24 @@ $(document).ready(function (){
         e.preventDefault(0);
 
         runAjaxPrompt($(this).attr('href'));
+    })
+
+    $('.imgDelBtn').click(function (e){
+        e.preventDefault()
+        let url = $(this).attr('href');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Are you sure you want to delete this image?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        })
     })
 
 

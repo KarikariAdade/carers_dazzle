@@ -70,7 +70,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label>Taxes </label>
-                            <select class="form-control" multiple="multiple" name="taxes[]" >
+                            <select class="form-control select2" multiple="multiple" name="taxes[]" >
                                 @foreach($items['taxes'] as $tax)
                                     <option value="{{ $tax->id }}">{{ $tax->name }} </option>
                                 @endforeach

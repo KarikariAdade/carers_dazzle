@@ -38,6 +38,7 @@ class ProductDatatable extends DataTable
             ->addColumn('action', function ($query){
                 return '
                         <div style="display: inline-flex;">
+                        <a href="'.route('product.details', $query->id).'" title="View Product" class="btn table-btn btn-icon btn-primary btn-sm shadow-primary mr-2"><i class="fa mt-2 fa-eye"></i></a>
                         <a href="'.route('product.edit', $query->id).'" title="Edit Product" id="updateProduct" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
                         <a href="'.route('product.delete', $query->id).'" title="Delete Delete" id="deleteProduct" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
                         </div>';
