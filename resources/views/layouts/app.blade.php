@@ -206,24 +206,29 @@
                         <a href="{{ route('product.coupon.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Coupons</span></a>
                     </li>
                     <li class="dropdown">
-                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Product Expiry</span></a>
+                        <a href="{{ route('product.shipping.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Shipping</span></a>
                     </li>
 
-                    <li class="menu-header">Sale Management</li>
+                    <li class="menu-header">Sales Management</li>
                     <li class="dropdown">
                         <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Today's Sales</span></a>
                     </li>
                     <li class="dropdown">
                         <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Sales Report</span></a>
                     </li>
-                    <li class="menu-header">Accounts</li>
+                    <li class="dropdown">
+                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Customers</span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Invoices</span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Payments</span></a>
+                    </li>
+                    <li class="menu-header">Susu</li>
 
                     <li class="dropdown">
-                        <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="flag"></i><span>Sliders</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="carousel.html">Bootstrap Carousel.html</a></li>
-                            <li><a class="nav-link" href="owl-carousel.html">Owl Carousel</a></li>
-                        </ul>
+                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Add Susu</span></a>
                     </li>
                 </ul>
             </aside>

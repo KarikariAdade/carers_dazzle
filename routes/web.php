@@ -5,6 +5,7 @@ use App\Http\Controllers\Stock\BrandController;
 use App\Http\Controllers\Stock\CouponsController;
 use App\Http\Controllers\Stock\ProductCategoryController;
 use App\Http\Controllers\Stock\ProductController;
+use App\Http\Controllers\Stock\ShippingController;
 use App\Http\Controllers\Stock\SubCategoryController;
 use App\Http\Controllers\Stock\TaxController;
 use Illuminate\Support\Facades\Route;
@@ -99,6 +100,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
         Route::post('store', [TaxController::class, 'store'])->name('product.tax.store');
         Route::patch('update/{tax}', [TaxController::class, 'update'])->name('product.tax.update');
         Route::any('delete/{tax}', [TaxController::class, 'delete'])->name('product.tax.delete');
+    });
+
+    Route::prefix('shipping')->group(function (){
+        Route::get('/', [ShippingController::class, 'index'])->name('product.shipping.index');
+        Route::post('store', [ShippingController::class, 'store'])->name('product.shipping.store');
+        Route::patch('update/{tax}', [ShippingController::class, 'update'])->name('product.shipping.update');
+        Route::any('delete/{tax}', [ShippingController::class, 'delete'])->name('product.shipping.delete');
+        Route::post('get/towns', [ShippingController::class, 'getTowns'])->name('product.shipping.get.town');
     });
 
 });

@@ -357,6 +357,11 @@ $(document).ready(function (){
     })
 
 
+
+    // SHIPPING PAGE
+
+
+
     function runSubmission(url, form, withDatatable = false){
         $.ajax({
             url: url,
