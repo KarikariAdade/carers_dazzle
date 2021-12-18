@@ -189,6 +189,10 @@ $(document).ready(function (){
         if (type == 'tax'){
             msg = 'Tax will be removed from all instances where it was used.';
         }
+
+        if (type == 'shipping'){
+            msg = 'Default shipping charges would be used in all instances where this shipping charge is used';
+        }
         Swal.fire({
             title: 'Are you sure?',
             text: msg,
@@ -360,7 +364,23 @@ $(document).ready(function (){
 
     // SHIPPING PAGE
 
+    $('.shipping_form').submit(function (e) {
+        e.preventDefault();
+        url = $(this).attr('action');
+        let formData = new FormData(this);
 
+        runSubmission(url, formData, true);
+    })
+
+    dataTable.on('click', '#deleteShipping', function (e){
+        e.preventDefault();
+        runAjaxPrompt($(this).attr('href'), 'shipping');
+    })
+
+    dataTable.on('click', '#setDefaultShipping', function (e){
+        e.preventDefault();
+        runAjaxPrompt($(this).attr('href'));
+    });
 
     function runSubmission(url, form, withDatatable = false){
         $.ajax({

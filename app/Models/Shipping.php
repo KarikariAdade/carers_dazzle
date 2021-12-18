@@ -11,4 +11,14 @@ class Shipping extends Model
 
     protected $guarded = ['id'];
 
+    public function getRegion()
+    {
+        return $this->belongsTo(Regions::class, 'region_id');
+    }
+
+    public function getTown()
+    {
+        return $this->belongsTo(Towns::class, 'town_id');
+    }
+
 }

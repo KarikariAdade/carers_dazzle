@@ -35,6 +35,9 @@ class ProductDatatable extends DataTable
             ->editColumn('price', function ($query){
                 return 'GHS '.number_format($query->price, 2);
             })
+            ->editColumn('is_active', function ($query){
+                return $query->is_active == true ? '<span class="badge badge-success shadow">Active</span>' : '<span class="badge badge-danger shadow"></span>';
+            })
             ->addColumn('action', function ($query){
                 return '
                         <div style="display: inline-flex;">
@@ -42,7 +45,7 @@ class ProductDatatable extends DataTable
                         <a href="'.route('product.edit', $query->id).'" title="Edit Product" id="updateProduct" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
                         <a href="'.route('product.delete', $query->id).'" title="Delete Delete" id="deleteProduct" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
                         </div>';
-            });
+            })->rawColumns(['action', 'is_active']);
     }
 
     /**
@@ -85,6 +88,7 @@ class ProductDatatable extends DataTable
             Column::make('shelf_id')->title('SubCategory'),
             Column::make('price'),
             Column::make('quantity'),
+            Column::make('is_active')->title('Status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

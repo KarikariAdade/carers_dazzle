@@ -105,8 +105,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'stock'], function (){
     Route::prefix('shipping')->group(function (){
         Route::get('/', [ShippingController::class, 'index'])->name('product.shipping.index');
         Route::post('store', [ShippingController::class, 'store'])->name('product.shipping.store');
-        Route::patch('update/{tax}', [ShippingController::class, 'update'])->name('product.shipping.update');
-        Route::any('delete/{tax}', [ShippingController::class, 'delete'])->name('product.shipping.delete');
+        Route::patch('update/{shipping}', [ShippingController::class, 'update'])->name('product.shipping.update');
+        Route::any('delete/{shipping}', [ShippingController::class, 'delete'])->name('product.shipping.delete');
+        Route::any('set/default/{shipping}', [ShippingController::class, 'setDefault'])->name('product.shipping.set.default');
         Route::post('get/towns', [ShippingController::class, 'getTowns'])->name('product.shipping.get.town');
     });
 

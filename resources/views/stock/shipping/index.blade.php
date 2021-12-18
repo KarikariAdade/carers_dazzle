@@ -8,7 +8,7 @@
             <div class="errorMsg">
 
             </div>
-            <form method="POST" class="row coupon_form" action="{{ route('product.shipping.store') }}">
+            <form method="POST" class="row shipping_form" action="{{ route('product.shipping.store') }}">
                 @method('POST')
                 @csrf
                 <div class="form-group col-md-3">
@@ -98,19 +98,25 @@
     {!! $dataTable->scripts() !!}
     <script>
         $('#shippingRegion').change(function () {
-            let url = `{{ route('product.shipping.get.town') }}`,
-                output = ``;
+            if ($(this).val() !== ''){
+                let url = `{{ route('product.shipping.get.town') }}`,
+                    output = ``;
 
-            $.post(url, {'item': $(this).val()}, function (response){
-                console.log(response)
-                if(!jQuery.isEmptyObject(response)){
-                    $.each(response, function(i, town) {
-                        output += `<option value="${town.id}">${town.name}</option>`;
+                $.post(url, {'item': $(this).val()}, function (response){
+                    console.log(response)
+                    if(!jQuery.isEmptyObject(response)){
+                        $.each(response, function(i, town) {
+                            output += `<option value="${town.id}">${town.name}</option>`;
 
-                        $('#shippingTown').html(output)
-                    });
-                }
-            })
+                            $('#shippingTown').html(output)
+                        });
+                    }
+                })
+            }else{
+                $('#shippingTown').html('')
+            }
+
+
         })
     </script>
 @endpush

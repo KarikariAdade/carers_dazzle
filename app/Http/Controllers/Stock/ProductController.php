@@ -119,22 +119,24 @@ class ProductController extends Controller
 
     public function delete(Product $product)
     {
-        $images = ProductPicture::query()->where('product_id', $product->id)->get();
+        DB::transaction(function () use ($product){
+            $images = ProductPicture::query()->where('product_id', $product->id)->get();
 
 
-        foreach($images as $image){
+            foreach($images as $image){
 
-            if (File::exists($image->path)){
+                if (File::exists($image->path)){
 
-                File::delete($image->path);
+                    File::delete($image->path);
 
-                Log::info('File deleted');
+                    Log::info('File deleted');
+                }
             }
-        }
 
-        DB::table('product_pictures')->where('product_id', $product->id)->delete();
+            DB::table('product_pictures')->where('product_id', $product->id)->delete();
 
-        $product->delete();
+            $product->delete();
+        });
 
         return $this->successResponse('Product deleted successfully');
 
