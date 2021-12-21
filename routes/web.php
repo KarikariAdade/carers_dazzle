@@ -1,6 +1,8 @@
 <?php
 
 
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Stock\BrandController;
 use App\Http\Controllers\Stock\CouponsController;
 use App\Http\Controllers\Stock\CustomersController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\Stock\ProductController;
 use App\Http\Controllers\Stock\ShippingController;
 use App\Http\Controllers\Stock\SubCategoryController;
 use App\Http\Controllers\Stock\TaxController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,17 +25,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
-    return view('auth.login');
+    return view('website.index');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+
+//Route::get('admin/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth'])->name('dashboard');
 
 
 
-Route::group(['middleware' => 'auth'], function (){
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::get('auth/login/index', [AdminAuthController::class, 'index'])->name('admin.auth.login.index');
+    Route::post('auth/login', [AdminAuthController::class, 'login'])->name('admin.auth.login');
+    Route::get('auth/logout', [AdminAuthController::class, 'logout'])->name('admin.auth.logout');
+
+Route::group(['middleware' => 'auth:admin'], function (){
+
+    Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
 
     Route::prefix('stock')->group(function (){
 
@@ -128,6 +143,4 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
 });
-
-
-require __DIR__.'/auth.php';
+});
