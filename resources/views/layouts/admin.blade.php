@@ -3,7 +3,7 @@
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>E-SQUARE ELECTRONICS | MANAGER</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -220,7 +220,7 @@
                         <a href="{{ route('sales.customer.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Customers</span></a>
                     </li>
                     <li class="dropdown">
-                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Invoices</span></a>
+                        <a href="{{ route('invoice.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Invoices</span></a>
                     </li>
                     <li class="dropdown">
                         <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Payments</span></a>

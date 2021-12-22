@@ -29,7 +29,7 @@ class ProductController extends Controller
     {
         $items = $this->pageItems();
 
-        return $datatable->render('stock.products.index', compact('items'));
+        return $datatable->render('admin.stock.products.index', compact('items'));
     }
 
     public function store(Request $request)
@@ -69,7 +69,7 @@ class ProductController extends Controller
     {
         $items = $this->pageItems();
 
-        return view('stock.products.edit', compact('product', 'items'));
+        return view('admin.stock.products.edit', compact('product', 'items'));
     }
 
 
@@ -81,7 +81,7 @@ class ProductController extends Controller
             $taxes = Taxes::query()->whereIn('id', json_decode($product->taxes))->get();
         }
 
-        return view('stock.products.show', compact('product', 'taxes'));
+        return view('admin.stock.products.show', compact('product', 'taxes'));
     }
 
     public function update(Request $request, Product $product)

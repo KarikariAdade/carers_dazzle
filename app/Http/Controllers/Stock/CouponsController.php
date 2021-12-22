@@ -18,7 +18,7 @@ class CouponsController extends Controller
 
     public function index(CouponDatatable $datatable)
     {
-        return $datatable->render('stock.coupon.index');
+        return $datatable->render('admin.stock.coupon.index');
     }
 
 

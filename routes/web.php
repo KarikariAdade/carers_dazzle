@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\AdminAuthController;
+use App\Http\Controllers\Sales\InvoiceController;
 use App\Http\Controllers\Stock\BrandController;
 use App\Http\Controllers\Stock\CouponsController;
 use App\Http\Controllers\Stock\CustomersController;
@@ -29,7 +30,7 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('website.index');
-});
+})->name('website.index');
 
 
 //Route::get('admin/dashboard', function () {
@@ -133,12 +134,24 @@ Route::group(['middleware' => 'auth:admin'], function (){
 
 
     Route::prefix('sales/management')->group(function (){
+
         Route::prefix('customer')->group(function (){
             Route::get('/', [CustomersController::class, 'index'])->name('sales.customer.index');
             Route::post('store', [CustomersController::class, 'store'])->name('sales.customer.store');
             Route::get('details/{customer}', [CustomersController::class, 'details'])->name('sales.customer.details');
             Route::patch('update/{customer}', [CustomersController::class, 'update'])->name('sales.customer.update');
             Route::any('delete/{customer}', [CustomersController::class, 'delete'])->name('sales.customer.delete');
+        });
+
+
+        Route::prefix('invoice')->group(function () {
+            Route::get('/', [InvoiceController::class, 'index'])->name('invoice.index');
+            Route::get('create', [InvoiceController::class, 'create'])->name('invoice.create');
+            Route::post('store', [InvoiceController::class, 'store'])->name('invoice.store');
+            Route::get('edit/{invoice}', [InvoiceController::class, 'edit'])->name('invoice.edit');
+            Route::get('details/{update}', [InvoiceController::class, 'details'])->name('invoice.details');
+            Route::patch('update/{update}', [InvoiceController::class, 'update'])->name('invoice.update');
+            Route::any('delete/{update}', [InvoiceController::class, 'delete'])->name('invoice.delete');
         });
     });
 

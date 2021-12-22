@@ -17,7 +17,7 @@ class ProductCategoryController extends Controller
 
     public function index(ProductCategoryDatatable $datatable)
     {
-        return $datatable->render('stock.categories.index');
+        return $datatable->render('admin.stock.categories.index');
     }
 
 

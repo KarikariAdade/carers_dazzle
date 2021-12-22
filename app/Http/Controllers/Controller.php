@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SMSLogs;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -27,5 +28,16 @@ class Controller extends BaseController
             'code' => 401,
             'msg' => $msg
         ]);
+    }
+
+
+    public function logSMSData($custom_data, $data)
+    {
+      return SMSLogs::query()->create([
+          'type' => $custom_data['type'],
+          'status' => $data['status'],
+          'message' => $custom_data['message'],
+          'recipient' => $custom_data['phone'],
+      ]);
     }
 }

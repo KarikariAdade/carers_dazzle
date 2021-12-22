@@ -364,7 +364,7 @@ $(document).ready(function (){
 
     // SHIPPING PAGE
 
-    $('.shipping_form').submit(function (e) {
+    $('.shipping_form, .addCustomerForm').submit(function (e) {
         e.preventDefault();
         url = $(this).attr('action');
         let formData = new FormData(this);
@@ -389,8 +389,6 @@ $(document).ready(function (){
             amount = $(this).closest('tr').children('td:eq(1)').text().replace(/[^0-9\.]+/g, "")
         description = $(this).closest('tr').children('td:eq(2)').text();
 
-        alert(amount)
-
         $('#editName').val(name);
         $('#editAmount').val(amount);
         $('#editDescription').val(description);
@@ -398,6 +396,7 @@ $(document).ready(function (){
         updateSubmitAttrAndShowModal('updateShippingForm', $(this).attr('href'), 'editShippingModal', 'class')
 
     });
+
 
     function runSubmission(url, form, withDatatable = false){
         $.ajax({

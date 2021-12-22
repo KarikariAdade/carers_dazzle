@@ -23,7 +23,7 @@ class ShippingController extends Controller
     {
         $regions = Regions::query()->orderBy('name', 'ASC')->get();
 
-        return $datatable->render('stock.shipping.index', compact('regions'));
+        return $datatable->render('admin.stock.shipping.index', compact('regions'));
     }
 
 
@@ -54,7 +54,7 @@ class ShippingController extends Controller
     {
         $regions = Regions::query()->orderBy('name', 'ASC')->get();
 
-        return view('stock.shipping.edit', compact('shipping', 'regions'));
+        return view('admin.stock.shipping.edit', compact('shipping', 'regions'));
     }
 
 

@@ -22,7 +22,7 @@ class SubCategoryController extends Controller
     {
         $categories = ProductCategory::query()->get();
 
-        return $dataTable->render('stock.sub_category.index', compact('categories'));
+        return $dataTable->render('admin.stock.sub_category.index', compact('categories'));
     }
 
 

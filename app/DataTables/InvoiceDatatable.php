@@ -2,42 +2,37 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
+use App\Models\Invoice;
 use Illuminate\Database\Eloquent\Builder;
+use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class CustomersDatatable extends DataTable
+class InvoiceDatatable extends DataTable
 {
     /**
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
+     * @return DataTableAbstract
      */
     public function dataTable($query)
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('created_at', function ($query){
-                return date('l M d, Y', strtotime($query->created_at));
-            })
-            ->addColumn('action', function ($query){
-                return '<a href="'.route('sales.customer.details', $query->id).'" title="Customer Details" class="btn table-btn btn-icon btn-primary btn-sm shadow-primary mr-2"><i class="fa mt-2 fa-eye"></i></a>
-                        ';
-            });
+            ->addColumn('action', 'invoicedatatable.action');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param User $model
+     * @param Invoice $model
      * @return Builder
      */
-    public function query(User $model)
+    public function query(Invoice $model)
     {
         return $model->newQuery();
     }
@@ -65,10 +60,8 @@ class CustomersDatatable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('name'),
-            Column::make('email'),
-            Column::make('phone'),
-            Column::make('created_at')->title('Date Created'),
+            Column::make('id'),
+            Column::make('created_at'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -84,6 +77,6 @@ class CustomersDatatable extends DataTable
      */
     protected function filename()
     {
-        return 'Customers_' . date('YmdHis');
+        return 'Invoice_' . date('YmdHis');
     }
 }

@@ -17,7 +17,7 @@ class TaxController extends Controller
 
     public function index(TaxDatatable $datatable)
     {
-        return $datatable->render('stock.tax.index');
+        return $datatable->render('admin.stock.tax.index');
     }
 
 
