@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\AdminAuthController;
+use App\Http\Controllers\Customers\DashboardController;
 use App\Http\Controllers\Sales\InvoiceController;
 use App\Http\Controllers\Stock\BrandController;
 use App\Http\Controllers\Stock\CouponsController;
@@ -156,4 +157,10 @@ Route::group(['middleware' => 'auth:admin'], function (){
     });
 
 });
+});
+
+
+
+Route::group(['middleware' => 'web', 'prefix' => 'customer'], function (){
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('customer.dashboard');
 });

@@ -51,19 +51,23 @@
                                         <div class="dropdown header-top-dropdown">
                                             <a class="dropdown-toggle" id="myaccount" data-toggle="dropdown"
                                                aria-haspopup="true" aria-expanded="false">
-                                                my account
+                                                My Account
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="myaccount">
-                                                <a class="dropdown-item" href="my-account.html">my account</a>
-                                                <a class="dropdown-item" href="login-register.html"> login</a>
-                                                <a class="dropdown-item" href="login-register.html">register</a>
-                                                <a class="dropdown-item" href="" onclick="event.preventDefault();
+                                                @if(auth()->guard('web')->check())
+                                                <a class="dropdown-item" href="{{ route('customer.dashboard') }}">My Account</a>
+                                                    <a class="dropdown-item" href="" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                                    {{ __('Logout') }}</a>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                    @csrf
-                                                </form>
+                                                        {{ __('Logout') }}</a>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                        @csrf
+                                                    </form>
+                                                @else
+                                                <a class="dropdown-item" href="{{ route('login') }}"> Login</a>
+                                                <a class="dropdown-item" href="{{ route('register') }}">Register</a>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </li>
