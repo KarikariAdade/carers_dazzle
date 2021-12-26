@@ -75,9 +75,47 @@ class PromotionalBannerController extends Controller
     }
 
 
-    public function markFeatured(PromotionalBanner $banner)
+    public function markFeatured(PromotionalBanner $banner, $type)
     {
-        return $banner;
+        if ($type == 'mark_featured'){
+            $banner->update([
+                'is_slider_featured' => true
+            ]);
+
+            return $this->successResponse($banner->name.' successfully featured');
+
+//            return back()->with('success', $banner->name.' successfully featured');
+        }
+
+        $banner->update([
+            'is_slider_featured' => false
+        ]);
+
+        return $this->successResponse($banner->name.' successfully removed from featured');
+
+//        return back()->with('success', $banner->name.' successfully removed from featured');
+    }
+
+
+    public function markActive(PromotionalBanner $banner, $type)
+    {
+        if ($type == 'active'){
+            $banner->update([
+                'is_active' => true
+            ]);
+
+            return $this->successResponse($banner->name.' successfully marked active');
+
+//            return back()->with('success', $banner->name.' successfully marked active');
+        }
+
+        $banner->update([
+            'is_active' => false
+        ]);
+
+        return $this->successResponse($banner->name.' successfully marked inactive');
+
+//        return back()->with('success', $banner->name.' successfully marked inactive');
     }
 
     public function delete(PromotionalBanner $banner)

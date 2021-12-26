@@ -139,8 +139,9 @@ Route::group(['middleware' => 'auth:admin'], function (){
         Route::post('update/{banner}', [PromotionalBannerController::class, 'update'])->name('product.banner.update');
         Route::post('edit/{banner}', [PromotionalBannerController::class, 'edit'])->name('product.banner.edit');
         Route::any('delete/{banner}', [PromotionalBannerController::class, 'delete'])->name('product.banner.delete');
-        Route::any('featured/mark/{banner}', [PromotionalBannerController::class, 'index'])->name('product.banner.mark.featured');
+        Route::any('featured/mark/{banner}/{type}', [PromotionalBannerController::class, 'markFeatured'])->name('product.banner.mark.featured');
         Route::get('details/{banner}', [PromotionalBannerController::class, 'details'])->name('product.banner.details');
+        Route::any('mark/active/{banner}/{type}', [PromotionalBannerController::class, 'markActive'])->name('product.banner.mark.active');
     });
 
     });

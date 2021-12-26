@@ -398,8 +398,31 @@ $(document).ready(function (){
     });
 
 
-    $('')
+    dataTable.on('click', '#markActive', function (e){
+        e.preventDefault();
 
+        runRawAjaxPost($(this).attr('href'));
+
+    })
+
+    dataTable.on('click', '#markFeatured', function (e){
+        e.preventDefault();
+
+        runRawAjaxPost($(this).attr('href'));
+    })
+
+
+    function runRawAjaxPost(url){
+        $.post(url, function (response){
+            console.log(response)
+            if(response.code == '200'){
+                runToast(response.msg, response.code)
+                $('#dataTable').DataTable().ajax.reload();
+            }else{
+                runToast(response.msg, response.code)
+            }
+        });
+    }
 
     function runSubmission(url, form, withDatatable = false){
         $.ajax({
