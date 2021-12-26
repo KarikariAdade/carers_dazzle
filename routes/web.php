@@ -14,6 +14,7 @@ use App\Http\Controllers\Stock\PromotionalBannerController;
 use App\Http\Controllers\Stock\ShippingController;
 use App\Http\Controllers\Stock\SubCategoryController;
 use App\Http\Controllers\Stock\TaxController;
+use App\Http\Controllers\Website\HomepageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,9 +31,14 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('website.index');
-})->name('website.index');
+//Route::get('/', function () {
+//    return view('website.index');
+//})->name('website.index');
+
+
+#=========================================  WEBSITE ROUTES ==================================================#
+
+Route::get('/', [HomepageController::class, 'index'])->name('website.index');
 
 
 //Route::get('admin/dashboard', function () {
@@ -105,6 +111,8 @@ Route::group(['middleware' => 'auth:admin'], function (){
         Route::get('details/{product}', [ProductController::class, 'details'])->name('product.details');
         Route::patch('update/{product}', [ProductController::class, 'update'])->name('product.update');
         Route::any('delete/{product}', [ProductController::class, 'delete'])->name('product.delete');
+        Route::any('mark/featured/{product}/{type}/{origin}', [ProductController::class, 'markFeatured'])->name('product.mark.featured');
+        Route::any('mark/hot/{product}/{type}/{origin}', [ProductController::class, 'markHot'])->name('product.mark.hot');
         Route::any('delete/product/picture/{picture}', [ProductController::class, 'deleteProductPicture'])->name('product.delete.picture');
     });
 

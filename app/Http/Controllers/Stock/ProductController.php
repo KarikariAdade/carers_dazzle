@@ -143,6 +143,61 @@ class ProductController extends Controller
     }
 
 
+    public function markFeatured(Product $product, $type, $origin = null)
+    {
+        if ($type === 'mark_featured'){
+            $product->update([
+                'is_featured' => true
+            ]);
+
+            if ($origin === 'raw'){
+                return back()->with('success', $product->name.' successfully featured');
+            }
+
+            return $this->successResponse($product->name.' successfully featured');
+
+        }
+
+        $product->update([
+            'is_featured' => false
+        ]);
+
+        if ($origin === 'raw'){
+            return back()->with('success', $product->name.' successfully featured');
+        }
+
+        return $this->successResponse($product->name.' successfully removed from featured');
+
+    }
+
+
+    public function markHot(Product $product, $type, $origin = null)
+    {
+        if ($type === 'hot'){
+            $product->update([
+                'is_hot_deal' => true
+            ]);
+
+            if ($origin === 'raw'){
+                return back()->with('success', $product->name.' successfully marked as Hot Deal');
+            }
+
+            return $this->successResponse($product->name.' successfully marked as Hot Deal');
+
+        }
+
+        $product->update([
+            'is_hot_deal' => false
+        ]);
+
+        if ($origin === 'raw'){
+            return back()->with('success', $product->name.' successfully unmarked as Hot Deal');
+        }
+
+        return $this->successResponse($product->name.' successfully unmarked as Hot Deal');
+    }
+
+
     public function deleteProductPicture(ProductPicture $picture)
     {
         if (File::exists($picture->path)){

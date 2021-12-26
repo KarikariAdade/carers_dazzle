@@ -183,107 +183,35 @@
                         <div class="main-header-inner">
                             <div class="category-toggle-wrap">
                                 <div class="category-toggle">
-                                    category
+                                    categories & brands
                                     <div class="cat-icon">
                                         <i class="fa fa-angle-down"></i>
                                     </div>
                                 </div>
                                 <nav class="category-menu hm-1">
                                     <ul>
-                                        <li class="menu-item-has-children"><a href="shop-grid-left-sidebar.html"><i
-                                                    class="fa fa-camera"></i> camera</a>
+                                        @foreach($categories as $category)
+                                        <li class="menu-item-has-children"><a href="shop-grid-left-sidebar.html"> {{ $category->name }}</a>
                                             <!-- Mega Category Menu Start -->
                                             <ul class="category-mega-menu">
+
                                                 <li class="menu-item-has-children">
-                                                    <a href="shop-grid-left-sidebar.html">Smartphone</a>
+
                                                     <ul>
-                                                        <li><a href="shop-grid-left-sidebar.html">Samsome</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">GL Stylus</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Uawei</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Cherry Berry</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item-has-children">
-                                                    <a href="shop-grid-left-sidebar.html">headphone</a>
-                                                    <ul>
-                                                        <li><a href="shop-grid-left-sidebar.html">Desktop Headphone</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Mobile Headphone</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Wireless
-                                                                Headphone</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">LED Headphone</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item-has-children">
-                                                    <a href="shop-grid-left-sidebar.html">accessories</a>
-                                                    <ul>
-                                                        <li><a href="shop-grid-left-sidebar.html">Power Bank</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Data Cable</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Power Cable</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Battery</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item-has-children">
-                                                    <a href="shop-grid-left-sidebar.html">headphone</a>
-                                                    <ul>
-                                                        <li><a href="shop-grid-left-sidebar.html">Desktop Headphone</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Mobile Headphone</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Wireless
-                                                                Headphone</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">LED Headphone</a></li>
+                                                        @foreach($category->getSubCategories as $sub_category)
+                                                        <li><a href="shop-grid-left-sidebar.html">{{ $sub_category->name }}</a></li>
+                                                        @endforeach
+
                                                     </ul>
                                                 </li>
                                             </ul><!-- Mega Category Menu End -->
                                         </li>
-                                        <li class="menu-item-has-children"><a href="shop-grid-left-sidebar.html"><i
-                                                    class="fa fa-book"></i> smart phones</a>
-                                            <!-- Mega Category Menu Start -->
-                                            <ul class="category-mega-menu">
-                                                <li class="menu-item-has-children">
-                                                    <a href="shop-grid-left-sidebar.html">Smartphone</a>
-                                                    <ul>
-                                                        <li><a href="shop-grid-left-sidebar.html">Samsome</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">GL Stylus</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Uawei</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Cherry Berry</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">uPhone</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item-has-children">
-                                                    <a href="shop-grid-left-sidebar.html">headphone</a>
-                                                    <ul>
-                                                        <li><a href="shop-grid-left-sidebar.html">Desktop Headphone</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Mobile Headphone</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Wireless
-                                                                Headphone</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">LED Headphone</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Over-ear</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item-has-children">
-                                                    <a href="shop-grid-left-sidebar.html">accessories</a>
-                                                    <ul>
-                                                        <li><a href="shop-grid-left-sidebar.html">Power Bank</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Data Cable</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Power Cable</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Battery</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">OTG Cable</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item-has-children">
-                                                    <a href="shop-grid-left-sidebar.html">accessories</a>
-                                                    <ul>
-                                                        <li><a href="shop-grid-left-sidebar.html">Power Bank</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Data Cable</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Power Cable</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">Battery</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">OTG Cable</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul><!-- Mega Category Menu End -->
+                                        @endforeach
+                                        @foreach($brands as $brand)
+                                        <li class="menu-item">
+                                            <a href="shop-grid-left-sidebar.html">{{ $brand->name }}</a>
                                         </li>
-                                        <li><a href="shop-grid-left-sidebar.html"><i class="fa fa-bullhorn"></i>
-                                                bullhorn</a></li>
-                                    </ul>
+                                            @endforeach
                                 </nav>
                             </div>
                             <div class="main-menu">
@@ -292,19 +220,7 @@
                                         <li class="active"><a href="{{ route('website.index') }}"><i class="fa fa-home"></i>Home <i class="fa fa-angle-down"></i></a>
                                         </li>
                                         <li><a href="#">shop </a></li>
-                                        <li><a href="#">Blog </a>
-                                            <ul class="dropdown">
-                                                <li><a href="blog-left-sidebar.html">blog left sidebar</a></li>
-                                                <li><a href="blog-left-sidebar-2-col.html">blog left sidebar 2 col</a></li>
-                                                <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                                <li><a href="blog-full-2-column.html">blog full 2 column</a></li>
-                                                <li><a href="blog-full-3-column.html">blog full 3 column</a></li>
-                                                <li><a href="blog-details.html">blog details</a></li>
-                                                <li><a href="blog-details-audio.html">blog details audio</a></li>
-                                                <li><a href="blog-details-video.html">blog details video</a></li>
-                                                <li><a href="blog-details-image.html">blog details image</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a href="#">Blog </a></li>
                                         <li><a href="contact-us.html">Contact us</a></li>
                                     </ul>
                                 </nav>

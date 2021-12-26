@@ -59,9 +59,8 @@ class PromotionalBannerController extends Controller
             return $this->failResponse("Promotional banner could not be uploaded. Error: ".$exception->getMessage());
         }
 
-
-
     }
+
 
     public function details(PromotionalBanner $banner)
     {
@@ -172,6 +171,7 @@ class PromotionalBannerController extends Controller
 
     }
 
+
     public function delete(PromotionalBanner $banner)
     {
         DB::beginTransaction();
@@ -200,6 +200,7 @@ class PromotionalBannerController extends Controller
         }
     }
 
+
     public function validateFields($type)
     {
         if ($type === 'update'){
@@ -225,6 +226,7 @@ class PromotionalBannerController extends Controller
             'associated_product' => 'nullable',
         ];
     }
+
 
     public function dumpData($data)
     {
