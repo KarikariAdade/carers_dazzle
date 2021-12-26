@@ -55,8 +55,8 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Associated Product</label>
-                            <select name="associated_product" multiple class="form-control select2">
-                                <option></option>
+                            <select multiple="multiple" class="form-control select2" name="associated_product[]">
+{{--                                <option></option>--}}
                                 @foreach($products as $product)
                                 <option value="{{ $product->id }}">{{ $product->name }}</option>
                                 @endforeach

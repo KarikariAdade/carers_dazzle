@@ -36,24 +36,24 @@ class PromotionalBannerDatatable extends DataTable
                 $output = '<div style="display: inline-flex;">';
 
                 if ($query->is_active == false){
-                    $output .= '<a href="'.route('product.banner.mark.active', [$query->id, 'active']).'" id="markActive" title="Mark as Active" class="btn table-btn btn-icon btn-success btn-sm shadow-success mr-2"><i class="fa mt-2 fa-stamp"></i></a>
+                    $output .= '<a href="'.route('product.banner.mark.active', [$query->id, 'active', 'not_raw']).'" id="markActive" title="Mark as Active" class="btn table-btn btn-icon btn-success btn-sm shadow-success mr-2"><i class="fa mt-2 fa-stamp"></i></a>
                         ';
                 }else{
-                    $output .= '<a href="'.route('product.banner.mark.active', [$query->id, 'inactive']).'" id="markActive" title="Mark as Inactive" class="btn table-btn btn-icon btn-dark btn-sm shadow-dark mr-2"><i class="fa mt-2 fa-stamp"></i></a>
+                    $output .= '<a href="'.route('product.banner.mark.active', [$query->id, 'inactive', 'not_raw']).'" id="markActive" title="Mark as Inactive" class="btn table-btn btn-icon btn-dark btn-sm shadow-dark mr-2"><i class="fa mt-2 fa-stamp"></i></a>
                         ';
                 }
 
                 if ($query->is_slider_featured == false){
-                    $output .= '<a href="'.route('product.banner.mark.featured', [$query->id, 'mark_featured']).'" id="markFeatured" title="Mark Featured" class="btn table-btn btn-icon btn-info btn-sm shadow-info mr-2"><i class="fa mt-2 fa-check-circle"></i></a>
+                    $output .= '<a href="'.route('product.banner.mark.featured', [$query->id, 'mark_featured', 'not_raw']).'" id="markFeatured" title="Mark Featured" class="btn table-btn btn-icon btn-info btn-sm shadow-info mr-2"><i class="fa mt-2 fa-check-circle"></i></a>
                         ';
                 }else{
-                    $output .= '<a href="'.route('product.banner.mark.featured', [$query->id, 'unmark_featured']).'" id="markFeatured" title="Remove Feature" class="btn table-btn btn-icon btn-dark btn-sm shadow-dark mr-2"><i class="fa mt-2 fa-times-circle"></i></a>
+                    $output .= '<a href="'.route('product.banner.mark.featured', [$query->id, 'unmark_featured', 'not_raw']).'" id="markFeatured" title="Remove Feature" class="btn table-btn btn-icon btn-dark btn-sm shadow-dark mr-2"><i class="fa mt-2 fa-times-circle"></i></a>
                         ';
                 }
 
                 $output .= '<a href="'.route('product.banner.details', $query->id).'" title="View Product" class="btn table-btn btn-icon btn-primary btn-sm shadow-primary mr-2"><i class="fa mt-2 fa-eye"></i></a>
                         <a href="'.route('product.banner.edit', $query->id).'" title="Edit Product" id="updateProduct" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
-                        <a href="'.route('product.banner.delete', $query->id).'" title="Delete Delete" id="deleteProduct" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
+                        <a href="'.route('product.banner.delete', $query->id).'" title="Delete Delete" id="deleteBanner" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
                         </div>';
 
 

@@ -364,7 +364,7 @@ $(document).ready(function (){
 
     // SHIPPING PAGE
 
-    $('.shipping_form, .addCustomerForm, .addBannerForm').submit(function (e) {
+    $('.shipping_form, .addCustomerForm, .addBannerForm, #updateBannerForm' ).submit(function (e) {
         e.preventDefault();
         url = $(this).attr('action');
         let formData = new FormData(this);
@@ -409,6 +409,12 @@ $(document).ready(function (){
         e.preventDefault();
 
         runRawAjaxPost($(this).attr('href'));
+    })
+
+    dataTable.on('click', '#deleteBanner', function (e){
+        e.preventDefault();
+
+        runAjaxPrompt($(this).attr('href'));
     })
 
 
