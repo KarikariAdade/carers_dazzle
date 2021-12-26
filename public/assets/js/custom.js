@@ -364,7 +364,7 @@ $(document).ready(function (){
 
     // SHIPPING PAGE
 
-    $('.shipping_form, .addCustomerForm').submit(function (e) {
+    $('.shipping_form, .addCustomerForm, .addBannerForm').submit(function (e) {
         e.preventDefault();
         url = $(this).attr('action');
         let formData = new FormData(this);
@@ -396,6 +396,9 @@ $(document).ready(function (){
         updateSubmitAttrAndShowModal('updateShippingForm', $(this).attr('href'), 'editShippingModal', 'class')
 
     });
+
+
+    $('')
 
 
     function runSubmission(url, form, withDatatable = false){

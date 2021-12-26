@@ -208,6 +208,10 @@
                     <li class="dropdown">
                         <a href="{{ route('product.shipping.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Shipping</span></a>
                     </li>
+                    <li class="dropdown">
+                        <a href="{{ route('product.banner.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Promotional Banners</span></a>
+                    </li>
+
 
                     <li class="menu-header">Sales Management</li>
                     <li class="dropdown">

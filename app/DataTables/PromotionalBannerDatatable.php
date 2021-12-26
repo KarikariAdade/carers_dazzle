@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Product;
+use App\Models\PromotionalBanner;
 use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Html\Button;
@@ -11,7 +11,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ProductDatatable extends DataTable
+class PromotionalBannerDatatable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -23,40 +23,31 @@ class ProductDatatable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('brand_id', function ($query){
-                return $query->getBrand->name ?? 'N/A';
-            })
-            ->editColumn('category_id', function ($query){
-                return $query->getCategory->name ?? 'N/A';
-            })
-            ->editColumn('shelf_id', function ($query){
-                return $query->getSubCategory->name ?? 'N/A';
-            })
-            ->editColumn('price', function ($query){
-                return 'GHS '.number_format($query->price, 2);
-            })
             ->editColumn('is_active', function ($query){
                 return $query->is_active == true ? '<span class="badge badge-success shadow">Active</span>' : '<span class="badge badge-danger shadow">Inactive</span>';
+            })
+            ->editColumn('is_slider_featured', function ($query){
+                return $query->is_slider_featured == true ? '<span class="badge badge-success shadow">Featured</span>' : '<span class="badge badge-danger shadow">Not Featured</span>';
             })
             ->addColumn('action', function ($query){
                 return '
                         <div style="display: inline-flex;">
-                        <a href="'.route('product.details', $query->id).'" title="View Product" class="btn table-btn btn-icon btn-primary btn-sm shadow-primary mr-2"><i class="fa mt-2 fa-eye"></i></a>
-                        <a href="'.route('product.edit', $query->id).'" title="Edit Product" id="updateProduct" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
-                        <a href="'.route('product.delete', $query->id).'" title="Delete Delete" id="deleteProduct" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
+                        <a href="'.route('product.banner.details', $query->id).'" title="View Product" class="btn table-btn btn-icon btn-primary btn-sm shadow-primary mr-2"><i class="fa mt-2 fa-eye"></i></a>
+                        <a href="'.route('product.banner.edit', $query->id).'" title="Edit Product" id="updateProduct" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
+                        <a href="'.route('product.banner.delete', $query->id).'" title="Delete Delete" id="deleteProduct" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
                         </div>';
-            })->rawColumns(['action', 'is_active']);
+            })->rawColumns(['action', 'is_active', 'is_slider_featured']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param Product $model
+     * @param PromotionalBanner $model
      * @return Builder
      */
-    public function query(Product $model)
+    public function query(PromotionalBanner $model)
     {
-        return $model->newQuery()->orderBy('id', 'desc');
+        return $model->newQuery();
     }
 
     /**
@@ -83,12 +74,9 @@ class ProductDatatable extends DataTable
     {
         return [
             Column::make('name'),
-            Column::make('category_id')->title('Category'),
-            Column::make('brand_id')->title('Brand'),
-            Column::make('shelf_id')->title('SubCategory'),
-            Column::make('price'),
-            Column::make('quantity'),
-            Column::make('is_active')->title('Status'),
+            Column::make('is_slider_featured')->title('Slider Featured'),
+            Column::make('is_active')->title('Marked Active'),
+            Column::make('created_at')->title('Date Created'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -104,6 +92,6 @@ class ProductDatatable extends DataTable
      */
     protected function filename()
     {
-        return 'Product_' . date('YmdHis');
+        return 'PromotionalBanner_' . date('YmdHis');
     }
 }

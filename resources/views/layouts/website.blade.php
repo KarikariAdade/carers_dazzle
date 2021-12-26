@@ -121,15 +121,15 @@
                                         <span>On order over $199</span>
                                     </div>
                                 </div> <!-- end single shipping -->
-                                <div class="single-block-shipping">
-                                    <div class="shipping-icon">
-                                        <i class="fa fa-money"></i>
-                                    </div>
-                                    <div class="shipping-content">
-                                        <h5>money back 100%</h5>
-                                        <span>Within 30 Days after delivery</span>
-                                    </div>
-                                </div> <!-- end single shipping -->
+{{--                                <div class="single-block-shipping">--}}
+{{--                                    <div class="shipping-icon">--}}
+{{--                                        <i class="fa fa-money"></i>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="shipping-content">--}}
+{{--                                        <h5>money back 100%</h5>--}}
+{{--                                        <span>Within 30 Days after delivery</span>--}}
+{{--                                    </div>--}}
+{{--                                </div> <!-- end single shipping -->--}}
                             </div>
                             <div class="header-middle-block">
                                 <div class="header-middle-searchbox">
@@ -148,25 +148,11 @@
                                     <ul class="cart-list">
                                         <li>
                                             <div class="cart-img">
-                                                <a href="product-details.html"><img src="assets/img/cart/cart-1.jpg"
-                                                                                    alt=""></a>
+                                                <a href="product-details.html"><img src="assets/img/cart/cart-1.jpg" alt=""></a>
                                             </div>
                                             <div class="cart-info">
                                                 <h4><a href="product-details.html">simple product 09</a></h4>
                                                 <span>$60.00</span>
-                                            </div>
-                                            <div class="del-icon">
-                                                <i class="fa fa-times"></i>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="cart-img">
-                                                <a href="product-details.html"><img src="assets/img/cart/cart-2.jpg"
-                                                                                    alt=""></a>
-                                            </div>
-                                            <div class="cart-info">
-                                                <h4><a href="product-details.html">virtual product 10</a></h4>
-                                                <span>$50.00</span>
                                             </div>
                                             <div class="del-icon">
                                                 <i class="fa fa-times"></i>
@@ -204,8 +190,6 @@
                                 </div>
                                 <nav class="category-menu hm-1">
                                     <ul>
-                                        <li><a href="shop-grid-left-sidebar.html"><i class="fa fa-desktop"></i>
-                                                computer</a></li>
                                         <li class="menu-item-has-children"><a href="shop-grid-left-sidebar.html"><i
                                                     class="fa fa-camera"></i> camera</a>
                                             <!-- Mega Category Menu Start -->
@@ -297,15 +281,6 @@
                                                 </li>
                                             </ul><!-- Mega Category Menu End -->
                                         </li>
-                                        <li><a href="shop-grid-left-sidebar.html"><i class="fa fa-clock-o"></i>
-                                                watch</a></li>
-                                        <li><a href="shop-grid-left-sidebar.html"><i class="fa fa-television"></i>
-                                                electronic</a></li>
-                                        <li><a href="shop-grid-left-sidebar.html"><i class="fa fa-tablet"></i>
-                                                tablet</a></li>
-                                        <li><a href="shop-grid-left-sidebar.html"><i class="fa fa-book"></i> books</a></li>
-                                        <li><a href="shop-grid-left-sidebar.html"><i class="fa fa-microchip"></i>
-                                                microchip</a></li>
                                         <li><a href="shop-grid-left-sidebar.html"><i class="fa fa-bullhorn"></i>
                                                 bullhorn</a></li>
                                     </ul>
@@ -314,102 +289,10 @@
                             <div class="main-menu">
                                 <nav id="mobile-menu">
                                     <ul>
-                                        <li class="active"><a href="#"><i class="fa fa-home"></i>Home <i class="fa fa-angle-down"></i></a>
-                                            <ul class="dropdown">
-                                                <li><a href="index.html">Home version 01</a></li>
-                                                <li><a href="index-2.html">Home version 02</a></li>
-                                                <li><a href="index-3.html">Home version 03</a></li>
-                                                <li><a href="index-4.html">Home version 04</a></li>
-                                            </ul>
+                                        <li class="active"><a href="{{ route('website.index') }}"><i class="fa fa-home"></i>Home <i class="fa fa-angle-down"></i></a>
                                         </li>
-                                        <li class="static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
-                                            <ul class="megamenu dropdown">
-                                                <li class="mega-title"><a href="#">column 01</a>
-                                                    <ul>
-                                                        <li><a href="shop-grid-left-sidebar.html">shop grid left
-                                                                sidebar</a></li>
-                                                        <li><a href="shop-grid-right-sidebar.html">shop grid right
-                                                                sidebar</a></li>
-                                                        <li><a href="shop-grid-full-3-col.html">shop grid full 3
-                                                                column</a></li>
-                                                        <li><a href="shop-grid-full-4-col.html">shop grid full 4
-                                                                column</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="mega-title"><a href="#">column 02</a>
-                                                    <ul>
-                                                        <li><a href="product-details.html">product details</a></li>
-                                                        <li><a href="product-details-affiliate.html">product
-                                                                details
-                                                                affiliate</a></li>
-                                                        <li><a href="product-details-variable.html">product details
-                                                                variable</a></li>
-                                                        <li><a href="product-details-group.html">product details
-                                                                group</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="mega-title"><a href="#">column 03</a>
-                                                    <ul>
-                                                        <li><a href="cart.html">cart</a></li>
-                                                        <li><a href="checkout.html">checkout</a></li>
-                                                        <li><a href="compare.html">compare</a></li>
-                                                        <li><a href="wishlist.html">wishlist</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="mega-title"><a href="#">column 04</a>
-                                                    <ul>
-                                                        <li><a href="my-account.html">my-account</a></li>
-                                                        <li><a href="login-register.html">login-register</a></li>
-                                                        <li><a href="about-us.html">about us</a></li>
-                                                        <li><a href="contact-us.html">contact us</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">shop <i class="fa fa-angle-down"></i></a>
-                                            <ul class="dropdown">
-                                                <li><a href="#">shop grid layout <i class="fa fa-angle-right"></i></a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="shop-grid-left-sidebar.html">shop grid left
-                                                                sidebar</a></li>
-                                                        <li><a href="shop-grid-left-sidebar-3-col.html">left
-                                                                sidebar 3 col</a></li>
-                                                        <li><a href="shop-grid-right-sidebar.html">shop grid right
-                                                                sidebar</a></li>
-                                                        <li><a href="shop-grid-right-sidebar-3-col.html">grid right
-                                                                sidebar 3 col</a></li>
-                                                        <li><a href="shop-grid-full-3-col.html">shop grid full 3
-                                                                column</a></li>
-                                                        <li><a href="shop-grid-full-4-col.html">shop grid full 4
-                                                                column</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">shop list layout <i class="fa fa-angle-right"></i></a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="shop-list-left-sidebar.html">shop list left
-                                                                sidebar</a></li>
-                                                        <li><a href="shop-list-right-sidebar.html">shop list right
-                                                                sidebar</a></li>
-                                                        <li><a href="shop-list-full.html">shop list full width</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">products details <i class="fa fa-angle-right"></i></a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="product-details.html">product details</a></li>
-                                                        <li><a href="product-details-affiliate.html">product
-                                                                details
-                                                                affiliate</a></li>
-                                                        <li><a href="product-details-variable.html">product details
-                                                                variable</a></li>
-                                                        <li><a href="product-details-group.html">product details
-                                                                group</a></li>
-                                                        <li><a href="product-details-box.html">product details box
-                                                                slider</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Blog <i class="fa fa-angle-down"></i></a>
+                                        <li><a href="#">shop </a></li>
+                                        <li><a href="#">Blog </a>
                                             <ul class="dropdown">
                                                 <li><a href="blog-left-sidebar.html">blog left sidebar</a></li>
                                                 <li><a href="blog-left-sidebar-2-col.html">blog left sidebar 2 col</a></li>

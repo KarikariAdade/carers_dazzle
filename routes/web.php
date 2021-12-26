@@ -10,6 +10,7 @@ use App\Http\Controllers\Stock\CouponsController;
 use App\Http\Controllers\Stock\CustomersController;
 use App\Http\Controllers\Stock\ProductCategoryController;
 use App\Http\Controllers\Stock\ProductController;
+use App\Http\Controllers\Stock\PromotionalBannerController;
 use App\Http\Controllers\Stock\ShippingController;
 use App\Http\Controllers\Stock\SubCategoryController;
 use App\Http\Controllers\Stock\TaxController;
@@ -131,6 +132,17 @@ Route::group(['middleware' => 'auth:admin'], function (){
         Route::any('set/default/{shipping}', [ShippingController::class, 'setDefault'])->name('product.shipping.set.default');
         Route::post('get/towns', [ShippingController::class, 'getTowns'])->name('product.shipping.get.town');
     });
+
+    Route::prefix('promotional/banner')->group(function () {
+        Route::get('/', [PromotionalBannerController::class, 'index'])->name('product.banner.index');
+        Route::post('store', [PromotionalBannerController::class, 'store'])->name('product.banner.store');
+        Route::post('update/{banner}', [PromotionalBannerController::class, 'update'])->name('product.banner.update');
+        Route::post('edit/{banner}', [PromotionalBannerController::class, 'edit'])->name('product.banner.edit');
+        Route::any('delete/{banner}', [PromotionalBannerController::class, 'delete'])->name('product.banner.delete');
+        Route::any('featured/mark/{banner}', [PromotionalBannerController::class, 'index'])->name('product.banner.mark.featured');
+        Route::get('details/{banner}', [PromotionalBannerController::class, 'details'])->name('product.banner.details');
+    });
+
     });
 
 
