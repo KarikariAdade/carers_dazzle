@@ -27,7 +27,7 @@ class BrandController extends Controller
         $data = $request->all();
 
         $validate = Validator::make($data, [
-            'name' => 'required',
+            'name' => 'required|unique:brands,name',
             'description' => 'nullable'
         ]);
 
@@ -50,7 +50,7 @@ class BrandController extends Controller
 
 
         $validate = Validator::make($data, [
-            'name' => 'required',
+            'name' => 'required|unique:brands,name,'.$brands->name,
             'description' => 'nullable'
         ]);
 

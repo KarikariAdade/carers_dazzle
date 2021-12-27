@@ -40,6 +40,12 @@ Auth::routes();
 
 Route::get('/', [HomepageController::class, 'index'])->name('website.index');
 
+Route::prefix('shop')->group(function(){
+    Route::get('brand/{brand}', [HomepageController::class, 'brand'])->name('website.brand');
+    Route::get('category/{category}', [HomepageController::class, 'categories'])->name('website.category');
+
+});
+
 
 //Route::get('admin/dashboard', function () {
 //    return view('dashboard');

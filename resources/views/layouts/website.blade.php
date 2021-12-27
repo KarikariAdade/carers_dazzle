@@ -190,8 +190,8 @@
                                 </div>
                                 <nav class="category-menu hm-1">
                                     <ul>
-                                        @foreach($categories as $category)
-                                        <li class="menu-item-has-children"><a href="shop-grid-left-sidebar.html"> {{ $category->name }}</a>
+                                        @foreach($pageItems['categories'] as $category)
+                                        <li class="menu-item-has-children"><a href="{{ route('website.category', strtolower(str_replace(' ', '_', $category->name))) }}"> {{ $category->name }}</a>
                                             <!-- Mega Category Menu Start -->
                                             <ul class="category-mega-menu">
 
@@ -207,9 +207,9 @@
                                             </ul><!-- Mega Category Menu End -->
                                         </li>
                                         @endforeach
-                                        @foreach($brands as $brand)
+                                        @foreach($pageItems['brands'] as $brand)
                                         <li class="menu-item">
-                                            <a href="shop-grid-left-sidebar.html">{{ $brand->name }}</a>
+                                            <a href="{{ route('website.brand', strtolower(str_replace(' ', '_', $brand->name))) }}">{{ $brand->name }}</a>
                                         </li>
                                             @endforeach
                                 </nav>
