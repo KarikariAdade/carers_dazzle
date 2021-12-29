@@ -211,6 +211,11 @@ class ProductController extends Controller
 
     public function dump($data)
     {
+        $taxes = null;
+
+        if (isset($data['taxes'])){
+            $taxes = json_encode($data['taxes'], JSON_THROW_ON_ERROR | true);
+        }
 
         return [
             'name' => $data['name'],
@@ -220,7 +225,7 @@ class ProductController extends Controller
             'shelf_id' => $data['sub_category'],
             'description' => $data['description'],
             'quantity' => $data['quantity'],
-            'taxes' => json_encode($data['taxes'], JSON_THROW_ON_ERROR | true),
+            'taxes' => $taxes,
             'is_active' => $data['status']
         ];
     }

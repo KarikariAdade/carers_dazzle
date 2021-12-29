@@ -43,7 +43,8 @@ Route::get('/', [HomepageController::class, 'index'])->name('website.index');
 Route::prefix('shop')->group(function(){
     Route::get('brand/{brand}', [HomepageController::class, 'brand'])->name('website.brand');
     Route::get('category/{category}', [HomepageController::class, 'categories'])->name('website.category');
-
+    Route::get('/', [HomepageController::class, 'shops'])->name('website.shop');
+    Route::get('product/{product}/{name}/{hash}', [HomepageController::class, 'shopDetail'])->name('website.shop.detail');
 });
 
 

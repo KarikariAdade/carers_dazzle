@@ -188,23 +188,25 @@
                                         <i class="fa fa-angle-down"></i>
                                     </div>
                                 </div>
-                                <nav class="category-menu hm-1">
+                                <nav class="category-menu hm-1" @if( str_contains(url()->current(), 'shop'))  style="display: none;" @endif>
                                     <ul>
                                         @foreach($pageItems['categories'] as $category)
                                         <li class="menu-item-has-children"><a href="{{ route('website.category', strtolower(str_replace(' ', '_', $category->name))) }}"> {{ $category->name }}</a>
                                             <!-- Mega Category Menu Start -->
+                                            @if($category->getSubCategories->count() > 0)
                                             <ul class="category-mega-menu">
 
                                                 <li class="menu-item-has-children">
 
                                                     <ul>
                                                         @foreach($category->getSubCategories as $sub_category)
-                                                        <li><a href="shop-grid-left-sidebar.html">{{ $sub_category->name }}</a></li>
+                                                        <li><a href="{{ route('website.category', ['category' => strtolower(str_replace(' ', '_', $sub_category->name)), 'sub' => 'sub']) }}">{{ $sub_category->name }}</a></li>
                                                         @endforeach
 
                                                     </ul>
                                                 </li>
                                             </ul><!-- Mega Category Menu End -->
+                                            @endif
                                         </li>
                                         @endforeach
                                         @foreach($pageItems['brands'] as $brand)
@@ -219,7 +221,7 @@
                                     <ul>
                                         <li class="active"><a href="{{ route('website.index') }}"><i class="fa fa-home"></i>Home <i class="fa fa-angle-down"></i></a>
                                         </li>
-                                        <li><a href="#">shop </a></li>
+                                        <li><a href="{{ route('website.shop') }}">shop </a></li>
                                         <li><a href="#">Blog </a></li>
                                         <li><a href="contact-us.html">Contact us</a></li>
                                     </ul>

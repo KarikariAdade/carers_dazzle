@@ -3716,6 +3716,7 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 
 .product-item .product-thumb .img-pri {
     width: 100%;
+    height: 225px;
 }
 
 .product-item .product-thumb .img-sec {
