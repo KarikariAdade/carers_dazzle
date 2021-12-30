@@ -75,7 +75,7 @@
                                         <div class="product-action-link">
                                             <a href="{{ $product->generateRoute() }}"> <span data-toggle="tooltip" data-placement="left" title="" data-original-title="Quick view"><i class="fa fa-search"></i></span> </a>
                                             <a href="#" data-toggle="tooltip" data-placement="left" title="" data-original-title="Wishlist"><i class="fa fa-heart-o"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="left" title="" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                                            <a href="{{ route('website.cart.add', $product->id) }}" data-toggle="tooltip" data-placement="left" title="" data-original-title="Add to cart" id="addToCartBtn"><i class="fa fa-shopping-cart"></i></a>
                                         </div>
                                     </div>
                                     <div class="product-content">
@@ -100,9 +100,6 @@
                         </div>
                         <!-- product item end -->
                     </div>
-                    <!-- product view wrapper area end -->
-
-                    <!-- start pagination area -->
                     <div class="paginatoin-area text-center pt-28">
                         <div class="row">
                             <div class="col-12">

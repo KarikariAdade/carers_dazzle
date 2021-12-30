@@ -401,29 +401,32 @@ $(document).ready(function (){
     dataTable.on('click', '#markActive', function (e){
         e.preventDefault();
 
-        runRawAjaxPost($(this).attr('href'));
+        runRawAjaxPost($(this).attr('href'), true);
 
     })
 
     dataTable.on('click', '#markFeatured', function (e){
         e.preventDefault();
 
-        runRawAjaxPost($(this).attr('href'));
+        runRawAjaxPost($(this).attr('href'), true);
     })
 
     dataTable.on('click', '#deleteBanner', function (e){
         e.preventDefault();
 
-        runAjaxPrompt($(this).attr('href'));
+        runAjaxPrompt($(this).attr('href'), true);
     })
 
 
-    function runRawAjaxPost(url){
+    function runRawAjaxPost(url, withDatatable = false){
         $.post(url, function (response){
             console.log(response)
             if(response.code == '200'){
                 runToast(response.msg, response.code)
-                $('#dataTable').DataTable().ajax.reload();
+                if(withDatatable == true){
+                    $('#dataTable').DataTable().ajax.reload();
+                }
+
             }else{
                 runToast(response.msg, response.code)
             }
@@ -454,5 +457,146 @@ $(document).ready(function (){
             }
         })
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //============================================= WEBSITE JS ==============================================
+
+
+    // Add Item to Cart
+    $('.addToCartBtn').on('click', function (e){
+        e.preventDefault();
+
+        addToCart($(this).attr('href'), false ,1)
+    })
+
+
+    // Add item to cart on product detail page, with item number
+
+    $('#addToCartWithItem').on('click', function (e){
+        e.preventDefault();
+
+        addToCart($(this).attr('href'), true, ''+$('#itemQuantity').val())
+    });
+
+
+    // Remove item from cart in notification area
+    $('.cart-list').on('click', '#del-icon', function (e){
+
+        e.preventDefault();
+
+        let parent = $(this).closest('li'),
+            url = $(this).attr('href');
+
+        $.post(url, function (response){
+            console.log(response)
+            if(response.code == '200'){
+                runToast(response.msg, response.code)
+                runCartUpdate(response)
+            }else{
+                runToast(response.msg, response.code)
+            }
+        });
+
+        // parent.remove();
+    })
+
+
+    function addToCart(url, withValues = false, formdata = null){
+
+        if (withValues == true){
+            console.log('Form Data', formdata)
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: {
+                    'item_value': formdata
+                },
+            }).done((response) => {
+                console.log('ajax response',response)
+                if(response.code == '200'){
+                    console.log('change list')
+                    console.log('list changed')
+                    runToast(response.msg, response.code)
+                    runCartUpdate(response)
+
+                }else{
+                    runToast(response.msg, response.code)
+                }
+            })
+        }else{
+
+            $.post(url, function (response){
+                console.log(response)
+                if(response.code == '200'){
+                    runToast(response.msg, response.code)
+                    runCartUpdate(response);
+                }else{
+                    runToast(response.msg, response.code)
+                }
+            });
+        }
+
+    }
+
+
+    function runCartUpdate(response){
+        let cart_dropdown = ``,
+            item_image,
+            route,
+            cart_total = ``;
+
+        $.each(response.cart, function (i, item){
+            $.each(item.options, function (option, items_option){
+                item_image = items_option
+            })
+            route = response.base_path+item.rowId+'/remove';
+
+            cart_dropdown += `<li>
+                                            <div class="cart-img">
+                                                <a href="#"><img src="${item_image}" alt=""></a>
+                                            </div>
+                                            <div class="cart-info">
+                                                <h4><a href="">${item.name} (${item.qty})</a></h4>
+                                                <span>GHS ${item.subtotal}</span>
+                                            </div>
+                                            <div class="del-icon">
+                                                <a href="${route}" class="text-danger" id="del-icon"><i class="fa fa-times"></i></a>
+                                            </div>
+                                        </li>
+                                    `;
+        });
+
+        cart_dropdown += ` <li class="mini-cart-price">
+                                            <span class="subtotal">subtotal : </span>
+                                            <span class="subtotal-price">GHS ${response.cart_total}</span>
+                                        </li>
+                                        <li class="checkout-btn">
+                                            <a href="${response.checkout}">checkout</a>
+                                        </li>`;
+
+        cart_total = `<div class="cart-total-price">
+                                        <span>total</span>
+                                        GHS ${response.cart_total}
+                                    </div>`;
+
+        $('#cart-list').html(cart_dropdown)
+        $('.cart-notification').html(response.cart_count)
+        $('.cart-total-price').html(cart_total)
+    }
+
 });
 

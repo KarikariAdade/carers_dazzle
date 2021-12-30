@@ -73,9 +73,9 @@
                                         </a>
                                         @endif
                                         <div class="product-action-link">
-                                            <a href="#"> <span data-toggle="tooltip" data-placement="left" title="" data-original-title="Quick view"><i class="fa fa-search"></i></span> </a>
+                                            <a href="{{ $product->generateRoute() }}"> <span data-toggle="tooltip" data-placement="left" title="" data-original-title="Quick view"><i class="fa fa-search"></i></span> </a>
                                             <a href="#" data-toggle="tooltip" data-placement="left" title="" data-original-title="Wishlist"><i class="fa fa-heart-o"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="left" title="" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                                            <a href="{{ route('website.cart.add', $product->id) }}" class="addToCartBtn" data-toggle="tooltip" data-placement="left" title="" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
                                         </div>
                                     </div>
                                     <div class="product-content">

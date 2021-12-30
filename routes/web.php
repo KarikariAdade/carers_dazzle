@@ -14,6 +14,8 @@ use App\Http\Controllers\Stock\PromotionalBannerController;
 use App\Http\Controllers\Stock\ShippingController;
 use App\Http\Controllers\Stock\SubCategoryController;
 use App\Http\Controllers\Stock\TaxController;
+use App\Http\Controllers\Website\CartController;
+use App\Http\Controllers\Website\CheckoutController;
 use App\Http\Controllers\Website\HomepageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +47,16 @@ Route::prefix('shop')->group(function(){
     Route::get('category/{category}', [HomepageController::class, 'categories'])->name('website.category');
     Route::get('/', [HomepageController::class, 'shops'])->name('website.shop');
     Route::get('product/{product}/{name}/{hash}', [HomepageController::class, 'shopDetail'])->name('website.shop.detail');
+
+    Route::prefix('cart')->group(function (){
+        Route::get('/', [CartController::class, 'index'])->name('website.cart.index');
+        Route::any('add/{product}', [CartController::class, 'addToCart'])->name('website.cart.add');
+        Route::post('item/{row}/remove', [CartController::class, 'removeFromCart'])->name('website.cart.remove');
+    });
+
+    Route::prefix('checkout')->group(function (){
+        route::get('/', [CheckoutController::class, 'index'])->name('website.checkout.index');
+    });
 });
 
 

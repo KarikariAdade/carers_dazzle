@@ -215,7 +215,7 @@
                                                     class="fa fa-search"></i></span> </a>
                                         <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i
                                                 class="fa fa-heart-o"></i></a>
-                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
+                                        <a href="{{}}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
                                                 class="fa fa-shopping-cart"></i></a>
                                     </div>
                                 </div>
@@ -278,7 +278,7 @@
                                         <div class="col">
                                             <div class="category-item">
                                                 <div class="category-thumb">
-                                                    <a href="product-details.html">
+                                                    <a href="{{ $product->generateRoute() }}">
                                                         <img src="{{ asset($product->getSingleImage()) }}" alt="">
                                                     </a>
                                                 </div>

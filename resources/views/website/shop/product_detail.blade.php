@@ -71,7 +71,7 @@
                                         <tbody>
                                         <tr class="text-center">
                                             <td>
-                                                <div class="pro-qty"><input type="text" value="1" min="1" max="{{ $product->quantity }}"></div>
+                                                <div class="pro-qty"><input type="text" value="1" min="1" max="{{ $product->quantity }}" id="itemQuantity"></div>
                                             </td>
                                             <td><a href="#">{{ $product->name }}</a></td>
                                             <td>{{ 'GHS '.number_format($product->price, 2)  }}</td>
@@ -80,7 +80,7 @@
                                     </table>
                                     <div class="quantity-cart-box d-flex align-items-center">
                                         <div class="action_link">
-                                            <a class="buy-btn" href="#">add to cart<i class="fa fa-shopping-cart"></i> </a>
+                                            <a class="buy-btn" href="{{ $product->generateCartRoute() }}" id="addToCartWithItem">add to cart<i class="fa fa-shopping-cart"></i> </a>
                                         </div>
                                     </div>
                                     <div class="useful-links mt-20">
@@ -309,6 +309,9 @@
     </div>
 
 @endsection
+@push('custom-js')
+
+@endpush
 
 
 

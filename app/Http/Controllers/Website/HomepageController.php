@@ -90,18 +90,5 @@ class HomepageController extends Controller
 
     }
 
-    public function pageDependencies()
-    {
-        $categories = ProductCategory::query()->get();
 
-        $brands = Brands::query()->get();
-
-        $slider_featured_banners = PromotionalBanner::query()->where('is_slider_featured', true)->get();
-
-        return [
-            'categories' => $categories,
-            'brands' => $brands,
-            'slider_featured_banners' => $slider_featured_banners
-        ];
-    }
 }

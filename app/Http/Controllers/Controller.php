@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brands;
+use App\Models\ProductCategory;
+use App\Models\PromotionalBanner;
 use App\Models\SMSLogs;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -39,5 +42,20 @@ class Controller extends BaseController
           'message' => $custom_data['message'],
           'recipient' => $custom_data['phone'],
       ]);
+    }
+
+    public function pageDependencies()
+    {
+        $categories = ProductCategory::query()->get();
+
+        $brands = Brands::query()->get();
+
+        $slider_featured_banners = PromotionalBanner::query()->where('is_slider_featured', true)->get();
+
+        return [
+            'categories' => $categories,
+            'brands' => $brands,
+            'slider_featured_banners' => $slider_featured_banners
+        ];
     }
 }

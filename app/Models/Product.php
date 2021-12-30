@@ -2,15 +2,28 @@
 
 namespace App\Models;
 
+use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Product extends Model
+class Product extends Model implements Buyable
 {
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function getBuyableIdentifier($options = null){
+        return $this->id;
+    }
+
+    public function getBuyableDescription($options = null){
+        return $this->name;
+    }
+
+    public function getBuyablePrice($options = null){
+        return $this->price;
+    }
 
     public function getBrand()
     {
@@ -53,5 +66,10 @@ class Product extends Model
 
         return $image->path ?? null;
 
+    }
+
+    public function generateCartRoute()
+    {
+        return route('website.cart.add', $this->id);
     }
 }

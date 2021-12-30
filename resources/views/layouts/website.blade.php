@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="meta description">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Site title -->
     <title>E-Square Electronics</title>
     <link href="{{ asset('customer_asset/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -14,8 +15,6 @@
     <link href="{{ asset('customer_asset/css/helper.min.css') }}" rel="stylesheet">
     <!-- Plugins CSS -->
     <link href="{{ asset('customer_asset/css/plugins.css') }}" rel="stylesheet">
-    <!-- Main Style CSS -->
-{{--    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>--}}
 
     <link href="{{ asset('customer_asset/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('customer_asset/css/skin-default.css') }}" rel="stylesheet" id="galio-skin">
@@ -78,7 +77,7 @@
                                         <a href="#">my wishlist</a>
                                     </li>
                                     <li>
-                                        <a href="#">my cart</a>
+                                        <a href="{{ route('website.cart.index') }}">my cart</a>
                                     </li>
                                     <li>
                                         <a href="#">checkout</a>
@@ -142,31 +141,34 @@
                                 <div class="header-mini-cart">
                                     <div class="mini-cart-btn">
                                         <i class="fa fa-shopping-cart"></i>
-                                        <span class="cart-notification">2</span>
+                                        <span class="cart-notification">{{ Cart::count() }}</span>
                                     </div>
                                     <div class="cart-total-price">
                                         <span>total</span>
-                                        $50.00
+                                        {{ 'GHS ' . Cart::subtotal() }}
                                     </div>
-                                    <ul class="cart-list">
-                                        <li>
+                                    <ul class="cart-list" id="cart-list">
+                                        @foreach(Cart::content() as $cart)
+                                        <li title="{{ $cart->id }}">
+
                                             <div class="cart-img">
-                                                <a href="product-details.html"><img src="assets/img/cart/cart-1.jpg" alt=""></a>
+                                                <a href="#"><img src="{{ asset($cart->options['product_image']) }}" alt=""></a>
                                             </div>
                                             <div class="cart-info">
-                                                <h4><a href="product-details.html">simple product 09</a></h4>
-                                                <span>$60.00</span>
+                                                <h4><a href="">{{ $cart->name }} ({{ $cart->qty }})</a></h4>
+                                                <span>GHS {{ number_format($cart->subtotal, 2) }}</span>
                                             </div>
                                             <div class="del-icon">
-                                                <i class="fa fa-times"></i>
+                                                <a href="{{ route('website.cart.remove', $cart->rowId) }}" class="text-danger" id="del-icon"><i class="fa fa-times"></i></a>
                                             </div>
                                         </li>
+                                        @endforeach
                                         <li class="mini-cart-price">
                                             <span class="subtotal">subtotal : </span>
-                                            <span class="subtotal-price">$88.66</span>
+                                            <span class="subtotal-price">{{ 'GHS ' . Cart::subtotal() }}</span>
                                         </li>
                                         <li class="checkout-btn">
-                                            <a href="#">checkout</a>
+                                            <a href="{{ route('website.checkout.index') }}">checkout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -378,24 +380,15 @@
     <!-- Scroll to Top End -->
 </div>
 
-<!--All jQuery, Third Party Plugins & Activation (main.js) Files-->
 <script src="{{ asset('customer_asset/js/vendor/modernizr-3.6.0.min.js') }}"></script>
-<!-- Jquery Min Js -->
 <script src="{{ asset('customer_asset/js/vendor/jquery-3.3.1.min.js') }}"></script>
-<!-- Popper Min Js -->
 <script src="{{ asset('customer_asset/js/vendor/popper.min.js') }}"></script>
-<!-- Bootstrap Min Js -->
 <script src="{{ asset('customer_asset/js/vendor/bootstrap.min.js') }}"></script>
-<!-- Plugins Js-->
-
-{{--<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>--}}
 <script src="{{ asset('customer_asset/js/plugins.js') }}"></script>
-<!-- Active Js -->
 <script src="{{ asset('customer_asset/js/main.js') }}"></script>
-<!-- Popper Min Js -->
-<!-- Bootstrap Min Js -->
-<!-- Plugins Js-->
-<!-- Active Js -->
+<script src="{{ asset('assets/js/sweet_alert.min.js') }}"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
+@stack('custom-js')
 </body>
 
 
