@@ -25,7 +25,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="productAddForm" action="{{ route('product.store') }}" method="POST">
+                <form class="productAddForm" action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                     <div class="modal-body row">
                         @method('POST')
                         @csrf

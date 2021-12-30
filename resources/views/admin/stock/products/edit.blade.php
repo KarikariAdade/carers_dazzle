@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <section class="container card card-primary">
-        <form id="updateProductForm" action="{{ route('product.update', $product->id) }}">
+        <form id="updateProductForm" action="{{ route('product.update', $product->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="card-header row">
@@ -73,7 +73,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Product Image </label>
-                        <input type="file" name="image[]" multiple class="form-control">
+                        <input type="file" name="image[]" multiple="multiple" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-8">

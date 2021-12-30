@@ -106,7 +106,7 @@
                     <div class="paginatoin-area text-center pt-28">
                         <div class="row">
                             <div class="col-12">
-{{--                                {{ $products->links('vendor.pagination.bootstrap-4') }}--}}
+                                {{ $products->links('vendor.pagination.bootstrap-4') }}
                             </div>
                         </div>
                     </div>

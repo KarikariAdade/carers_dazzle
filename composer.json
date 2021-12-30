@@ -6,16 +6,17 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "doctrine/dbal": "^3.1",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "hardevine/shoppingcart": "^3.0",
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
-        "doctrine/dbal": "^3.1",
-        "yajra/laravel-datatables": "^1.5",
-        "ext-json": "*",
-        "ext-curl": "*"
+        "yajra/laravel-datatables": "^1.5"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
