@@ -239,7 +239,7 @@ class ProductController extends Controller
             'category' => 'required',
             'brand' => 'required',
             'price' => 'required',
-            'product' => 'nullable|mimes:jpeg,jpg,png|max:5048',
+            'image' => 'required|mimes:jpeg,jpg,png|max:5048',
             'sub_category' => 'required',
             'description' => 'nullable',
             'quantity' => 'required',
