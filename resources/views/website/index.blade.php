@@ -94,7 +94,7 @@
                                                         class="fa fa-search"></i></span> </a>
                                             <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i
                                                     class="fa fa-heart-o"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
+                                            <a href="{{ route('website.cart.add', $hot_deal->id) }}" class="addToCartBtn" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
                                                     class="fa fa-shopping-cart"></i></a>
                                         </div>
                                     </div>
@@ -215,7 +215,7 @@
                                                     class="fa fa-search"></i></span> </a>
                                         <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i
                                                 class="fa fa-heart-o"></i></a>
-                                        <a href="{{}}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
+                                        <a href="{{route('website.cart.add', $featured->id)}}" class="addToCartBtn" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
                                                 class="fa fa-shopping-cart"></i></a>
                                     </div>
                                 </div>

@@ -18,6 +18,7 @@
     </div>
     <div class="page-main-wrapper">
         <div class="container">
+            @if(count($products) > 0)
             <div class="row">
                 @include('layouts.shop_sidebar')
                 <!-- sidebar end -->
@@ -110,6 +111,12 @@
                 </div>
                 <!-- product main wrap end -->
             </div>
+            @else
+                <div class="text-center mb-5">
+                    <h2 class="pb-5 text-center">No products under selected brand</h2>
+                    <a href="{{ route('website.index') }}" class="sqr-btn"><i class="fa fa-home"></i> Go Home</a>
+                </div>
+            @endif
         </div>
     </div>
 @endsection

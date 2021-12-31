@@ -76,6 +76,9 @@ class HomepageController extends Controller
 
     public function shopDetail(Product $product, $name, $hash)
     {
+
+        $product->update(['views' => $product->views+1]);
+
         $hot_deals = Product::query()->where('is_hot_deal', true)->get();
 
         $featured_products = Product::query()->where('is_featured', true)->inRandomOrder()->take(10)->get();

@@ -11,7 +11,6 @@ class CartController extends Controller
 {
     public function index()
     {
-        return Cart::content();
         return view('website.cart.index', ['pageItems' => $this->pageDependencies()]);
     }
 
@@ -23,7 +22,7 @@ class CartController extends Controller
             'name' => $product->name,
             'price' => $product->price,
             'qty' => $request->get('item_value') ?? 1,
-            'options' => ['product_image' => asset($product->getSingleImage())]
+            'options' => ['product_image' => asset($product->getSingleImage()), 'product_quantity' => $product->quantity]
         ];
 
         $base_remove_path =  url('/').'/shop/cart/item/';
@@ -86,6 +85,21 @@ class CartController extends Controller
             'cart_total' => Cart::subtotal(),
             'checkout' => route('website.checkout.index'),
             'base_path' => $base_remove_path,
+        ]);
+    }
+
+
+    public function updateCart(Request $request)
+    {
+        $fields = $request->get('fields');
+
+        foreach ($fields as $field){
+            Cart::update($field['rowId'], ['qty' => $field['form_value']]);
+        }
+
+        return response()->json([
+            'code' => 200,
+            'url' => route('website.cart.index')
         ]);
     }
 

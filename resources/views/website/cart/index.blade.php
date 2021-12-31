@@ -19,6 +19,7 @@
     </div>
     <div class="cart-main-wrapper">
         <div class="container">
+            @include('layouts.errors')
             <div class="row">
                 <div class="col-lg-12">
                     <!-- Cart Table Area -->
@@ -39,13 +40,13 @@
                             <tr>
                                 <td class="pro-thumbnail">
                                     <a href="#">
-                                        <img class="img-fluid" src="assets/img/product/product-img2.jpg" alt="Product"/>
+                                        <img class="img-fluid" src="{{ asset($cart->options['product_image']) }}" alt="Product"/>
                                     </a>
                                 </td>
                                 <td class="pro-title"><a href="#">{{ $cart->name }}</a></td>
                                 <td class="pro-price"><span>{{ $cart->price }}</span></td>
                                 <td class="pro-quantity">
-                                    <div class="pro-qty"><input type="text" value="{{ $cart->qty }}"></div>
+                                    <div class="pro-qty"><input type="number" min="1" max="" name="item_quantity" value="{{ $cart->qty }}"  title="{{ $cart->rowId }}"></div>
                                 </td>
                                 <td class="pro-subtotal"><span>{{ $cart->subtotal }}</span></td>
                                 <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
@@ -64,7 +65,7 @@
                             </form>
                         </div>
                         <div class="cart-update mt-sm-16">
-                            <a href="#" class="sqr-btn">Update Cart</a>
+                            <a href="{{ route('website.cart.update') }}" id="updateCartBtn" class="sqr-btn">Update Cart</a>
                         </div>
                     </div>
                 </div>

@@ -71,7 +71,7 @@
                                         <tbody>
                                         <tr class="text-center">
                                             <td>
-                                                <div class="pro-qty"><input type="text" value="1" min="1" max="{{ $product->quantity }}" id="itemQuantity"></div>
+                                                <div class="pro-qty"><input type="number" value="1" min="1" max="{{ $product->quantity }}" id="itemQuantity"></div>
                                             </td>
                                             <td><a href="#">{{ $product->name }}</a></td>
                                             <td>{{ 'GHS '.number_format($product->price, 2)  }}</td>

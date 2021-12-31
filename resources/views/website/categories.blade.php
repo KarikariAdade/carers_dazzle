@@ -69,7 +69,7 @@
                                     <div class="product-thumb">
                                         @if($product->getPicture->count() > 0)
                                         <a href="{{ $product->generateRoute() }}">
-                                            <img src="{{ $product->getSingleImage() }}" class="img-pri" alt="">
+                                            <img src="{{ asset($product->getSingleImage()) }}" class="img-pri" alt="">
                                         </a>
                                         @endif
                                         <div class="product-action-link">

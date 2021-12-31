@@ -549,8 +549,36 @@ $(document).ready(function (){
                 }
             });
         }
-
     }
+
+
+
+    $('#updateCartBtn').on('click', function (e){
+        e.preventDefault();
+        let form_data = [];
+        $('input[name="item_quantity"]').each(function (item){
+            form_data.push({
+                'form_value': $(this).val(),
+                'rowId': $(this).attr('title')
+                }
+            )
+        })
+
+        url = $(this).attr('href');
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: {'fields': form_data}
+        }).done((response) => {
+            console.log(response)
+            if(response.code == '200'){
+                window.location = response.url
+            }else{
+                runToast(response.msg, response.code)
+            }
+        })
+    })
 
 
     function runCartUpdate(response){
