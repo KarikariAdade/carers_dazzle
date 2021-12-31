@@ -476,6 +476,23 @@ $(document).ready(function (){
     //============================================= WEBSITE JS ==============================================
 
 
+    $('#itemQuantity').on('change keyup', function (){
+
+        let total = calculatePrice($(this).val(), $('#itemPriceData').val());
+
+        console.log(total)
+        $('#itemPrice').html('GHS '+total);
+    })
+
+
+    function calculatePrice(multiplier, price){
+        return Number(multiplier * price).toFixed(2);
+    }
+
+
+
+
+
     // Add Item to Cart
     $('.addToCartBtn').on('click', function (e){
         e.preventDefault();
@@ -499,13 +516,18 @@ $(document).ready(function (){
         e.preventDefault();
 
         let parent = $(this).closest('li'),
-            url = $(this).attr('href');
+            url = $(this).attr('href'),
+            path = window.location.pathname;
 
         $.post(url, function (response){
             console.log(response)
             if(response.code == '200'){
-                runToast(response.msg, response.code)
-                runCartUpdate(response)
+                if (path == '/shop/cart'){
+                    window.location.reload();
+                }else{
+                    runToast(response.msg, response.code)
+                    runCartUpdate(response)
+                }
             }else{
                 runToast(response.msg, response.code)
             }
@@ -574,6 +596,25 @@ $(document).ready(function (){
             console.log(response)
             if(response.code == '200'){
                 window.location = response.url
+            }else{
+                runToast(response.msg, response.code)
+            }
+        })
+    })
+
+
+    $('#couponForm').submit(function (e){
+        e.preventDefault();
+        url = $(this).attr('action');
+        form =
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: $(this).serialize(),
+        }).done((response) => {
+            if (response.code == '200'){
+                runToast(response.msg, response.code)
+
             }else{
                 runToast(response.msg, response.code)
             }

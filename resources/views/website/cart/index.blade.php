@@ -7,8 +7,8 @@
                     <div class="breadcrumb-wrap">
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('website.index') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('website.shop') }}">shop</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">cart</li>
                             </ul>
                         </nav>
@@ -59,9 +59,11 @@
                     <!-- Cart Update Option -->
                     <div class="cart-update-option d-block d-md-flex justify-content-between">
                         <div class="apply-coupon-wrapper">
-                            <form action="#" method="post" class=" d-block d-md-flex">
-                                <input type="text" placeholder="Enter Your Coupon Code" required />
-                                <button class="sqr-btn">Apply Coupon</button>
+                            <form action="{{ route('website.cart.coupon.add') }}" method="POST" id="couponForm" class="d-block d-md-flex">
+                                @csrf
+                                @method('POST')
+                                <input type="text" name="coupon" placeholder="Enter Your Coupon Code" required />
+                                <button class="sqr-btn" type="submit">Apply Coupon</button>
                             </form>
                         </div>
                         <div class="cart-update mt-sm-16">
@@ -72,7 +74,40 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-5 ml-auto">
+                <div class="col-lg-6">
+                    <!-- Cart Calculation Area -->
+                    <div class="cart-calculator-wrapper">
+                        <div class="cart-calculate-items">
+                            <h3>Shipping</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" class="row">
+                                <div class="col-md-6">
+                                    <label>Region</label><br>
+                                    <select class="select2" name="region" style="width: 100%;">
+                                        <option></option>
+                                        @foreach($regions as $region)
+                                            <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class=" col-md-6">
+                                    <label>Town</label><br>
+                                    <select class="select2" name="region" style="width: 100%;">
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mt-5">
+                                    <p>Shipping Fee</p>
+                                    <p>GHS 443.00</p>
+                                </div>
+                                <div class="col-md-6 mt-5">
+                                    <button class="sqr-btn" type="submit">Calculate Shipping</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 ml-auto">
                     <!-- Cart Calculation Area -->
                     <div class="cart-calculator-wrapper">
                         <div class="cart-calculate-items">
@@ -81,15 +116,19 @@
                                 <table class="table">
                                     <tr>
                                         <td>Sub Total</td>
-                                        <td>$230</td>
+                                        <td>{{ 'GHS '.Cart::subtotal() }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Discount</td>
+                                        <td id="discountTotal">{{ session()->get('checkout_data.sub_total') ? 'GHS '.number_format(session()->get('checkout_data.sub_total'), 2) : 'GHS 0.00' }}</td>
                                     </tr>
                                     <tr>
                                         <td>Shipping</td>
-                                        <td>$70</td>
+                                        <td id="shipping Total">{{ session()->get('checkout_data.delivery') ? 'GHS '.number_format(session()->get('checkout_data.delivery'), 2) : 'GHS 0.00' }}</td>
                                     </tr>
                                     <tr class="total">
                                         <td>Total</td>
-                                        <td class="total-amount">$300</td>
+                                        <td class="total-amount">{{ session()->get('checkout_data.total') ? 'GHS '.number_format(session()->get('checkout_data.total'), 2) : 'GHS '.Cart::subtotal() }}</td>
                                     </tr>
                                 </table>
                             </div>

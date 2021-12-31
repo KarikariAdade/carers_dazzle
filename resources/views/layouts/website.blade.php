@@ -242,7 +242,7 @@
     </header>
     <!-- header area end -->
     @yield('content')
-    <footer>
+    <footer class="mt-5">
         <!-- footer top start -->
         <div class="footer-top bg-black pt-14 pb-14">
             <div class="container">

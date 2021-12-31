@@ -9,9 +9,9 @@
                     <div class="breadcrumb-wrap">
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">product details grouped</li>
+                                <li class="breadcrumb-item"><a href="{{ route('website.index') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('website.shop') }}">shop</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
                             </ul>
                         </nav>
                     </div>
@@ -71,10 +71,14 @@
                                         <tbody>
                                         <tr class="text-center">
                                             <td>
-                                                <div class="pro-qty"><input type="number" value="1" min="1" max="{{ $product->quantity }}" id="itemQuantity"></div>
+                                                <input type="hidden" readonly value="{{ $product->price }}" id="itemPriceData">
+                                                <div class="">
+                                                    <input type="number" class="form-control" value="1" min="1" max="{{ $product->quantity }}" id="itemQuantity">
+
+                                                </div>
                                             </td>
                                             <td><a href="#">{{ $product->name }}</a></td>
-                                            <td>{{ 'GHS '.number_format($product->price, 2)  }}</td>
+                                            <td id="itemPrice">{{ 'GHS '.number_format($product->price, 2)  }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -214,11 +218,11 @@
                                     <div class="product-action-link">
                                         <a href="{{ $deal->generateRoute() }}"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-eye"></i></span> </a>
                                         <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
-                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                                        <a href="{{ route('website.cart.add', $deal->id) }}" class="addToCartBtn" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
                                     </div>
                                 </div>
                                 <div class="product-content">
-                                    <h4><a href="product-details.html">{{ $deal->name }}</a></h4>
+                                    <h4><a href="{{ $product->generateRoute() }}">{{ $deal->name }}</a></h4>
                                     <div class="pricebox">
                                         <span class="regular-price">GHS {{ number_format($deal->price, 2) }}</span>
                                         <div class="ratings">

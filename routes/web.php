@@ -53,6 +53,7 @@ Route::prefix('shop')->group(function(){
         Route::any('add/{product}', [CartController::class, 'addToCart'])->name('website.cart.add');
         Route::post('item/{row}/remove', [CartController::class, 'removeFromCart'])->name('website.cart.remove');
         Route::post('update', [CartController::class, 'updateCart'])->name('website.cart.update');
+        Route::post('coupon/add', [CartController::class, 'addCoupon'])->name('website.cart.coupon.add');
     });
 
     Route::prefix('checkout')->group(function (){

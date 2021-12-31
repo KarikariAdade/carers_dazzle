@@ -57,7 +57,7 @@ button:focus {
 }
 
 .form-control:focus {
-    border-color: #fedc19;
+    border-color: #d8373e;
     -webkit-box-shadow: none;
     box-shadow: none;
 }
