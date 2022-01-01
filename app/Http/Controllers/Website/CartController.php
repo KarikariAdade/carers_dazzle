@@ -22,6 +22,28 @@ class CartController extends Controller
         return view('website.cart.index', ['pageItems' => $this->pageDependencies(), 'regions' => $regions]);
     }
 
+    public function computeCoupon()
+    {
+        $coupon = session()->get('checkout_data.coupon');
+
+        if(!empty($coupon))
+            $coupon_discount = $this->calculateDiscount($coupon->amount_type, $coupon->amount, Cart::subtotal(0, '', ''));
+
+
+        $checkout_amount = [
+            'card' => Cart::content(),
+            'total' => $coupon ? Cart::subtotal(0, '', '') - (Cart::subtotal(0, '', '') - $this->calculateDiscount($coupon->amount_type, $coupon->amount)) : Cart::subtotal(0, '', ''),
+            'delivery' => session()->get('delivery_bill') ?? 0,
+//            'sub_total' => $coupon ? (Cart::subtotal(0,'', '') - $cart->price) - $coupon : 0,
+
+//            'originalcart_price' => $cart->price,
+            'sub_total' => $coupon ? Cart::subtotal(0, '', '') - $this->calculateDiscount($coupon->amount_type, $coupon->amount) : 0,
+            'coupon' => session()->get('checkout_data.coupon')
+        ];
+
+        session()->put('checkout_data', $checkout_amount);
+    }
+
     public function addToCart(Request $request, Product $product)
     {
 
@@ -46,6 +68,8 @@ class CartController extends Controller
 
                         Cart::add($cart_data);
 
+                        $this->computeCoupon();
+
                         return response()->json([
                             'msg' => "$product->name added to cart",
                             'code' => 200,
@@ -66,6 +90,8 @@ class CartController extends Controller
         }
 
         Cart::add($cart_data);
+
+        $this->computeCoupon();
 
         return response()->json([
             'msg' => "$product->name added to cart",
@@ -99,12 +125,12 @@ class CartController extends Controller
 
         $checkout_amount = [
             'card' => Cart::content(),
-            'total' => Cart::subtotal(0, '', '') - (Cart::subtotal(0, '', '') - $this->calculateDiscount($coupon->amount_type, $coupon->amount)),
+            'total' => $coupon ? Cart::subtotal(0, '', '') - (Cart::subtotal(0, '', '') - $this->calculateDiscount($coupon->amount_type, $coupon->amount)) : Cart::subtotal(0, '', ''),
             'delivery' => session()->get('delivery_bill') ?? 0,
 //            'sub_total' => $coupon ? (Cart::subtotal(0,'', '') - $cart->price) - $coupon : 0,
 
             'originalcart_price' => $cart->price,
-            'sub_total' => Cart::subtotal(0, '', '') - $this->calculateDiscount($coupon->amount_type, $coupon->amount),
+            'sub_total' => $coupon ? Cart::subtotal(0, '', '') - $this->calculateDiscount($coupon->amount_type, $coupon->amount) : 0,
             'coupon' => session()->get('checkout_data.coupon')
         ];
 
@@ -140,6 +166,8 @@ class CartController extends Controller
 
         }
 
+        $this->computeCoupon();
+
         Session::flash('success', 'Cart updated successfully');
 
         return response()->json([
@@ -166,7 +194,7 @@ class CartController extends Controller
                 $discount = $this->calculateDiscount($coupon->amount_type, $coupon->amount);
 
                 $checkout_amount = [
-                    'card' => Cart::content(),
+                    'cart' => Cart::content(),
                     'total' => $discount,
                     'delivery' => session()->get('delivery_bill') ?? 0,
                     'sub_total' => Cart::subtotal(0,'', '') - $discount,

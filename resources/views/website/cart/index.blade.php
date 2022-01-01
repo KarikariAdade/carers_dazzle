@@ -128,7 +128,7 @@
                                     </tr>
                                     <tr class="total">
                                         <td>Total</td>
-                                        <td class="total-amount">{{ session()->get('checkout_data.total') ? 'GHS '.number_format(session()->get('checkout_data.total'), 2) : 'GHS '.Cart::subtotal() }}</td>
+                                        <td class="total-amount">{{ session()->get('checkout_data.coupon') ? 'GHS '.number_format(session()->get('checkout_data.total'), 2) : 'GHS '.Cart::subtotal() }}</td>
                                     </tr>
                                 </table>
                             </div>
