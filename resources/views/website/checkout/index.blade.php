@@ -7,8 +7,8 @@
                     <div class="breadcrumb-wrap">
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('website.index') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('website.shop') }}">shop</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">checkout</li>
                             </ul>
                         </nav>
@@ -21,9 +21,12 @@
     <div class="checkout-page-wrapper">
         <div class="container">
             <div class="row">
+
                 <div class="col-12">
                     <!-- Checkout Login Coupon Accordion Start -->
+                    @include('layouts.errors')
                     <div class="checkoutaccordion" id="checkOutAccordion">
+                        @if(!auth()->guard('web')->check())
                         <div class="card">
                             <h3>Returning Customer? <span data-toggle="collapse" data-target="#logInaccordion" aria-expanded="false" class="collapsed">Click Here To Login</span></h3>
 
@@ -58,22 +61,25 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
 
+                        @if(empty(session()->get('checkout_data.coupon')))
                         <div class="card">
                             <h3>Have A Coupon? <span data-toggle="collapse" data-target="#couponaccordion" aria-expanded="false" class="collapsed">Click Here To Enter Your Code</span></h3>
                             <div id="couponaccordion" class="collapse" data-parent="#checkOutAccordion" style="">
                                 <div class="card-body">
                                     <div class="cart-update-option">
                                         <div class="apply-coupon-wrapper">
-                                            <form action="#" method="post" class=" d-block d-md-flex">
-                                                <input type="text" placeholder="Enter Your Coupon Code" required="">
-                                                <button class="check-btn sqr-btn">Apply Coupon</button>
+                                            <form action="{{ route('website.cart.coupon.add') }}" method="POST" id="couponForm" class=" d-block d-md-flex">
+                                                <input type="text" name="coupon" placeholder="Enter Your Coupon Code" required="">
+                                                <button class="check-btn sqr-btn" type="submit">Apply Coupon</button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                            @endif
                     </div>
                     <!-- Checkout Login Coupon Accordion End -->
                 </div>
