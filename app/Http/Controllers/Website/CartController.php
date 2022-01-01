@@ -291,10 +291,20 @@ class CartController extends Controller
 
         Log::info(session()->get('checkout_data'));
 
-        return session()->get('delivery_bill');
-
         Session::flash('success', 'Shipping address added');
+
+        return $this->successResponse('Shipping address added');
     }
+
+
+
+    public function clearCart()
+    {
+        Cart::destroy();
+
+        return back()->with('success', 'Cart successfully cleared');
+    }
+
 
 
     public function computeCoupon()

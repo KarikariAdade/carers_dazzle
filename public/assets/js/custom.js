@@ -656,6 +656,26 @@ $(document).ready(function (){
         runCartAjaxCalls($(this).attr('action'), $(this).serialize());
     })
 
+    $('#clearCartBtn').click(function (e){
+        e.preventDefault();
+
+        e.preventDefault()
+        let url = $(this).attr('href');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Are you sure you want to clear your cart?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Clear'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        })
+    })
+
 
     function runCartUpdate(response){
         let cart_dropdown = ``,

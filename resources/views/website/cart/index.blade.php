@@ -67,6 +67,9 @@
                             </form>
                         </div>
                         <div class="cart-update mt-sm-16">
+                            <a href="{{ route('website.cart.clear') }}" id="clearCartBtn" class="sqr-btn">Clear Cart</a>
+                        </div>
+                        <div class="cart-update mt-sm-16">
                             <a href="{{ route('website.cart.update') }}" id="updateCartBtn" class="sqr-btn">Update Cart</a>
                         </div>
                     </div>

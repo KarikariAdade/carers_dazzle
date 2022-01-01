@@ -14,11 +14,11 @@ class CheckoutController extends Controller
         $shipping_data = session()->get('delivery_bill');
 
         if (empty($checkout_data)) {
-            return redirect()->route('website.cart.index')->withErrors('Add items to cart');
+            return redirect()->route('website.cart.index')->withErrors('Add items to cart before checking out');
         }
 
         if (empty($shipping_data)) {
-            return redirect()->route('website.cart.index')->withErrors('Add shipping data');
+            return redirect()->route('website.cart.index')->withErrors('Add shipping data before you checkout');
         }
 
         return view('website.checkout.index', ['pageItems' => $this->pageDependencies()]);
