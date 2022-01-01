@@ -203,6 +203,8 @@ class CartController extends Controller
 
                 session()->put('checkout_data', $checkout_amount);
 
+                Session::flash('success', 'Coupon applied successfully');
+
                 return response()->json([
                     'code' => 200,
                     $checkout_amount,
@@ -244,6 +246,17 @@ class CartController extends Controller
 
         return $discount;
 
+    }
+
+
+    public function calculateShipping(Request $request)
+    {
+        $data = $request->all();
+
+        $validate = Validator::make($data, [
+            'region' => 'required',
+            'town' => 'required'
+        ]);
     }
 
 
