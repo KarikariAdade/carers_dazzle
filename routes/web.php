@@ -74,6 +74,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('auth/login/index', [AdminAuthController::class, 'index'])->name('admin.auth.login.index');
     Route::post('auth/login', [AdminAuthController::class, 'login'])->name('admin.auth.login');
     Route::get('auth/logout', [AdminAuthController::class, 'logout'])->name('admin.auth.logout');
+    Route::post('get/towns', [ShippingController::class, 'getTowns'])->name('product.shipping.get.town');
 
 Route::group(['middleware' => 'auth:admin'], function (){
 
@@ -160,7 +161,6 @@ Route::group(['middleware' => 'auth:admin'], function (){
         Route::post('update/{shipping}', [ShippingController::class, 'update'])->name('product.shipping.update');
         Route::any('delete/{shipping}', [ShippingController::class, 'delete'])->name('product.shipping.delete');
         Route::any('set/default/{shipping}', [ShippingController::class, 'setDefault'])->name('product.shipping.set.default');
-        Route::post('get/towns', [ShippingController::class, 'getTowns'])->name('product.shipping.get.town');
     });
 
     Route::prefix('promotional/banner')->group(function () {

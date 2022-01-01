@@ -517,7 +517,7 @@
 	});
 
 	// nice select active js
-	$('select').niceSelect();
+
 
 	// modal fix
 	$('.modal').on('shown.bs.modal', function (e) {

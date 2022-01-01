@@ -19,6 +19,8 @@
     <link href="{{ asset('customer_asset/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('customer_asset/css/skin-default.css') }}" rel="stylesheet" id="galio-skin">
 
+    <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
+
 </head>
 
 <body>
@@ -79,9 +81,11 @@
                                     <li>
                                         <a href="{{ route('website.cart.index') }}">my cart</a>
                                     </li>
-                                    <li>
-                                        <a href="#">checkout</a>
-                                    </li>
+                                    @if(Cart::count() > 0)
+                                        <li>
+                                            <a href="{{ route('website.checkout.index') }}">checkout</a>
+                                        </li>
+                                    @endif
                                 </ul>
                             </nav>
                         </div>
@@ -168,7 +172,9 @@
                                             <span class="subtotal-price">{{ 'GHS ' . Cart::subtotal() }}</span>
                                         </li>
                                         <li class="checkout-btn">
+                                            @if(Cart::count() > 0)
                                             <a href="{{ route('website.checkout.index') }}">checkout</a>
+                                            @endif
                                         </li>
                                     </ul>
                                 </div>
@@ -387,7 +393,11 @@
 <script src="{{ asset('customer_asset/js/plugins.js') }}"></script>
 <script src="{{ asset('customer_asset/js/main.js') }}"></script>
 <script src="{{ asset('assets/js/sweet_alert.min.js') }}"></script>
+<script src="{{ asset('assets/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
+<script>
+    $('.select2').select2();
+</script>
 @stack('custom-js')
 </body>
 

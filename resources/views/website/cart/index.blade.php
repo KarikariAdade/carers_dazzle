@@ -49,7 +49,7 @@
                                     <div class="pro-qty"><input type="number" min="1" max="" name="item_quantity" value="{{ $cart->qty }}"  title="{{ $cart->rowId }}"></div>
                                 </td>
                                 <td class="pro-subtotal"><span>{{ $cart->subtotal }}</span></td>
-                                <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                <td class="pro-remove"><a href="{{ route('website.cart.remove', $cart->rowId) }}" class="removeCart"><i class="fa fa-trash-o"></i></a></td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -81,10 +81,11 @@
                             <h3>Shipping</h3>
                         </div>
                         <div class="card-body">
-                            <form method="POST" class="row">
+                            <form method="POST" class="row shippingCart" action="{{ route('website.cart.shipping.calculate') }}">
+                                @csrf
                                 <div class="col-md-6">
                                     <label>Region</label><br>
-                                    <select class="select2" name="region" style="width: 100%;">
+                                    <select class="select2" name="region" id="shippingRegion" style="width: 100%;">
                                         <option></option>
                                         @foreach($regions as $region)
                                             <option value="{{ $region->id }}">{{ $region->name }}</option>
@@ -93,14 +94,10 @@
                                 </div>
                                 <div class=" col-md-6">
                                     <label>Town</label><br>
-                                    <select class="select2" name="region" style="width: 100%;">
+                                    <select name="town" class="select2" style="width: 100%;" id="shippingTown">
                                     </select>
                                 </div>
-                                <div class="col-md-6 mt-5">
-                                    <p>Shipping Fee</p>
-                                    <p>GHS 443.00</p>
-                                </div>
-                                <div class="col-md-6 mt-5">
+                                <div class="col-md-12 mt-5">
                                     <button class="sqr-btn" type="submit">Calculate Shipping</button>
                                 </div>
                             </form>
@@ -128,15 +125,38 @@
                                     </tr>
                                     <tr class="total">
                                         <td>Total</td>
-                                        <td class="total-amount">{{ session()->get('checkout_data.coupon') ? 'GHS '.number_format(session()->get('checkout_data.total'), 2) : 'GHS '.Cart::subtotal() }}</td>
+                                        <td class="total-amount">{{ session()->get('checkout_data') ? 'GHS '.number_format(session()->get('checkout_data.total'), 2) : 'GHS '.Cart::subtotal() }}</td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
-                        <a href="checkout.html" class="sqr-btn d-block">Proceed To Checkout</a>
+                        @if(Cart::count() > 0)
+                        <a href="{{ route('website.checkout.index') }}" class="sqr-btn d-block">Proceed To Checkout</a>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+@push('custom-js')
+    <script>
+        $('#shippingRegion').change(function () {
+            if ($(this).val() !== ''){
+                let url = `{{ route('product.shipping.get.town') }}`,
+                    output = ``;
+                $.post(url, {'item': $(this).val()}, function (response){
+                    console.log(response)
+                    if(!jQuery.isEmptyObject(response)){
+                        $.each(response, function(i, town) {
+                            output += `<option value="${town.id}">${town.name}</option>`;
+                        });
+                        $('#shippingTown').html(output)
+                    }
+                })
+            }else{
+                $('#shippingTown').html('')
+            }
+        })
+    </script>
+@endpush

@@ -9,6 +9,18 @@ class CheckoutController extends Controller
 {
     public function index()
     {
+        $checkout_data = session()->get('checkout_data');
+
+        $shipping_data = session()->get('delivery_bill');
+
+        if (empty($checkout_data)) {
+            return redirect()->route('website.cart.index')->withErrors('Add items to cart');
+        }
+
+        if (empty($shipping_data)) {
+            return redirect()->route('website.cart.index')->withErrors('Add shipping data');
+        }
+
         return view('website.checkout.index', ['pageItems' => $this->pageDependencies()]);
     }
 }

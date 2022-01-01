@@ -533,7 +533,22 @@ $(document).ready(function (){
             }
         });
 
-        // parent.remove();
+        parent.remove();
+    })
+
+    $('.removeCart').click(function (e){
+        e.preventDefault();
+        url = $(this).attr('href');
+
+        $.post(url, function (response){
+            console.log(response)
+            if(response.code == '200'){
+                window.location.reload();
+            }else{
+                runToast(response.msg, response.code)
+            }
+        });
+
     })
 
 
@@ -602,11 +617,25 @@ $(document).ready(function (){
         })
     })
 
+    function runCartAjaxCalls(url, data){
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: data,
+        }).done((response) => {
+            console.log(response)
+            if (response.code == '200'){
+                runToast(response.msg, response.code)
+                window.location.reload();
+            }else{
+                runToast(response.msg, response.code)
+            }
+        })
+    }
 
     $('#couponForm').submit(function (e){
         e.preventDefault();
         url = $(this).attr('action');
-        form =
         $.ajax({
             url: url,
             method: 'POST',
@@ -619,6 +648,12 @@ $(document).ready(function (){
                 runToast(response.msg, response.code)
             }
         })
+    })
+
+
+    $('.shippingCart').submit(function (e){
+        e.preventDefault();
+        runCartAjaxCalls($(this).attr('action'), $(this).serialize());
     })
 
 
