@@ -87,13 +87,14 @@
                 </div>
             </div>
 
-            <div class="row">
+            <form class="row" action="{{ route('website.checkout.order') }}" id="orderForm">
+                @csrf
+                    @method('POST')
                 <!-- Checkout Billing Details -->
                 <div class="col-lg-6">
                     <div class="checkout-billing-details-wrap">
                         <h2>Billing Details</h2>
                         <div class="billing-form-wrap">
-                            <form action="#">
                                     <div class="single-input-item">
                                         <label for="email" class="required">Full Name</label>
                                         <input type="text" id="name" placeholder="Full Name" required="" name="name" value="{{ auth()->guard('web')->user()->name ?? '' }}">
@@ -101,42 +102,42 @@
 
                                 <div class="single-input-item">
                                     <label for="email" class="required">Email Address</label>
-                                    <input type="email" id="email" placeholder="Email Address" required="" value="{{ auth()->guard('web')->user()->email ?? ''}}">
+                                    <input type="email" name="email" placeholder="Email Address" required="" value="{{ auth()->guard('web')->user()->email ?? ''}}">
                                 </div>
 
                                 <div class="single-input-item">
                                     <label for="street-address" class="required pt-20">Street address</label>
-                                    <input type="text" name="street_address" id="street-address" placeholder="Street address Line 1" required="">
+                                    <input type="text" name="street_address" id="street-address" placeholder="Street address Line 1" value="{{ $user ? $user->street_address_1 : old('street_address')  }}" required="">
                                 </div>
 
                                 <div class="single-input-item">
-                                    <input type="text" name="street_address_secondary" placeholder="Street address Line 2 (Optional)">
+                                    <input type="text" name="street_address_secondary" placeholder="Street address Line 2 (Optional)" value="{{ $user ? $user->street_address_2 : old('street_address')  }}">
                                 </div>
 
                                 <div class="single-input-item">
                                     <label for="town" class="required">Town</label>
-                                    <input type="text" id="town" readonly value="{{ $town->name }}">
+                                    <input type="text" name="town" readonly value="{{ $town->name }}">
                                 </div>
 
                                 <div class="single-input-item">
                                     <label for="state">Region</label>
-                                    <input type="text" id="region" readonly value="{{ $region->name }}">
+                                    <input type="text" name="region" readonly value="{{ $region->name }}">
                                 </div>
 
                                 <div class="single-input-item">
                                     <label for="postcode" class="required">Postcode / ZIP</label>
-                                    <input type="text" id="postcode" placeholder="Postcode / ZIP" required="">
+                                    <input type="text" name="postcode" placeholder="Postcode / ZIP" required="" value="{{ $user ? $user->zip_code : old('postcode')  }}">
                                 </div>
 
                                 <div class="single-input-item">
                                     <label for="phone">Phone</label>
-                                    <input type="text" id="phone" placeholder="Phone">
+                                    <input type="text" id="phone" name="phone" placeholder="Phone" value="{{ $user ? $user->phone : old('phone')  }}">
                                 </div>
-
+                            @if(!auth()->guard('web')->check())
                                 <div class="checkout-box-wrap">
                                     <div class="single-input-item">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="create_pwd">
+                                            <input type="checkbox" class="custom-control-input" name="create_pwd" id="create_pwd">
                                             <label class="custom-control-label" for="create_pwd">Create an account?</label>
                                         </div>
                                     </div>
@@ -144,16 +145,16 @@
                                         <p>Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
                                         <div class="single-input-item">
                                             <label for="pwd" class="required">Account Password</label>
-                                            <input type="password" id="pwd" placeholder="Account Password" required="">
+                                            <input type="password" id="pwd" name="account_password" placeholder="Account Password">
                                         </div>
                                     </div>
                                 </div>
+                            @endif
 
                                 <div class="single-input-item">
                                     <label for="ordernote">Order Note</label>
-                                    <textarea name="ordernote" id="ordernote" cols="30" rows="3" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                    <textarea name="order_note" id="ordernote" cols="30" rows="3" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -206,33 +207,28 @@
                             </div>
                             <!-- Order Payment Method -->
                             <div class="order-payment-method">
-                                <div class="single-payment-method show">
+                                <div class="single-payment-method">
                                     <div class="payment-method-name">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="cashon" name="paymentmethod" value="cash" class="custom-control-input" checked="">
+                                            <input type="radio" id="cashon" name="payment_method" value="cash" class="custom-control-input" checked="">
                                             <label class="custom-control-label" for="cashon">Cash On Delivery</label>
                                         </div>
-                                    </div>
-                                    <div class="payment-method-details" data-method="cash">
-                                        <p>Pay with cash upon delivery.</p>
                                     </div>
                                 </div>
                                 <div class="single-payment-method">
                                     <div class="payment-method-name">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="directbank" name="paymentmethod" value="bank" class="custom-control-input">
-                                            <label class="custom-control-label" for="directbank">Direct Bank Transfer</label>
+                                            <input type="radio" id="momo" name="payment_method" value="momo" class="custom-control-input">
+                                            <label class="custom-control-label" for="momo">Pay Through Momo</label>
                                         </div>
                                     </div>
-                                    <div class="payment-method-details" data-method="bank">
-                                        <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account..</p>
-                                    </div>
                                 </div>
+                                <button class="sqr-btn" id="placeOrderBtn" type="submit">Place Order</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 @endsection

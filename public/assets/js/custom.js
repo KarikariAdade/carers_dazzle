@@ -722,5 +722,18 @@ $(document).ready(function (){
         runCartAjaxCalls($(this).attr('action'), $(this).serialize())
     })
 
+
+
+    $('#orderForm').submit(function (e){
+        e.preventDefault();
+        url = $(this).attr('action');
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: $(this).serialize(),
+        }).done((response) => {
+            console.log(response)
+        })
+    })
 });
 
