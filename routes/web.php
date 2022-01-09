@@ -59,7 +59,8 @@ Route::prefix('shop')->group(function(){
     });
 
     Route::prefix('checkout')->group(function (){
-        route::get('/', [CheckoutController::class, 'index'])->name('website.checkout.index');
+        Route::get('/', [CheckoutController::class, 'index'])->name('website.checkout.index');
+        Route::post('customer/login', [CheckoutController::class, 'customerLogin'])->name('website.checkout.customer.login');
     });
 });
 

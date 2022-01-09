@@ -461,18 +461,6 @@ $(document).ready(function (){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     //============================================= WEBSITE JS ==============================================
 
 
@@ -617,13 +605,15 @@ $(document).ready(function (){
         })
     })
 
+
+
+
     function runCartAjaxCalls(url, data){
         $.ajax({
             url: url,
             method: 'POST',
             data: data,
         }).done((response) => {
-            console.log(response)
             if (response.code == '200'){
                 runToast(response.msg, response.code)
                 window.location.reload();
@@ -721,6 +711,16 @@ $(document).ready(function (){
         $('.cart-notification').html(response.cart_count)
         $('.cart-total-price').html(cart_total)
     }
+
+
+
+
+    /* ================================== CHECKOUT SCRIPTS =============================== */
+
+    $('#cartLogin').submit(function (e){
+        e.preventDefault();
+        runCartAjaxCalls($(this).attr('action'), $(this).serialize())
+    })
 
 });
 

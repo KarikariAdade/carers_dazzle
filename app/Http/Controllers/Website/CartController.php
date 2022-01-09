@@ -27,7 +27,6 @@ class CartController extends Controller
 
     public function addToCart(Request $request, Product $product)
     {
-
         $cart_data = [
             'id' => $product->id,
             'name' => $product->name,
@@ -171,6 +170,10 @@ class CartController extends Controller
 
         if($validate->fails())
             return $this->failResponse($validate->errors()->first());
+
+        if(Cart::count() < 0){
+            return $this->failResponse('Please add items to cart before applying coupon');
+        }
 
         $coupon = Coupon::query()->where('name', $coupon_code)->first();
 

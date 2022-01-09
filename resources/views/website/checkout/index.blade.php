@@ -32,27 +32,29 @@
 
                             <div id="logInaccordion" class="collapse" data-parent="#checkOutAccordion" style="">
                                 <div class="card-body">
-                                    <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the Billing &amp; Shipping section.</p>
+                                    <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the checkout section.</p>
                                     <div class="login-reg-form-wrap mt-20">
                                         <div class="row">
                                             <div class="col-lg-7 m-auto">
-                                                <form action="#" method="post">
+                                                <form  method="POST" action="{{ route('website.checkout.customer.login') }}" id="cartLogin">
+                                                    @csrf
+                                                    @method('POST')
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="single-input-item">
-                                                                <input type="email" placeholder="Enter your Email" required="">
+                                                                <input type="email" name="email" placeholder="Enter your Email" required="">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-12">
                                                             <div class="single-input-item">
-                                                                <input type="password" placeholder="Enter your Password" required="">
+                                                                <input type="password" name="password" placeholder="Enter your Password" required="">
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="single-input-item">
-                                                        <button class="check-btn sqr-btn">Login</button>
+                                                        <button class="check-btn sqr-btn" type="submit">Login</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -94,31 +96,31 @@
                             <form action="#">
                                     <div class="single-input-item">
                                         <label for="email" class="required">Full Name</label>
-                                        <input type="text" id="name" placeholder="Full Name" required="">
+                                        <input type="text" id="name" placeholder="Full Name" required="" name="name" value="{{ auth()->guard('web')->user()->name ?? '' }}">
                                     </div>
 
                                 <div class="single-input-item">
                                     <label for="email" class="required">Email Address</label>
-                                    <input type="email" id="email" placeholder="Email Address" required="">
+                                    <input type="email" id="email" placeholder="Email Address" required="" value="{{ auth()->guard('web')->user()->email ?? ''}}">
                                 </div>
 
                                 <div class="single-input-item">
                                     <label for="street-address" class="required pt-20">Street address</label>
-                                    <input type="text" id="street-address" placeholder="Street address Line 1" required="">
+                                    <input type="text" name="street_address" id="street-address" placeholder="Street address Line 1" required="">
                                 </div>
 
                                 <div class="single-input-item">
-                                    <input type="text" placeholder="Street address Line 2 (Optional)">
+                                    <input type="text" name="street_address_secondary" placeholder="Street address Line 2 (Optional)">
                                 </div>
 
                                 <div class="single-input-item">
-                                    <label for="town" class="required">Town / City</label>
-                                    <input type="text" id="town" placeholder="Town / City" required="">
+                                    <label for="town" class="required">Town</label>
+                                    <input type="text" id="town" readonly value="{{ $town->name }}">
                                 </div>
 
                                 <div class="single-input-item">
-                                    <label for="state">State / Region</label>
-                                    <input type="text" id="state" placeholder="State / Divition">
+                                    <label for="state">Region</label>
+                                    <input type="text" id="region" readonly value="{{ $region->name }}">
                                 </div>
 
                                 <div class="single-input-item">
@@ -147,61 +149,6 @@
                                     </div>
                                 </div>
 
-                                <div class="checkout-box-wrap">
-                                    <div class="single-input-item">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="ship_to_different">
-                                            <label class="custom-control-label" for="ship_to_different">Ship to a different address?</label>
-                                        </div>
-                                    </div>
-                                    <div class="ship-to-different single-form-row" style="display: none;">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="single-input-item">
-                                                    <label for="f_name_2" class="required">First Name</label>
-                                                    <input type="text" id="f_name_2" placeholder="First Name" required="">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="single-input-item">
-                                                    <label for="l_name_2" class="required">Last Name</label>
-                                                    <input type="text" id="l_name_2" placeholder="Last Name" required="">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="single-input-item">
-                                            <label for="email_2" class="required">Email Address</label>
-                                            <input type="email" id="email_2" placeholder="Email Address" required="">
-                                        </div>
-
-                                        <div class="single-input-item">
-                                            <label for="street-address_2" class="required pt-20">Street address</label>
-                                            <input type="text" id="street-address_2" placeholder="Street address Line 1" required="">
-                                        </div>
-
-                                        <div class="single-input-item">
-                                            <input type="text" placeholder="Street address Line 2 (Optional)">
-                                        </div>
-
-                                        <div class="single-input-item">
-                                            <label for="town_2" class="required">Town / City</label>
-                                            <input type="text" id="town_2" placeholder="Town / City" required="">
-                                        </div>
-
-                                        <div class="single-input-item">
-                                            <label for="state_2">State / Divition</label>
-                                            <input type="text" id="state_2" placeholder="State / Divition">
-                                        </div>
-
-                                        <div class="single-input-item">
-                                            <label for="postcode_2" class="required">Postcode / ZIP</label>
-                                            <input type="text" id="postcode_2" placeholder="Postcode / ZIP" required="">
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="single-input-item">
                                     <label for="ordernote">Order Note</label>
                                     <textarea name="ordernote" id="ordernote" cols="30" rows="3" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
@@ -226,46 +173,33 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach(Cart::content() as $cart)
                                     <tr>
-                                        <td><a href="single-product.html">Suscipit Vestibulum <strong> × 1</strong></a></td>
-                                        <td>$165.00</td>
+                                        <td><a href="single-product.html">{{ $cart->name }} <strong> × {{ $cart->qty }}</strong></a></td>
+                                        <td>GHS {{ number_format($cart->subtotal, 2) }}</td>
                                     </tr>
-                                    <tr>
-                                        <td><a href="single-product.html">Ami Vestibulum suscipit <strong> × 4</strong></a></td>
-                                        <td>$165.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="single-product.html">Vestibulum suscipit <strong> × 2</strong></a></td>
-                                        <td>$165.00</td>
-                                    </tr>
+                                    @endforeach
                                     </tbody>
                                     <tfoot>
                                     <tr>
                                         <td>Sub Total</td>
-                                        <td><strong>$400</strong></td>
+                                        <td><strong>{{ 'GHS '.Cart::subtotal() }}</strong></td>
                                     </tr>
                                     <tr>
                                         <td>Shipping</td>
                                         <td class="d-flex justify-content-center">
-                                            <ul class="shipping-type">
-                                                <li>
-                                                    <div class="custom-control custom-radio">
-                                                        <input type="radio" id="flatrate" name="shipping" class="custom-control-input" checked="">
-                                                        <label class="custom-control-label" for="flatrate">Flat Rate: $70.00</label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="custom-control custom-radio">
-                                                        <input type="radio" id="freeshipping" name="shipping" class="custom-control-input">
-                                                        <label class="custom-control-label" for="freeshipping">Free Shipping</label>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                            {{ session()->get('checkout_data.delivery') ? 'GHS '.number_format(session()->get('checkout_data.delivery'), 2) : 'GHS 0.00' }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Discount</td>
+                                        <td class="d-flex justify-content-center">
+                                            {{ session()->get('checkout_data.sub_total') ? 'GHS '.number_format(session()->get('checkout_data.sub_total'), 2) : 'GHS 0.00' }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Total Amount</td>
-                                        <td><strong>$470</strong></td>
+                                        <td><strong>{{ session()->get('checkout_data') ? 'GHS '.number_format(session()->get('checkout_data.total'), 2) : 'GHS '.Cart::subtotal() }}</strong></td>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -293,13 +227,6 @@
                                     <div class="payment-method-details" data-method="bank">
                                         <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account..</p>
                                     </div>
-                                </div>
-                                <div class="summary-footer-area">
-                                    <div class="custom-control custom-checkbox mb-14">
-                                        <input type="checkbox" class="custom-control-input" id="terms" required="">
-                                        <label class="custom-control-label" for="terms">I have read and agree to the website <a href="index.html">terms and conditions.</a></label>
-                                    </div>
-                                    <button type="submit" class="check-btn sqr-btn">Place Order</button>
                                 </div>
                             </div>
                         </div>
