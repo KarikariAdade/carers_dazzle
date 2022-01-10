@@ -733,6 +733,12 @@ $(document).ready(function (){
             data: $(this).serialize(),
         }).done((response) => {
             console.log(response)
+            if (response.code == '200'){
+                runToast(response.msg, response.code)
+                window.location.reload();
+            }else{
+                runToast(response.msg, response.code)
+            }
         })
     })
 });
