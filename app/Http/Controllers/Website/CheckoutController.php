@@ -97,6 +97,8 @@ class CheckoutController extends Controller
 
         $invoice = Invoice::query()->create($this->createInvoice($data, $order->id));
 
+        $order->update(['invoice_id' => $invoice->id]);
+
         $data['msg'] = 'Dear '.$data['name'].', your order('.$order->order_id.') has been placed. Please visit your portal or your email to download your invoice.';
 
         $this->sendSMS($data);
@@ -130,9 +132,22 @@ class CheckoutController extends Controller
 
         Cart::destroy();
 
-        Session::flash('success', 'You have successfully placed your order. ');
+        Session::flash('success', 'You have successfully placed your order. Thank You for doing business with E-SQUARE ELECTRONICS');
 
-        return $this->successResponse("Order made successfully");
+        $url = '';
+
+        if(!empty(auth()->guard('web')->user())){
+            $url = route('customer.dashboard');
+        }else{
+            $url = route('website.index');
+        }
+
+        return response()->json([
+            'code' => 200,
+            'msg' => "Order made successfully. Thanks for doing business with E-SQUARE ELECTRONICS",
+            'url' => $url,
+            ]);
+//        return $this->successResponse("Order made successfully");
     }
 
 
@@ -146,8 +161,6 @@ class CheckoutController extends Controller
                 $data['phone']
             ]
         ];
-
-        $data['message'] = $msg;
 
         $url = 'https://devapi.fayasms.com/messages';
 

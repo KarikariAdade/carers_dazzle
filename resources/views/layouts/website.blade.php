@@ -18,6 +18,7 @@
 
     <link href="{{ asset('customer_asset/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('customer_asset/css/skin-default.css') }}" rel="stylesheet" id="galio-skin">
+    <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
 
@@ -199,7 +200,7 @@
                                         <i class="fa fa-angle-down"></i>
                                     </div>
                                 </div>
-                                <nav class="category-menu hm-1" @if( str_contains(url()->current(), 'shop'))  style="display: none;" @endif>
+                                <nav class="category-menu hm-1" @if( str_contains(url()->current(), 'shop') || str_contains(url()->current(), 'customer'))  style="display: none;" @endif>
                                     <ul>
                                         @foreach($pageItems['categories'] as $category)
                                         <li class="menu-item-has-children">
@@ -395,6 +396,7 @@
 <script src="{{ asset('assets/js/sweet_alert.min.js') }}"></script>
 <script src="{{ asset('assets/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
+<script src="{{ asset('DataTables/datatables.min.js') }}"></script>
 <script>
     $('.select2').select2();
 </script>

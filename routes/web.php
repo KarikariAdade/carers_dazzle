@@ -207,6 +207,13 @@ Route::group(['middleware' => 'auth:admin'], function (){
 
 
 
-Route::group(['middleware' => 'web', 'prefix' => 'customer'], function (){
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('customer.dashboard');
+Route::group(['middleware' => 'web', 'prefix' => 'customer/dashboard'], function (){
+    Route::get('/', [DashboardController::class, 'index'])->name('customer.dashboard');
+    Route::get('orders', [DashboardController::class, 'orders'])->name('customer.orders');
+    Route::get('orders/{order}/{hash}/{random}', [DashboardController::class, 'orderDetail'])->name('customer.orders.detail');
+
+    Route::prefix('invoice')->group(function (){
+        Route::get('/', [DashboardController::class, 'invoices'])->name('customer.invoices');
+        Route::get('invoice/{invoice}/{hash}/{random}', [DashboardController::class, 'invoiceDetail'])->name('customer.invoices.detail');
+    });
 });

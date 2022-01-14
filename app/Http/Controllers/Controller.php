@@ -37,9 +37,9 @@ class Controller extends BaseController
     public function logSMSData($custom_data, $data)
     {
       return SMSLogs::query()->create([
-          'type' => $custom_data['type'],
-          'status' => $data['status'],
-          'message' => $custom_data['message'],
+          'type' => $custom_data['type'] ?? 'N/A',
+          'status' => $data['status'] ?? 'N/A',
+          'message' => $custom_data['message'] ?? 'N/A',
           'recipient' => $custom_data['phone'],
       ]);
     }

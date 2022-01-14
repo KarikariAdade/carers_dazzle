@@ -735,7 +735,7 @@ $(document).ready(function (){
             console.log(response)
             if (response.code == '200'){
                 runToast(response.msg, response.code)
-                window.location.reload();
+                window.location = response.msg.url;
             }else{
                 runToast(response.msg, response.code)
             }
