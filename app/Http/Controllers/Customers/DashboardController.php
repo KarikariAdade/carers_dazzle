@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Website\HomepageController;
 use App\Models\Invoice;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -51,5 +52,29 @@ class DashboardController extends Controller
         $invoice_items = json_decode($invoice->meta, true);
 
         return view('customers.invoice.detail', ['pageItems' => $this->pageItems, 'invoice' => $invoice, 'invoice_items' => $invoice_items]);
+    }
+
+
+    public function printInvoice(Invoice $invoice)
+    {
+        $invoice_items = json_decode($invoice->meta, true);
+
+//        return view('customers.prints.invoice', ['invoice' => $invoice, 'invoice_items' => $invoice_items]);
+        $file = PDF::loadView('customers.prints.invoice', ['invoice' => $invoice, 'invoice_items' => $invoice_items])->setPaper('A4');
+        return $file->download($invoice->invoice_number.'.pdf');
+    }
+
+
+    public function accountDetails()
+    {
+        $pageItems = $this->pageItems;
+
+        return view('customers.account.index', compact('pageItems'));
+    }
+
+
+    public function updateAccountDetails(Request $request)
+    {
+        return $request;
     }
 }

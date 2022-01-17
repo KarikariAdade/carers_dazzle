@@ -214,6 +214,13 @@ Route::group(['middleware' => 'web', 'prefix' => 'customer/dashboard'], function
 
     Route::prefix('invoice')->group(function (){
         Route::get('/', [DashboardController::class, 'invoices'])->name('customer.invoices');
-        Route::get('invoice/{invoice}/{hash}/{random}', [DashboardController::class, 'invoiceDetail'])->name('customer.invoices.detail');
+        Route::get('{invoice}/{hash}/{random}', [DashboardController::class, 'invoiceDetail'])->name('customer.invoices.detail');
+        Route::get('{invoice}/{hash}/{random}/print', [DashboardController::class, 'printInvoice'])->name('customer.invoices.print');
     });
+
+    Route::prefix('account')->group(function (){
+        Route::get('/', [DashboardController::class, 'accountDetails'])->name('customer.account.index');
+        Route::post('update', [DashboardController::class, 'updateAccountDetails'])->name('customer.account.update');
+    });
+
 });

@@ -21,4 +21,9 @@ class Invoice extends Model
     {
         return $this->belongsTo(Order::class, 'order_id');
     }
+
+    public function generatePrintRoute()
+    {
+        return route('customer.invoices.print', ['invoice' => $this->id, 'hash' => Str::random(10), 'random' => mt_rand(11111, 99999)]);
+    }
 }

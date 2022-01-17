@@ -39,7 +39,7 @@ class InvoiceDatatable extends DataTable
                 return '
                         <div style="display: inline-flex;">
                         <a href="'.$query->generateRoute().'" title="View Invoice" class="btn table-btn btn-icon btn-success btn-sm shadow-success mr-2"><i class="fa mt-2 fa-eye"></i> View</a>
-                        <a href="" title="Download Invoice" class="btn text-white table-btn btn-icon btn-primary btn-sm shadow-primary"><i class="fa mt-2 fa-download"></i> Download</a>
+                        <a href="'.$query->generatePrintRoute().'" title="Download Invoice" class="btn text-white table-btn btn-icon btn-primary btn-sm shadow-primary"><i class="fa mt-2 fa-download"></i> Download</a>
                         </div>';
             });
     }

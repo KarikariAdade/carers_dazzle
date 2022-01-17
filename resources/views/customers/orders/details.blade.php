@@ -47,8 +47,10 @@
                                         <p>
                                             <strong>Order Number:</strong> {{ $order->order_id }}<br>
                                             <strong>Order Date:</strong> {{ date('d-m-Y', strtotime($order->created_at))  }}<br>
+                                            @if(!empty($order->getInvoice))
                                             <strong>Invoice Number:</strong> {{ $order->getInvoice->invoice_number }}<br>
                                             <strong>Invoice Date:</strong> {{ date('d-m-Y', strtotime($order->getInvoice->created_at)) }}<br>
+                                            @endif
                                             <strong>Order Status:</strong> @if($order->payment_staus !== 'Paid') <span class="badge badge-danger">Unpaid</span> @else <span class="badge badge-success">Paid</span> @endif
 
                                         </p>
