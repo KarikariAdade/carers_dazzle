@@ -215,7 +215,7 @@
 
                     <li class="menu-header">Sales Management</li>
                     <li class="dropdown">
-                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Today's Sales</span></a>
+                        <a href="{{ route('sales.daily.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Today's Sales</span></a>
                     </li>
                     <li class="dropdown">
                         <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Sales Report</span></a>

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\DataTables\Customer;
+namespace App\DataTables;
 
-use App\Models\Customer;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class OrdersDatatable extends DataTable
+class DailySalesDatatable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -23,22 +23,16 @@ class OrdersDatatable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('order_status', function ($query){
-                return ucfirst($query->order_status);
-            })
-            ->editColumn('payment_type', function ($query){
-                return ucfirst($query->payment_type);
-            })
-            ->editColumn('invoice_id', function ($query){
-                return $query->getInvoice->invoice_number ?? "N/A";
-            })
-            ->editColumn('net_total', function ($query){
-                return 'GHS '.number_format($query->net_total, 2);
+            ->editColumn('user_id', function ($query){
+                return $query->getUser->name ?? 'N/A';
             })
             ->editColumn('created_at', function ($query){
-                return date('l M d, Y', strtotime($query->created_at));
+                return date('h:iA', strtotime($query->created_at));
             })
-            ->editColumn('items', function ($query){
+            ->editColumn('invoice_id', function ($query){
+                return $query->getInvoice->invoice_number ?? 'N/A';
+            })
+            ->editColumn('item_number', function ($query){
                 $items = json_decode($query->meta, true);
                 $item_count = 0;
                 foreach ($items as $item => $row){
@@ -48,36 +42,41 @@ class OrdersDatatable extends DataTable
                 return $item_count;
 
             })
-            ->addColumn('action', function ($query){
-//                return $query->getInovice->generateRoute() ?? 'N/A';
-                $invoice_route = $query->getInvoice ? $query->getInvoice->generateRoute() : null;
-
-                $output = '<div style="display: inline-flex;">';
-
-                $output .= '<a href="'.$query->generateRoute().'" title="View Order" class="btn table-btn btn-icon btn-success btn-sm shadow-success mr-2"><i class="fa mt-2 fa-eye"></i> View Order</a>
-                        ';
-
-
-                if ($query->getInvoice){
-                    $output .= '<a href="'.$invoice_route.'" title="View Invoice" class="btn text-white table-btn btn-icon btn-primary btn-sm shadow-primary"><i class="fa mt-2 fa-file-alt"></i> View Invoice</a>
-                        </div>';
+            ->editColumn('order_status', function ($query){
+                if($query->order_status === 'Paid'){
+                    return '<span class="badge badge-success"> Paid </span>';
                 }
 
+                return '<span class="badge badge-danger">Not Paid</span>';
 
+            })
+            ->editColumn('net_total', function ($query){
+                return 'GHS '.number_format($query->net_total, 2);
+            })
+            ->addColumn('action', function ($query){
+                $output = '<div style="display: inline-flex;">';
 
+                $output .= '<a href="" title="View Order" class="btn table-btn btn-icon btn-success btn-sm shadow-success mr-2"><i class="fa mt-2 fa-eye"></i></a>
+                        ';
+                if ($query->order_status === "Pending Payment"){
+                    $output .= '<a href="" title="Make Payment" class="btn text-white table-btn btn-icon btn-primary btn-sm shadow-primary"><i class="fa mt-2 fa-file-alt"></i> Make Payment</a>
+                        </div>';
+                }
                 return $output;
-            });
+            })->rawColumns(['action', 'order_status']);
     }
 
     /**
      * Get query source of dataTable.
      *
      * @param Order $model
-     * @return Builder
+     * @return Builder[]|Collection
      */
     public function query(Order $model)
     {
-        return $model->newQuery()->where('user_id', auth()->guard('web')->user()->id);
+        $model->newQuery()->whereDate('created_at', date('Y-m-d'))->orderBy('order_status', 'asc')->get();
+
+        return $model->applyScopes();
     }
 
     /**
@@ -103,17 +102,18 @@ class OrdersDatatable extends DataTable
     protected function getColumns()
     {
         return [
+
+            Column::make('user_id')->title("Customer"),
             Column::make('order_id'),
+            Column::computed('invoice_id')->title("Invoice Number"),
+            Column::computed('item_number')->title("No. of Items"),
+            Column::make('net_total'),
             Column::make('order_status'),
-            Column::make('payment_type'),
-            Column::make('invoice_id')->title('Invoice'),
-            Column::make('net_total')->width(200),
-            Column::computed('items'),
-            Column::make('created_at')->title('Date'),
+            Column::make('created_at')->title("Time Ordered"),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(60)
+                ->width(160)
                 ->addClass('text-center'),
         ];
     }
@@ -125,6 +125,6 @@ class OrdersDatatable extends DataTable
      */
     protected function filename()
     {
-        return 'Orders_' . date('YmdHis');
+        return 'DailySales_' . date('YmdHis');
     }
 }

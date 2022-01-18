@@ -614,6 +614,7 @@ $(document).ready(function (){
             method: 'POST',
             data: data,
         }).done((response) => {
+            console.log(response)
             if (response.code == '200'){
                 runToast(response.msg, response.code)
                 window.location.reload();
@@ -740,6 +741,11 @@ $(document).ready(function (){
                 runToast(response.msg, response.code)
             }
         })
+    })
+
+    $('#customerAccountUpdate').submit(function (e){
+        e.preventDefault();
+        runCartAjaxCalls($(this).attr('action'), $(this).serialize());
     })
 });
 

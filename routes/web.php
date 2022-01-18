@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Customers\DashboardController;
 use App\Http\Controllers\Sales\InvoiceController;
+use App\Http\Controllers\Sales\SalesController;
 use App\Http\Controllers\Stock\BrandController;
 use App\Http\Controllers\Stock\CouponsController;
 use App\Http\Controllers\Stock\CustomersController;
@@ -199,6 +200,11 @@ Route::group(['middleware' => 'auth:admin'], function (){
             Route::get('details/{update}', [InvoiceController::class, 'details'])->name('invoice.details');
             Route::patch('update/{update}', [InvoiceController::class, 'update'])->name('invoice.update');
             Route::any('delete/{update}', [InvoiceController::class, 'delete'])->name('invoice.delete');
+        });
+
+        Route::prefix('daily/sales')->group(function (){
+            Route::get('/', [SalesController::class, 'index'])->name('sales.daily.index');
+            Route::get('{sale}/details', [SalesController::class, 'dailySaleDetail'])->name('sales.daily.details');
         });
     });
 
