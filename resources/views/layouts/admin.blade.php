@@ -227,6 +227,9 @@
                         <a href="{{ route('invoice.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Invoices</span></a>
                     </li>
                     <li class="dropdown">
+                        <a href="{{ route('sales.order.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Orders</span></a>
+                    </li>
+                    <li class="dropdown">
                         <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Payments</span></a>
                     </li>
                     <li class="menu-header">Susu</li>

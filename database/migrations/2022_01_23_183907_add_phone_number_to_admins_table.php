@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddOrderPaymentTransactionIdToOrders extends Migration
+class AddPhoneNumberToAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddOrderPaymentTransactionIdToOrders extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->string('trans_code')->nullable();
+        Schema::table('admins', function (Blueprint $table) {
+            $table->string('phone')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddOrderPaymentTransactionIdToOrders extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn(['trans_code']);
+        Schema::table('admins', function (Blueprint $table) {
+            $table->dropColumn(['phone']);
         });
     }
 }

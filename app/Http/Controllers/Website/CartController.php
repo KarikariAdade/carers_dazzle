@@ -32,7 +32,7 @@ class CartController extends Controller
             'name' => $product->name,
             'price' => $product->price,
             'qty' => $request->get('item_value') ?? 1,
-            'options' => ['product_image' => asset($product->getSingleImage()), 'product_quantity' => $product->quantity]
+            'options' => ['product_image' => $product->getSingleImage(), 'product_quantity' => $product->quantity]
         ];
 
         $base_remove_path =  url('/').'/shop/cart/item/';

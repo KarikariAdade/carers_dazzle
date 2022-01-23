@@ -26,4 +26,11 @@ class Invoice extends Model
     {
         return route('customer.invoices.print', ['invoice' => $this->id, 'hash' => Str::random(10), 'random' => mt_rand(11111, 99999)]);
     }
+
+
+    public function getCustomer()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

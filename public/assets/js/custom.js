@@ -364,7 +364,7 @@ $(document).ready(function (){
 
     // SHIPPING PAGE
 
-    $('.shipping_form, .addCustomerForm, .addBannerForm, #updateBannerForm' ).submit(function (e) {
+    $('.shipping_form, .addCustomerForm, .addBannerForm, #updateBannerForm, .confirmPaymentForm' ).submit(function (e) {
         e.preventDefault();
         url = $(this).attr('action');
         let formData = new FormData(this);
@@ -457,6 +457,34 @@ $(document).ready(function (){
             }
         })
     }
+
+
+    dataTable.on('click', '#verifyPayment', function (e){
+        e.preventDefault();
+        updateSubmitAttrAndShowModal('confirmPaymentForm', $(this).attr('href'), 'verifyPaymentModal', 'class')
+    })
+
+
+    $('#updatePhoneNumber').on('click', function (e){
+        e.preventDefault();
+        updateSubmitAttrAndShowModal('updatePhoneForm', $(this).attr('href'), 'verifyPhone', 'class')
+    })
+
+    $('.updatePhoneForm').submit(function (e){
+        e.preventDefault();
+
+        $.post($(this).attr('action'), $(this).serialize(), function (response) {
+            if (response.code == '200'){
+                runToast(response.msg, response.code)
+                $('#updatePhoneNumber').text('Update Phone');
+                $('#phoneNumberMsg').hide(300)
+            }else{
+                runToast(response.msg, response.code)
+            }
+        })
+    })
+
+
 
 
 

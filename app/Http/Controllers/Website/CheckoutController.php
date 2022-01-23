@@ -239,7 +239,7 @@ class CheckoutController extends Controller
             'order_id' => $this->generateOrderCode('order'),
             'order_status' => 'Pending Payment',
             'order_note' => $data['order_note'],
-            'trans_code' => Str::random(5),
+            'trans_code' => random_int(111111, 999999),
         ];
     }
 

@@ -23,18 +23,67 @@ class InvoiceDatatable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'invoicedatatable.action');
+            ->editColumn('user_id', function ($query){
+                return $query->getCustomer->name ?? 'N/A';
+            })
+            ->editColumn('created_at', function ($query){
+                return date('l M d, Y h:iA', strtotime($query->created_at));
+            })
+            ->editColumn('order_id', function ($query){
+                return $query->getOrder->order_id ?? 'N/A';
+            })
+            ->editColumn('payment_type', function ($query){
+                return ucfirst($query->payment_type);
+            })
+//            ->editColumn('item_number', function ($query){
+//                $items = json_decode($query->meta, true);
+//                $item_count = 0;
+//                foreach ($items as $item => $row){
+//                    $item_count += $row['qty'];
+//                }
+//
+//                return $item_count;
+//
+//            })
+            ->editColumn('net_total', function ($query){
+                return number_format($query->getOrder->net_total, 2) ?? 'N/A';
+            })
+            ->editColumn('payment_status', function ($query){
+                if($query->payment_status === 'Paid'){
+                    return '<span class="badge badge-success shadow shadow-success"> Paid </span>';
+                }
+
+                return '<span class="badge badge-danger shadow shadow-danger">Not Paid</span>';
+
+            })
+            ->addColumn('action', function ($query){
+                $output = '<div style="display: inline-flex;">';
+
+                if ($query->payment_status !== "Paid" && !empty(auth()->guard('admin')->user()->phone)){
+                    $output .= '<a href="'.route('invoice.verify.payment', $query->id).'" title="Verify Payment" id="verifyPayment" class="btn table-btn btn-icon btn-success btn-sm shadow-success mr-2"><i class="fa mt-2 fa-stamp"></i></a>
+                        ';
+                }
+
+                $output .='
+                        <a href="'.route('invoice.details', $query->id).'" title="View Invoice" class="btn table-btn btn-icon btn-primary btn-sm shadow-primary mr-2"><i class="fa mt-2 fa-eye"></i></a>
+                        <a href="'.route('invoice.edit', $query->id).'" title="Edit Invoice" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
+                        <a href="'.route('invoice.delete', $query->id).'" title="Delete Invoice" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
+                        </div>';
+
+                return $output;
+            })->rawColumns(['action', 'payment_status']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param Invoice $model
      * @return Builder
      */
-    public function query(Invoice $model)
+    public function query()
     {
-        return $model->newQuery();
+        $query = Invoice::query()->orderBy('payment_status', 'ASC');
+
+        return $query;
     }
 
     /**
@@ -60,7 +109,12 @@ class InvoiceDatatable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
+            Column::make('invoice_number')->title("Invoice ID"),
+            Column::make('order_id'),
+            Column::make('user_id')->title('Customer'),
+            Column::computed('payment_type'),
+            Column::computed('payment_status')->title("Payment Status"),
+            Column::computed('net_total'),
             Column::make('created_at'),
             Column::computed('action')
                 ->exportable(false)

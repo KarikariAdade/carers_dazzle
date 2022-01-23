@@ -22,12 +22,6 @@ class SalesController extends Controller
     }
 
 
-    public function dailySaleDetail(Order $sale)
-    {
-        return $sale;
-    }
-
-
     public function getSales()
     {
         $daily_orders = Order::query()->whereDate('created_at', date('Y-m-d'))->selectRaw('sum(net_total) as net_total, count(*) as count')->get();

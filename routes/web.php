@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Customers\DashboardController;
 use App\Http\Controllers\Sales\InvoiceController;
+use App\Http\Controllers\Sales\OrderController;
 use App\Http\Controllers\Sales\SalesController;
 use App\Http\Controllers\Stock\BrandController;
 use App\Http\Controllers\Stock\CouponsController;
@@ -83,6 +84,7 @@ Route::group(['prefix' => 'admin'], function () {
 Route::group(['middleware' => 'auth:admin'], function (){
 
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::post('update/phone', [AdminDashboardController::class, 'updatePhone'])->name('admin.dashboard.update.phone');
 
 
     Route::prefix('stock')->group(function (){
@@ -197,14 +199,20 @@ Route::group(['middleware' => 'auth:admin'], function (){
             Route::get('create', [InvoiceController::class, 'create'])->name('invoice.create');
             Route::post('store', [InvoiceController::class, 'store'])->name('invoice.store');
             Route::get('edit/{invoice}', [InvoiceController::class, 'edit'])->name('invoice.edit');
-            Route::get('details/{update}', [InvoiceController::class, 'details'])->name('invoice.details');
-            Route::patch('update/{update}', [InvoiceController::class, 'update'])->name('invoice.update');
-            Route::any('delete/{update}', [InvoiceController::class, 'delete'])->name('invoice.delete');
+            Route::get('details/{invoice}', [InvoiceController::class, 'details'])->name('invoice.details');
+            Route::patch('update/{invoice}', [InvoiceController::class, 'update'])->name('invoice.update');
+            Route::any('delete/{invoice}', [InvoiceController::class, 'delete'])->name('invoice.delete');
+            Route::post('payment/verify/{invoice}', [InvoiceController::class, 'verifyPayment'])->name('invoice.verify.payment');
         });
 
         Route::prefix('daily/sales')->group(function (){
             Route::get('/', [SalesController::class, 'index'])->name('sales.daily.index');
-            Route::get('{sale}/details', [SalesController::class, 'dailySaleDetail'])->name('sales.daily.details');
+        });
+
+
+        Route::prefix('orders')->group(function () {
+            Route::get('/', [OrderController::class, 'index'])->name('sales.order.index');
+            Route::get('{order}/details', [OrderController::class, 'details'])->name('sales.order.details');
         });
     });
 

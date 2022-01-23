@@ -27,7 +27,7 @@ class DailySalesDatatable extends DataTable
                 return $query->getUser->name ?? 'N/A';
             })
             ->editColumn('created_at', function ($query){
-                return date('h:iA', strtotime($query->created_at));
+                return date('l M d, Y h:iA', strtotime($query->created_at));
             })
             ->editColumn('invoice_id', function ($query){
                 return $query->getInvoice->invoice_number ?? 'N/A';
@@ -56,10 +56,10 @@ class DailySalesDatatable extends DataTable
             ->addColumn('action', function ($query){
                 $output = '<div style="display: inline-flex;">';
 
-                $output .= '<a href="" title="View Order" class="btn table-btn btn-icon btn-success btn-sm shadow-success mr-2"><i class="fa mt-2 fa-eye"></i></a>
+                $output .= '<a href="'.route('sales.order.details', $query->id).'" title="View Order" class="btn table-btn btn-icon btn-success btn-sm shadow-success mr-2"><i class="fa mt-2 fa-eye"></i></a>
                         ';
-                if ($query->order_status === "Pending Payment"){
-                    $output .= '<a href="" title="Make Payment" class="btn text-white table-btn btn-icon btn-primary btn-sm shadow-primary"><i class="fa mt-2 fa-file-alt"></i> Make Payment</a>
+                if (!empty($query->getInvoice)){
+                    $output .= '<a href="" title="View Invoice" class="btn text-white table-btn btn-icon btn-primary btn-sm shadow-primary"><i class="fa mt-2 fa-file-alt"></i> View Invoice</a>
                         </div>';
                 }
                 return $output;
@@ -72,11 +72,11 @@ class DailySalesDatatable extends DataTable
      * @param Order $model
      * @return Builder[]|Collection
      */
-    public function query(Order $model)
+    public function query()
     {
-        $model->newQuery()->whereDate('created_at', date('Y-m-d'))->orderBy('order_status', 'asc')->get();
+        $query = Order::query()->whereDate('created_at', now())->orderBy('order_status', 'ASC');
 
-        return $model->applyScopes();
+        return $query;
     }
 
     /**

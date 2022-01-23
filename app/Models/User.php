@@ -49,4 +49,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Regions::class, 'region_id');
     }
+
+
+
 }

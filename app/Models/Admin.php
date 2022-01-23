@@ -16,4 +16,9 @@ class Admin extends Authenticatable
     protected $guard = 'admin';
 
     protected $table = 'admins';
+
+    public function updatePhone($phone)
+    {
+        return $this->update(['phone' => $phone]);
+    }
 }
