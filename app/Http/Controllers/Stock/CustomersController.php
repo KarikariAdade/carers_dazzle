@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Stock;
 
+use App\DataTables\ClientInvoiceDatatable;
 use App\DataTables\CustomersDatatable;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\User;
+use Cassandra\Custom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -57,17 +59,11 @@ class CustomersController extends Controller
 
     }
 
-
-    public function update(Request $request, Customer $customer)
+    public function details(ClientInvoiceDatatable $datatable, User $customer)
     {
-        return $customer;
+        return $datatable->with('id', $customer->id)->render('admin.sales_management.customers.details', compact('customer'));
     }
 
-
-    public function delete(Customer $customer)
-    {
-        return $customer;
-    }
 
 
     public function validateFields($user = null)
