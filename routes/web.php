@@ -77,6 +77,11 @@ Route::prefix('shop')->group(function(){
 
 Route::group(['prefix' => 'admin'], function () {
 
+
+    Route::get('getProducts', [SusuController::class, 'fetchProducts'])->name('admin.fetch.products');
+
+
+
     Route::get('auth/login/index', [AdminAuthController::class, 'index'])->name('admin.auth.login.index');
     Route::post('auth/login', [AdminAuthController::class, 'login'])->name('admin.auth.login');
     Route::get('auth/logout', [AdminAuthController::class, 'logout'])->name('admin.auth.logout');

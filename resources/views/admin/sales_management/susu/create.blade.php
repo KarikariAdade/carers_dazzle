@@ -28,6 +28,32 @@
                 <div class="col-md-1 mt-4"><button type="button" data-toggle="modal" data-target="#addCustomerModal" class="btn mt-1 btn-primary"><span class="fa fa-plus-circle"></span></button></div>
 
             </div>
+            <hr class="mt0 mb15"/>
+                <div class="col-md-12">
+
+                    <div class="table-responsive">
+
+                        <table id="mainTable" class="table table-bordered">
+                            <thead class="text-center">
+                            <tr>
+                                <th>Product/Service </th>
+                                <th>Description</th>
+                                <th>Unit Price</th>
+                                <th>Qty</th>
+                                <th>Total Amount</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                        <a href="javascript:void(0);" class="btn btn-primary mt-3 mb-3" id="add_prod_btn"><span class="fa fa-plus-circle"></span> Add Line Item</a>
+                </div>
+            </div>
+            {{--                <div style="overflow-x: auto;">--}}
+            {{--                    <div id="grid"></div>--}}
+            {{--                </div>--}}
+            <hr class="mt10 mb15">
         </div>
         </form>
     </section>
@@ -70,8 +96,6 @@
     </div>
 @endsection
 @push('custom-js')
-<script>
-
-</script>
+    @include('admin.sales_management.table_scripts')
 
 @endpush

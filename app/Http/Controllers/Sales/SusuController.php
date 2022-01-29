@@ -32,4 +32,10 @@ class SusuController extends Controller
     {
         return $request->all();
     }
+
+
+    public function fetchProducts()
+    {
+        return Product::query()->get();
+    }
 }
