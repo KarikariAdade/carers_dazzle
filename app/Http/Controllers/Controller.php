@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Str;
 
 class Controller extends BaseController
 {
@@ -57,5 +58,11 @@ class Controller extends BaseController
             'brands' => $brands,
             'slider_featured_banners' => $slider_featured_banners
         ];
+    }
+
+    public function generateProductRoute($id)
+    {
+        return route('website.shop.detail', [$this->id, strtolower(str_replace(' ', '_', $this->name)), Str::random(10)]);
+
     }
 }

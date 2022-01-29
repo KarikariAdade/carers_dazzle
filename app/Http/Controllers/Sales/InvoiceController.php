@@ -36,7 +36,9 @@ class InvoiceController extends Controller
 
     public function details(Invoice $invoice)
     {
-        return view('admin.sales_management.invoice.show', compact($invoice));
+        $invoice_items = json_decode($invoice->meta, true);
+
+        return view('admin.sales_management.invoice.show', compact('invoice', 'invoice_items'));
     }
 
     public function edit(Invoice $invoice)

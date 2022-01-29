@@ -27,7 +27,7 @@ class DailySalesDatatable extends DataTable
                 return $query->getUser->name ?? 'N/A';
             })
             ->editColumn('created_at', function ($query){
-                return date('l M d, Y h:iA', strtotime($query->created_at));
+                return date('l M d, Y', strtotime($query->created_at));
             })
             ->editColumn('invoice_id', function ($query){
                 return $query->getInvoice->invoice_number ?? 'N/A';
@@ -42,12 +42,15 @@ class DailySalesDatatable extends DataTable
                 return $item_count;
 
             })
+            ->editColumn('payment_type', function ($query){
+                return ucfirst($query->payment_type);
+            })
             ->editColumn('order_status', function ($query){
                 if($query->order_status === 'Paid'){
-                    return '<span class="badge badge-success"> Paid </span>';
+                    return '<span class="badge badge-success shadow shadow-success"> Paid </span>';
                 }
 
-                return '<span class="badge badge-danger">Not Paid</span>';
+                return '<span class="badge badge-danger shadow shadow-danger">Not Paid</span>';
 
             })
             ->editColumn('net_total', function ($query){
@@ -109,6 +112,7 @@ class DailySalesDatatable extends DataTable
             Column::computed('item_number')->title("No. of Items"),
             Column::make('net_total'),
             Column::make('order_status'),
+            Column::make('payment_type'),
             Column::make('created_at')->title("Time Ordered"),
             Column::computed('action')
                 ->exportable(false)

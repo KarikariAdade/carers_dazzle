@@ -4,7 +4,6 @@
         <div class="card-header row">
             <div class="col-md-9"><h4>Order Details ({{ $order->order_id }})</h4></div>
             <div class="col-md-3" style="float:right;">
-                <button class="btn btn-primary"><span class="fa fa-file-invoice"></span> View Invoice</button>
 
                 {{--                <button class="btn btn-success" id="confirmPaymentBtn" data-toggle="modal" data-target="#confirmPaymentModal"><span class="fa fa-plus-circle"></span> Confirm Payment</button>--}}
             </div>
