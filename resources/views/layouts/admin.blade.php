@@ -235,7 +235,7 @@
                     <li class="menu-header">Susu</li>
 
                     <li class="dropdown">
-                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Add Susu</span></a>
+                        <a href="{{ route('sales.susu.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Add Susu</span></a>
                     </li>
                 </ul>
             </aside>

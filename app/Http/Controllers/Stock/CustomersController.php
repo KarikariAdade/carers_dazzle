@@ -39,15 +39,22 @@ class CustomersController extends Controller
         $data['password'] = random_int(11111, 99999);
         $data['type'] = 'Customer Account Creation';
 
+
         DB::beginTransaction();
 
         try {
 
-            User::query()->create($this->dumpData($data));
+            $user = User::query()->create($this->dumpData($data));
 
             $this->sendSMS($data);
 
             DB::commit();
+
+            if ($request->get('source') === 'susu'){
+                return response()->json(['code' => 200, 'user' => $user,  'msg' => 'User created successfully']);
+            }
+
+            return $this->successResponse('Customer created successfully');
 
         }catch (\Exception $e){
             DB::rollback();
@@ -55,7 +62,8 @@ class CustomersController extends Controller
             Log::error($e->getMessage());
         }
 
-        return $this->successResponse('Customer created successfully');
+        return $this->failResponse("Customer could not be created");
+
 
     }
 

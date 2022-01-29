@@ -485,6 +485,27 @@ $(document).ready(function (){
     })
 
 
+    $('.addSusuCustomer').submit(function (e){
+        e.preventDefault();
+        let url = $(this).prop('action');
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: $(this).serialize()
+        }).done((response) =>{
+            console.log(response)
+            if(response.code == '200'){
+                $('#customer').append(`<option selected value="${response.user.id}">${response.user.name}</option>`)
+                runToast(response.msg, response.code)
+                hideModal($('#addCustomerModal'));
+            }else{
+                runToast(response.msg, response.code)
+            }
+        })
+    })
+
+
 
 
 

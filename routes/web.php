@@ -7,6 +7,7 @@ use App\Http\Controllers\Customers\DashboardController;
 use App\Http\Controllers\Sales\InvoiceController;
 use App\Http\Controllers\Sales\OrderController;
 use App\Http\Controllers\Sales\SalesController;
+use App\Http\Controllers\Sales\SusuController;
 use App\Http\Controllers\Stock\BrandController;
 use App\Http\Controllers\Stock\CouponsController;
 use App\Http\Controllers\Stock\CustomersController;
@@ -213,6 +214,14 @@ Route::group(['middleware' => 'auth:admin'], function (){
         Route::prefix('orders')->group(function () {
             Route::get('/', [OrderController::class, 'index'])->name('sales.order.index');
             Route::get('{order}/details', [OrderController::class, 'details'])->name('sales.order.details');
+        });
+
+
+
+        Route::prefix('susu')->group(function (){
+            Route::get('/', [SusuController::class, 'index'])->name('sales.susu.index');
+            Route::get('create', [SusuController::class, 'create'])->name('sales.susu.create');
+            Route::post('store', [SusuController::class, 'store'])->name('sales.susu.store');
         });
     });
 
