@@ -40,28 +40,28 @@
             if(!jQuery.isEmptyObject(data))
             {
 
-                    let product_data = {}
+                let product_data = {}
 
-                    fetched_products = data
+                fetched_products = data
 
-                    console.log('This is the logged product', fetched_products);
+                console.log('This is the logged product', fetched_products);
 
-                    $.each(fetched_products, function (i, product) {
+                $.each(fetched_products, function (i, product) {
 
-                        product_data.id = product.id
+                    product_data.id = product.id
 
-                        product_data.description = product.description
+                    product_data.description = product.description
 
-                        product_data.quantity = product.quantity ? product.quantity : 1 //`<input type="number" title="${product.id}" onchange="updateItemQuantity()" value="1" min="1" max="${product.quantity}" class="form-control input_quantity">`
+                    product_data.quantity = product.quantity ? product.quantity : 1 //`<input type="number" title="${product.id}" onchange="updateItemQuantity()" value="1" min="1" max="${product.quantity}" class="form-control input_quantity">`
 
-                        product_data.price = product.price
+                    product_data.price = product.price
 
-                        product_data.sub_total = product.price
+                    product_data.sub_total = product.price
 
-                        prepared_products.push(product_data)
+                    prepared_products.push(product_data)
 
-                        product_data = {}
-                    })
+                    product_data = {}
+                })
             }
         })
     }
@@ -157,6 +157,7 @@
     function updateItemQuantity(selected_row_id, input_item_quantity)
     {
 
+        console.log('update item quantity', input_item_quantity)
         let row_id = selected_row_id;
 
         let current_row_content = product_rows.find(row_data => row_data.row_id === Number(row_id))
@@ -232,11 +233,6 @@
 
             all_data_with_tax.sub_total += Number(row_content.row_sub_total)
 
-
-            if(row_content.row_tax_amount !== undefined)
-            {
-                all_data_with_tax.taxes += row_content.row_tax_amount
-            }
         })
 
         $('#tbody').html(main_dom)
@@ -245,9 +241,8 @@
 
         $('#all_sub_total').val(all_data_with_tax.sub_total)
 
-        $('#all_tax').val(all_data_with_tax.taxes)
 
-        let net_total = ((all_data_with_tax.sub_total - all_data_with_tax.discounted_amount) + all_data_with_tax.taxes)
+        let net_total = all_data_with_tax.sub_total;
 
         $('#all_net').val(parseFloat(net_total).toFixed(2))
 
@@ -403,11 +398,15 @@
         //get the product using the selected product id
         let product = prepared_products.find(row_data => row_data.item_type === item_type && row_data.id === Number(product_id))
 
+        console.log('product', product);
+
         //get the content of row from which the product was selected
         let current_row_content = product_rows.find(row_data => row_data.row_id === Number(row_id))
 
+
+
         //set subtotal for the row content
-        // current_row_content.row_sub_total = product.sub_total
+        current_row_content.row_sub_total = product.sub_total
 
 
         //set input quantity for the row content

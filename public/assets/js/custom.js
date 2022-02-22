@@ -179,6 +179,7 @@ $(document).ready(function (){
     })
 
 
+
     function runAjaxPrompt(url, type = null){
         let msg = 'You won\'t be able to revert this!';
 

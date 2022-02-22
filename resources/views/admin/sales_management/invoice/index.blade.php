@@ -4,7 +4,7 @@
         <div class="card-header row">
             <div class="col-md-10"><h4>Invoice</h4></div>
             <div class="col-md-2" style="float:right;">
-                <a class="btn btn-primary" href=""><span class="fa fa-plus-circle"></span> Create Invoice</a>
+                <a class="btn btn-primary" href="{{ route('invoice.create') }}"><span class="fa fa-plus-circle"></span> Create Invoice</a>
             </div>
         </div>
         <div class="card-body">

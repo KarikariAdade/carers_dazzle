@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Sales;
 use App\DataTables\InvoiceDatatable;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -24,7 +25,9 @@ class InvoiceController extends Controller
 
     public function create()
     {
-        return view('admin.sales_management.invoice.create');
+        $customers = User::query()->orderBy('id', 'DESC')->get();
+
+        return view('admin.sales_management.invoice.create', compact('customers'));
     }
 
 
