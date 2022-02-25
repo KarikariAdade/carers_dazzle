@@ -1,6 +1,6 @@
 @if ($errors->any())
 
-    <p class="alert alert-danger">
+    <p class="alert alert-danger text-white">
         <span class="fa fa-exclamation"></span> {{ $errors->first() }}
     </p>
 
@@ -9,7 +9,7 @@
 
 @if(session('success'))
 
-    <p class="alert alert-success">
+    <p class="alert alert-success text-white">
 
         <span class="fa fa-exclamation-circle"></span>  {{session('success')}}
 
@@ -19,7 +19,7 @@
 
 @if(session('info'))
 
-    <p class="alert alert-info">
+    <p class="alert alert-info text-white">
 
         <span class="fa fa-exclamation-circle"></span> {{session('info')}}
 

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <section class="container card card-primary">
-        <form action="{{ route('invoice.create') }}" enctype="multipart/form-data">
+        <form action="{{ route('invoice.store') }}" id="invoice" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="card-header row">
@@ -11,6 +11,9 @@
                 </div>
             </div>
             <div class="card-body row">
+                <div class="col-md-12">
+                    @include('layouts.errors')
+                </div>
                 <div class="col-md-5 row form-group">
                     <div class="col-md-9">
                         <label>Customer <em class="text-danger">*</em></label>
@@ -21,11 +24,11 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mt-4"><button type="button" data-toggle="modal" data-target="#addCustomerModal" class="btn mt-1 btn-primary"><span class="fa fa-plus-circle"></span></button></div>
+{{--                    <div class="col-md-2 mt-4"><button type="button" data-toggle="modal" data-target="#addCustomerModal" class="btn mt-1 btn-primary"><span class="fa fa-plus-circle"></span></button></div>--}}
                 </div>
                 <div class="col-md-3">
                     <label>Shipping Fee <em class="text-danger">*</em></label>
-                    <input type="number" class="form-control" id="shipping_fee">
+                    <input type="number" class="form-control" id="shipping_fee" value="0">
                 </div>
                 <div class="col-md-3">
                     <label>Discount Type </label>
@@ -35,11 +38,25 @@
                         <option value="fixed">Fixed Amount</option>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-5">
                     <label>Discount Amount </label>
                     <input type="number" class="form-control" id="discount_amount">
                 </div>
-                <hr class="mt0 mb15"/>
+                <div class="col-md-3">
+                    <label>Payment Type <span class="text-danger">*</span></label>
+                    <select class="form-control select2" name="payment_type" id="payment_type">
+                        <option value="momo">Mobile Money</option>
+                        <option value="on_credit">Susu (Credit Payment)</option>
+                        <option value="cash">Payment On Delivery</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Payment Status <span class="text-danger">*</span></label>
+                    <select class="form-control select2" name="payment_status" id="payment_status">
+                        <option>Paid</option>
+                        <option>Pending Payment</option>
+                    </select>
+                </div>
                 <div class="col-md-12">
 
                     <div class="table-responsive">

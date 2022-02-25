@@ -4,8 +4,6 @@
 
     let product_rows = [];
 
-    let discount_type = ``
-
     let discount = 0
 
     let fetched_products = []
@@ -21,6 +19,11 @@
         row_id: 0,
         price: 0
     }
+
+    let discount_type = $('#discount_type'),
+        shipping_fee = $('#shipping_fee'),
+        discount_amount = $('#discount_amount'),
+        discount_total;
 
 
     let prepared_products = [];
@@ -154,6 +157,14 @@
         displayRowItems()
     }
 
+    function initErrorAlert(msg){
+        Swal.fire(
+            'Error!',
+            msg,
+            'error'
+        )
+    }
+
     function updateItemQuantity(selected_row_id, input_item_quantity)
     {
 
@@ -162,28 +173,9 @@
 
         let current_row_content = product_rows.find(row_data => row_data.row_id === Number(row_id))
 
-
-
-        // let selected_product_id_from_grid = current_row_content.selected_product_id
-
-        // let product = prepared_products.find(row_data => row_data.id === Number(selected_product_id_from_grid))
-
         let product = prepared_products.find(row_data => row_data.id === Number(row_id))
 
-
-        // alert('logging unit price')
-        //
-        // alert(current_row_content.price)
-
-        // alert('new quantity')
-        //
-        // alert(input_item_quantity)
-
         let sub_total = Number(current_row_content.price) * Number(input_item_quantity)
-
-        // alert('sub total')
-        //
-        // alert(sub_total)
 
         console.log("current row content", current_row_content)
 
@@ -191,21 +183,7 @@
 
         current_row_content.quantity = input_item_quantity
 
-        //recalculate tax when there the quantity change
-
         displayRowItems()
-
-
-        // $('.input_quantity').focus().val(input_item_quantity);
-        //
-        // if($('.input_quantity').is('.input_quantity:last') && $('.input_quantity').last()){
-        //     // alert('wow')
-        //     $('.input_quantity').focus().val(input_item_quantity);
-        // }
-
-
-
-
 
     }
 
@@ -242,9 +220,28 @@
         $('#all_sub_total').val(all_data_with_tax.sub_total)
 
 
-        let net_total = all_data_with_tax.sub_total;
+        let net_total = all_data_with_tax.sub_total,
+            total,
+            discount = 0;
 
-        $('#all_net').val(parseFloat(net_total).toFixed(2))
+        if (discount_type.val() == 'fixed'){
+
+            total = (net_total + parseInt(shipping_fee.val())) - parseInt(discount_amount.val());
+
+            $('#discount_total').val(discount_amount.val());
+
+        }else{
+
+            total = parseInt(net_total) + parseInt(shipping_fee.val());
+
+            discount = (total * discount_amount.val()) / 100
+
+            total = total - discount;
+
+            $('#discount_total').val(discount);
+        }
+
+        $('#all_net').val(parseFloat(total).toFixed(2))
 
         //delete a row from a quotation table list
         $('.del_row').click(function(){
@@ -254,15 +251,13 @@
             deleteRow(selected_row_id)
         })
 
-        $('.selected_grid_product').change(function() {
 
-            console.log('logging selected value', $(this).children("option:selected").val());
+
+        $('.selected_grid_product').change(function() {
 
             let selected_product_id = $(this).children("option:selected").val();
 
             let row_id = $(this).attr('title')
-
-            console.log('logging row id', row_id);
 
             populateFormRow(row_id, selected_product_id)
 
@@ -285,48 +280,43 @@
         })
 
 
-
-        //
-        $('.item_price').keyup(function(){
-
-            let item_price = $(this).val(),
-                item_id = $(this).attr('id');
-
-            if(Number(item_price) === 0)
-            {
-                initErrorAlert('Unit Price can\'t be 0')
-
-            }else{
-
-                input_price.row_id = $(this).attr('title')
-
-                input_price.price = item_price
-
-                RedoTotalCalculations(item_id);
-
-                $(this).focus()
-
-            }
-
-        })
-
-
-
-
         $('.description').keyup(function(){
 
             input_description.description = $(this).val()
 
-            // console.log(input_description.description)
-
             input_description.row_id = $(this).attr('title')
 
         })
+
+
     }
+
+    $('#shipping_fee').keyup(function (){
+        $('#shipping').val(Number($(this).val()).toFixed(2))
+        displayRowItems();
+    })
+
+
+    discount_type.change(function (){
+        displayRowItems();
+    })
+
+    discount_amount.keyup(function (){
+
+        if(discount_type.val() == ''){
+
+            initErrorAlert('Select discount type before adding a discount value');
+
+            $(this).val('')
+
+            return false;
+        }else{
+            displayRowItems()
+        }
+    })
 
     function gridSkeleton(row_data)
     {
-        console.log(row_data)
 
         if(Number(row_data.row_id) === Number(input_description.row_id))
         {
@@ -384,6 +374,8 @@
                                 </td>
                             </tr>
                            `;
+
+
     }
 
 
@@ -403,8 +395,6 @@
         //get the content of row from which the product was selected
         let current_row_content = product_rows.find(row_data => row_data.row_id === Number(row_id))
 
-
-
         //set subtotal for the row content
         current_row_content.row_sub_total = product.sub_total
 
@@ -421,8 +411,6 @@
         current_row_content.max_quantity = product.quantity
 
         current_row_content.apply_row_discount = false
-
-        // current_row_content.product_options = product_options
 
         displayRowItems()
     }
@@ -444,9 +432,8 @@
             }
 
         }
-
-
     }
+
 
     function changeAttr(element, length){
         $(element).focus();
@@ -469,8 +456,6 @@
 
         current_row_content.price = input_price
 
-        console.log('changed price is ' + input_price)
-
         RedoTotalCalculations()
 
         displayRowItems()
@@ -488,148 +473,52 @@
     $('#invoice').submit(function (e){
         e.preventDefault();
 
-
-        let customer_id = $('#customer_id').val()
-        let sales_order_number = $('#sales_order_number').val()
-        let invoice_number = $('#invoice_number').val()
-        let invoice_term = $('#invoice_term').val()
-        let invoice_date = $('#invoice_date').val()
-        let purchase_date = $('#purchase_date').val()
-        let cost_center = $('#cost_center').children("option:selected").val();
-        let reference = $('#reference_no').val()
-        let bill_to = $('#bill_to').val()
-        let ship_to = $('#ship_to').val()
-        let customer_balance = $('#customer_balance').val()
-        let discount_type = $('#discount_type').val()
-        let discount = $('#discount').val()
-        let discount_date = $('#discount_date').val()
-        let vat_wth_acc_id = $('#vat_wth_acc_id').val()
-        let wth_acc_id = $('#wth_acc_id').val()
-        // let status = $('#status').children("option:selected").val();
-        let description = $('#description').val()
-        let invoice_message = $('#invoice_message').val()
-        let sub_total = $('#all_sub_total').val()
-        let total_applied_tax = $('#all_tax').val()
-        let total_applied_discount = $('#all_discount_amount').val()
-        let net_total = $('#all_net').val()
-        let nhil_total = $('#nhil_total').val();
-        let cst_total = $('#cst_total').val();
-        let getfund_total = $('#getfund_total').val();
-        let vat_total = $('#vat_total').val();
-        let covid_total = $('#covid_total').val();
-        let vat_flat_total = $('#vat_flat_total').val();
+        let customer = $('#customer').val();
+        let shipping_fee = $('#shipping_fee').val();
+        let discount_type = $('#discount_type').val();
+        let discount_amount = $('#discount_amount').val();
+        let all_sub_total = $('#all_sub_total').val();
+        let all_net = $('#all_net').val();
+        let shipping = $('#shipping').val();
+        let discount_total = $('#discount_total').val();
+        let payment_type = $('#payment_type').val();
+        let payment_status = $('#payment_status').val();
 
         let data = {
-            customer_id,
-            sales_order_number,
-            invoice_number,
-            invoice_term,
-            invoice_date,
-            purchase_date,
-            cost_center,
-            reference,
-            bill_to,
-            ship_to,
-            customer_balance,
+            customer,
+            shipping_fee,
             discount_type,
-            discount,
-            discount_date,
-            vat_wth_acc_id,
-            wth_acc_id,
-            description,
-            invoice_message,
-            sub_total,
-            total_applied_tax,
-            total_applied_discount,
-            net_total,
-            nhil_total,
-            cst_total,
-            getfund_total,
-            vat_total,
-            covid_total,
-            vat_flat_total,
+            discount_amount,
+            all_sub_total,
+            all_net,
+            shipping,
+            discount_total,
+            payment_type,
+            payment_status,
             product_rows
         }
 
         if (product_rows.length === 0) {
 
-            initErrorAlert('Row items in the grid can\'t be empty');
+            initErrorAlert('Row items in the grid cannot be empty');
         }
-
-        console.log('this is the sending items', data);
 
 
         $.ajax({
-            url: '',
+            url: $(this).attr('action'),
             method: 'POST',
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             data_type: 'json',
             data,
         }).done((response) => {
-            console.log('This is the ajax response', response)
-            if (response.message === 'success') {
-
-                console.log(response)
+            console.log(response)
+            if (response.code == '200') {
 
                 window.location.reload();
 
-            }
-            else {
-                console.log(response)
+            } else {
+                initErrorAlert(response.msg)
 
-                let errors = `${response.message}`
-
-                if(errors === 'Quotation Items can\'t be empty. Please select one or more quotation items')
-                {
-                    $('#errorMsg').html(errors)
-                    console.log(errors)
-
-                }else if(errors === 'error'){
-
-                    $('#errorMsg').html('Whoops! Something went wrong')
-                    console.log(errors)
-
-                }else if(errors.includes('Exchange Rate between')){
-
-                    $('#errorMsg').html(errors)
-                    console.log(errors)
-
-                }else if(errors.includes('Quotation cannot be generated with product in different currencies')){
-
-                    $('#errorMsg').html(errors)
-                    console.log(errors)
-
-                }else {
-
-                    let error_dom = ``
-
-
-                    console.log('logging validation errors from the controller')
-
-                    console.log(response.errors)
-
-                    if(typeof(response.errors) === 'string')
-                    {
-                        error_dom += `${error}<br>`
-                    }else{
-
-                        $.each(response.errors, (i, error)=> {
-
-                            error = error.replace('[', '')
-                            error = error.replace(']', '')
-
-                            error_dom += `${error}<br>`
-                        })
-                    }
-
-                    $('#errorMsg').html(error_dom)
-                    console.log(error_dom)
-                }
-
-
-                $('#errorMsg').show();
-                //
-                $('#errorMsg').fadeOut(15000)
             }
         })
     })

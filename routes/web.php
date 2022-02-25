@@ -206,8 +206,9 @@ Route::group(['middleware' => 'auth:admin'], function (){
             Route::post('store', [InvoiceController::class, 'store'])->name('invoice.store');
             Route::get('edit/{invoice}', [InvoiceController::class, 'edit'])->name('invoice.edit');
             Route::get('details/{invoice}', [InvoiceController::class, 'details'])->name('invoice.details');
-            Route::patch('update/{invoice}', [InvoiceController::class, 'update'])->name('invoice.update');
+            Route::post('update/{invoice}', [InvoiceController::class, 'update'])->name('invoice.update');
             Route::any('delete/{invoice}', [InvoiceController::class, 'delete'])->name('invoice.delete');
+            Route::any('get/invoice/item/{invoice}', [InvoiceController::class, 'fetchInvoiceItems'])->name('invoice.get.items');
             Route::post('payment/verify/{invoice}', [InvoiceController::class, 'verifyPayment'])->name('invoice.verify.payment');
         });
 

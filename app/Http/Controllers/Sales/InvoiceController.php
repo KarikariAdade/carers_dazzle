@@ -4,10 +4,20 @@ namespace App\Http\Controllers\Sales;
 
 use App\DataTables\InvoiceDatatable;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Website\CheckoutController;
 use App\Models\Invoice;
+use App\Models\InvoiceItems;
+use App\Models\Order;
+use App\Models\Product;
 use App\Models\User;
+
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use PHPUnit\Util\Exception;
 
 class InvoiceController extends Controller
 {
@@ -33,7 +43,133 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
-        return $request->all();
+
+        $data = $request->all();
+
+        $validate = Validator::make($data, $this->validateFields());
+
+        if ($validate->fails()){
+            return $this->failResponse($validate->errors()->first());
+        }
+
+        foreach ($data['product_rows'] as $row){
+
+            $name = $this->getProductName($row['selected_product_id'])->name;
+
+            $image = $this->getProductName($row['selected_product_id'])->getSingleImage();
+
+            Cart::add([
+                'id' => $row['selected_product_id'],
+                'name' => $name,
+                'price' => $row['price'],
+                'qty' => $row['quantity'] ?? 1,
+                'options' => ['product_image' => $image, 'product_quantity' => $row['quantity']]
+            ]);
+
+        }
+
+        DB::beginTransaction();
+
+        try{
+
+            $invoice = Invoice::query()->create($this->generateInvoice($data));
+
+            $order = Order::query()->create($this->generateOrder($data));
+
+            $invoice->update(['order_id' => $order->id]);
+
+            $order->update(['invoice_id' => $invoice->id]);
+
+            $data['invoice_id'] = $invoice->id;
+
+            foreach ($data['product_rows'] as $row){
+
+                InvoiceItems::query()->create($this->generateInvoiceItems($data['invoice_id'], $row));
+            }
+
+            DB::commit();
+
+            Cart::destroy();
+
+            session()->flash('success', 'Invoice added successfully');
+
+            return $this->successResponse('success');
+
+        } catch(\Exception $exception){
+            DB::rollback();
+
+            Log::error($exception->getMessage());
+
+            return $this->failResponse('Invoice could not be added. Kindly contact admin');
+
+        }
+
+    }
+
+
+    public function generateInvoice($data)
+    {
+        return [
+            'user_id' => $data['customer'],
+            'meta' =>  Cart::content(),
+            'payment_type' => $data['payment_type'],
+            'payment_status' => $data['payment_status'],
+            'invoice_number' => $data['invoice_number'] ?? (new CheckoutController())->generateOrderCode('invoice'),
+            'is_admin_created' => true,
+            'discount_type' => $data['discount_type'],
+            'discount' => $data['discount_amount'],
+            'shipping' => $data['shipping_fee']
+        ];
+    }
+
+
+    public function generateOrder($data)
+    {
+        return [
+            'user_id' => $data['customer'],
+            'meta' => Cart::content(),
+            'order_id' => $data['order_id'] ?? (new CheckoutController())->generateOrderCode('order'),
+            'sub_total' => $data['all_sub_total'],
+            'discount' => $data['discount_total'],
+            'shipping' => $data['shipping'],
+            'net_total' => $data['all_net'],
+            'payment_type' => $data['payment_type'],
+            'order_status' => $data['payment_status']
+        ];
+    }
+
+
+
+    public function generateInvoiceItems($invoice, $data)
+    {
+        return [
+            'invoice_id' => $invoice,
+            'product_id' => $data['selected_product_id'],
+            'row_sub_total' => $data['row_sub_total'],
+            'quantity' => $data['quantity'],
+            'price' => $data['price'],
+            'description' => $data['description'],
+            'max_quantity' => $data['max_quantity'] ?? null
+        ];
+    }
+
+    public function getProductName($id)
+    {
+        return Product::query()->where('id', $id)->first() ?? 'N/A';
+    }
+
+    public function validateFields()
+    {
+        return [
+            'customer' => 'required',
+            'shipping_fee' => 'required',
+            'discount_type' => 'required',
+            'discount_amount' => 'required',
+            'all_sub_total' => 'required',
+            'all_net' => 'required',
+            'shipping' => 'required',
+            'discount_total' => 'required',
+        ];
     }
 
 
@@ -44,15 +180,89 @@ class InvoiceController extends Controller
         return view('admin.sales_management.invoice.show', compact('invoice', 'invoice_items'));
     }
 
+
+    public function fetchInvoiceItems(Invoice $invoice)
+    {
+        return InvoiceItems::query()->where('invoice_id', $invoice->id)->get();
+    }
+
     public function edit(Invoice $invoice)
     {
-        return view('admin.sales_management.invoice.edit', compact('invoice'));
+
+        $customers = User::query()->orderBy('id', 'DESC')->get();
+
+        return view('admin.sales_management.invoice.edit', compact('invoice', 'customers'));
     }
 
 
     public function update(Request $request, Invoice $invoice)
     {
-        return $request->all();
+        $data = $request->all();
+
+        $validate = Validator::make($data, $this->validateFields());
+
+        if ($validate->fails()){
+            return $this->failResponse($validate->errors()->first());
+        }
+
+        foreach ($data['product_rows'] as $row){
+
+            $name = $this->getProductName($row['selected_product_id'])->name;
+
+            $image = $this->getProductName($row['selected_product_id'])->getSingleImage();
+
+            Cart::add([
+                'id' => $row['selected_product_id'],
+                'name' => $name,
+                'price' => $row['price'],
+                'qty' => $row['quantity'] ?? 1,
+                'options' => ['product_image' => $image, 'product_quantity' => $row['quantity']]
+            ]);
+
+        }
+
+        DB::beginTransaction();
+
+        try{
+
+            $data['invoice_number'] = $invoice->invoice_number;
+
+            $data['order_id'] = $invoice->getOrder->order_id;
+
+            $invoice->update($this->generateInvoice($data));
+
+            $invoice->getOrder->update($this->generateOrder($data));
+
+            $invoice->update(['order_id' => $invoice->getOrder->id]);
+
+            $invoice->getOrder->update(['invoice_id' => $invoice->id]);
+
+            $data['invoice_id'] = $invoice->id;
+
+
+            DB::table('invoice_items')->where('invoice_id', $invoice->id)->delete();
+
+            foreach ($data['product_rows'] as $row){
+
+                InvoiceItems::query()->create($this->generateInvoiceItems($data['invoice_id'], $row));
+            }
+
+            DB::commit();
+
+            Cart::destroy();
+
+            session()->flash('success', 'Invoice updated successfully');
+
+            return $this->successResponse('success');
+
+        } catch(\Exception $exception){
+            DB::rollback();
+
+            Log::error($exception->getMessage().$exception->getLine());
+
+            return $this->failResponse('Invoice could not be added. Kindly contact admin');
+
+        }
     }
 
 
@@ -60,6 +270,8 @@ class InvoiceController extends Controller
     {
         return $invoice;
     }
+
+
 
     public function verifyPayment(Request $request, Invoice $invoice)
     {
