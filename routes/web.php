@@ -228,6 +228,8 @@ Route::group(['middleware' => 'auth:admin'], function (){
             Route::get('/', [SusuController::class, 'index'])->name('sales.susu.index');
             Route::get('create', [SusuController::class, 'create'])->name('sales.susu.create');
             Route::post('store', [SusuController::class, 'store'])->name('sales.susu.store');
+            Route::get('edit/{susu}', [SusuController::class, 'edit'])->name('sales.susu.edit');
+            Route::post('update/{susu}', [SusuController::class, 'update'])->name('sales.susu.update');
         });
     });
 

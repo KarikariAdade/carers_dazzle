@@ -5,9 +5,9 @@
             @csrf
             @method('POST')
             <div class="card-header row">
-                <div class="col-md-10"><h4>Create Invoice</h4></div>
+                <div class="col-md-10"><h4>Update Invoice</h4></div>
                 <div class="col-md-2" style="float:right;">
-                    <button class="btn btn-success" type="submit"><span class="fa fa-plus-circle"></span> Create Invoice</button>
+                    <button class="btn btn-success" type="submit"><span class="fa fa-plus-circle"></span> Update Invoice</button>
                 </div>
             </div>
             <div class="card-body row">
@@ -82,11 +82,11 @@
                 <hr class="mt10 mb15">
                 <div class="col-md-3">
                     <label>Sub Total</label>
-                    <input type="text" readonly id="all_sub_total" class="form-control">
+                    <input type="text" readonly id="all_sub_total" class="form-control" value{{ $invoice->getOrder->sub_total }}>
                 </div>
                 <div class="col-md-3">
                     <label>Net Total</label>
-                    <input type="text" readonly id="all_net" class="form-control">
+                    <input type="text" readonly id="all_net" class="form-control" value="{{ $invoice->getOrder->net_total }}">
                 </div>
                 <div class="col-md-3">
                     <label>Shipping</label>
@@ -94,7 +94,7 @@
                 </div>
                 <div class="col-md-3">
                     <label>Discount Total</label>
-                    <input type="text" readonly id="discount_total" class="form-control">
+                    <input type="text" readonly id="discount_total" class="form-control" value="{{ $invoice->discount }}">
                 </div>
             </div>
         </form>
@@ -671,7 +671,6 @@
                     item_type: product.item_type,
                     price: product.price,
                     currency_id: product.currency_id,
-                    selected_tax_ids_from_grid
                 })
 
                 console.log(product_rows)
@@ -724,13 +723,6 @@
             }
 
         })
-
-
-
-
-
-
-
 
     </script>
 

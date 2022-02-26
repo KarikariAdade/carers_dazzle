@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Regions;
+use App\Models\Susu;
 use App\Models\Towns;
 use App\Models\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -277,11 +278,18 @@ class CheckoutController extends Controller
 
             $exist = Invoice::query()->where('invoice_number', $batch)->first();
 
+        }elseif($type === 'susu'){
+            $batch = 'SU'.sprintf('%06d', Susu::query()->count() + $int);
+
+            $exist = Susu::query()->where('susu_number', $batch)->first();
+
         }else{
             $batch = "ODR" . sprintf('%06d', Order::query()->count() + $int);
 
             $exist = Order::query()->where('order_id',$batch)->first();
         }
+
+
 
         return empty($exist) ? $batch : $this->generateOrderCode(++$int);
     }

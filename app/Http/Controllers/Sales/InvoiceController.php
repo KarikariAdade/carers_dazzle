@@ -107,72 +107,6 @@ class InvoiceController extends Controller
     }
 
 
-    public function generateInvoice($data)
-    {
-        return [
-            'user_id' => $data['customer'],
-            'meta' =>  Cart::content(),
-            'payment_type' => $data['payment_type'],
-            'payment_status' => $data['payment_status'],
-            'invoice_number' => $data['invoice_number'] ?? (new CheckoutController())->generateOrderCode('invoice'),
-            'is_admin_created' => true,
-            'discount_type' => $data['discount_type'],
-            'discount' => $data['discount_amount'],
-            'shipping' => $data['shipping_fee']
-        ];
-    }
-
-
-    public function generateOrder($data)
-    {
-        return [
-            'user_id' => $data['customer'],
-            'meta' => Cart::content(),
-            'order_id' => $data['order_id'] ?? (new CheckoutController())->generateOrderCode('order'),
-            'sub_total' => $data['all_sub_total'],
-            'discount' => $data['discount_total'],
-            'shipping' => $data['shipping'],
-            'net_total' => $data['all_net'],
-            'payment_type' => $data['payment_type'],
-            'order_status' => $data['payment_status']
-        ];
-    }
-
-
-
-    public function generateInvoiceItems($invoice, $data)
-    {
-        return [
-            'invoice_id' => $invoice,
-            'product_id' => $data['selected_product_id'],
-            'row_sub_total' => $data['row_sub_total'],
-            'quantity' => $data['quantity'],
-            'price' => $data['price'],
-            'description' => $data['description'],
-            'max_quantity' => $data['max_quantity'] ?? null
-        ];
-    }
-
-    public function getProductName($id)
-    {
-        return Product::query()->where('id', $id)->first() ?? 'N/A';
-    }
-
-    public function validateFields()
-    {
-        return [
-            'customer' => 'required',
-            'shipping_fee' => 'required',
-            'discount_type' => 'required',
-            'discount_amount' => 'required',
-            'all_sub_total' => 'required',
-            'all_net' => 'required',
-            'shipping' => 'required',
-            'discount_total' => 'required',
-        ];
-    }
-
-
     public function details(Invoice $invoice)
     {
         $invoice_items = json_decode($invoice->meta, true);
@@ -362,4 +296,73 @@ class InvoiceController extends Controller
         $this->logSMSData($data,$result);
 
     }
+
+
+
+
+    public function generateInvoice($data)
+    {
+        return [
+            'user_id' => $data['customer'],
+            'meta' =>  Cart::content(),
+            'payment_type' => $data['payment_type'],
+            'payment_status' => $data['payment_status'],
+            'invoice_number' => $data['invoice_number'] ?? (new CheckoutController())->generateOrderCode('invoice'),
+            'is_admin_created' => true,
+            'discount_type' => $data['discount_type'],
+            'discount' => $data['discount_amount'],
+            'shipping' => $data['shipping_fee']
+        ];
+    }
+
+
+    public function generateOrder($data)
+    {
+        return [
+            'user_id' => $data['customer'],
+            'meta' => Cart::content(),
+            'order_id' => $data['order_id'] ?? (new CheckoutController())->generateOrderCode('order'),
+            'sub_total' => $data['all_sub_total'],
+            'discount' => $data['discount_total'],
+            'shipping' => $data['shipping'],
+            'net_total' => $data['all_net'],
+            'payment_type' => $data['payment_type'],
+            'order_status' => $data['payment_status']
+        ];
+    }
+
+
+
+    public function generateInvoiceItems($invoice, $data)
+    {
+        return [
+            'invoice_id' => $invoice,
+            'product_id' => $data['selected_product_id'],
+            'row_sub_total' => $data['row_sub_total'],
+            'quantity' => $data['quantity'],
+            'price' => $data['price'],
+            'description' => $data['description'],
+            'max_quantity' => $data['max_quantity'] ?? null
+        ];
+    }
+
+    public function getProductName($id)
+    {
+        return Product::query()->where('id', $id)->first() ?? 'N/A';
+    }
+
+    public function validateFields()
+    {
+        return [
+            'customer' => 'required',
+            'shipping_fee' => 'required',
+            'discount_type' => 'required',
+            'discount_amount' => 'required',
+            'all_sub_total' => 'required',
+            'all_net' => 'required',
+            'shipping' => 'required',
+            'discount_total' => 'required',
+        ];
+    }
+
 }

@@ -65,7 +65,7 @@ class ClientInvoiceDatatable extends DataTable
 
                 $output .= '<a href="' . route('invoice.details', $query->id) . '" title="View Invoice" class="btn table-btn btn-icon btn-primary btn-sm shadow-primary mr-2"><i class="fa mt-2 fa-eye"></i></a>
                         ';
-                if ($query->is_admin_created == 1) {
+                if ($query->is_admin_created == true) {
                     $output .= '
                         <a href="' . route('invoice.edit', $query->id) . '" title="Edit Invoice" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
                         <a href="' . route('invoice.delete', $query->id) . '" title="Delete Invoice" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
