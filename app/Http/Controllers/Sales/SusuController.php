@@ -5,11 +5,18 @@ namespace App\Http\Controllers\Sales;
 use App\DataTables\SusuDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Website\CheckoutController;
+use App\Models\Invoice;
+use App\Models\InvoiceItems;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Susu;
+use App\Models\SusuItem;
 use App\Models\User;
 use Carbon\Carbon;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class SusuController extends Controller
 {
@@ -34,19 +41,74 @@ class SusuController extends Controller
 
     public function store(Request $request)
     {
-//        customer
-//shipping_fee
-//discount_type
-//discount_amount
-//payment_status
-//payment_interval
-//initial_amount
-//remarks
-//all_sub_total
-//all_net
-//shipping
-//discount_total
-        return $request->all();
+        $data = $request->all();
+
+        $validate = Validator::make($data, $this->validateFields());
+
+        if ($validate->fails()){
+            return $this->failResponse($validate->errors()->first());
+        }
+
+
+        foreach ($data['product_rows'] as $row){
+
+            $name = (new InvoiceController())->getProductName($row['selected_product_id'])->name;
+
+            $image = (new InvoiceController())->getProductName($row['selected_product_id'])->getSingleImage();
+
+            Cart::add([
+                'id' => $row['selected_product_id'],
+                'name' => $name,
+                'price' => $row['price'],
+                'qty' => $row['quantity'] ?? 1,
+                'options' => ['product_image' => $image, 'product_quantity' => $row['quantity']]
+            ]);
+
+        }
+
+        $data['payment_status'] = 'Pending Payment';
+
+        DB::beginTransaction();
+
+        try{
+
+            $invoice = Invoice::query()->create((new InvoiceController())->generateInvoice($data));
+
+            $susu = Susu::query()->create($this->dumpSusuItems($data));
+
+            $order = Order::query()->create((new InvoiceController())->generateOrder($data));
+
+            $invoice->update(['order_id' => $order->id]);
+
+            $order->update(['invoice_id' => $invoice->id]);
+
+            foreach ($data['product_rows'] as $row){
+
+                InvoiceItems::query()->create((new InvoiceController())->generateInvoiceItems($invoice->id, $row));
+
+                SusuItem::query()->create($this->susuItems($susu->id, $row));
+
+            }
+
+            DB::commit();
+
+            Cart::destroy();
+
+            $this->fireSms($data);
+
+            session()->flash('success', 'Susu entry created successfully');
+
+            return $this->successResponse("Susu entry created successfully");
+
+
+        }catch (\Exception $exception){
+            DB::rollback();
+
+            return $this->failResponse($exception->getMessage().' Line: '.$exception->getLine());
+
+        }
+
+
     }
 
 
@@ -69,9 +131,6 @@ class SusuController extends Controller
 
     public function dumpSusuItems($data)
     {
-
-//payment_status
-
         return [
             'user_id' => $data['customer'],
             'susu_number' => (new CheckoutController())->generateOrderCode('susu'),
@@ -84,7 +143,34 @@ class SusuController extends Controller
             'remarks' => $data['remarks'],
             'amount_paid' => $data['initial_amount'],
             'payment_interval' => $data['payment_interval'],
-            'expected_full_payment' => $data[''],
+            'expected_full_payment' => $this->getExpectedDate($data),
+            'payment_status' => $data['payment_status']
+        ];
+    }
+
+
+    public function susuItems($susu, $data)
+    {
+        return [
+            'susu_id' => $susu,
+            'product_id' => $data['selected_product_id'],
+            'row_sub_total' => $data['row_sub_total'],
+            'quantity' => $data['quantity'],
+            'price' => $data['price'],
+            'description' => $data['description'],
+            'max_quantity' => $data['max_quantity'] ?? null
+        ];
+    }
+
+
+    public function validateFields()
+    {
+        return [
+            'customer' => 'required',
+            'discount_amount' => 'required_if:discount_type,!=,null',
+            'initial_amount' => 'required',
+            'payment_interval' => 'required',
+            'payment_status' => 'required'
         ];
     }
 
@@ -99,12 +185,36 @@ class SusuController extends Controller
 
         $date = Carbon::now();
 
-        $estimated_payment = $net_total / $initial_payment;
+        $estimated_payment = number_format($net_total / $initial_payment, 0);
 
-        return $estimated_payment;
+        if ($interval === 'Daily'){
+            $date = $date->addDays($estimated_payment);
+        }
 
-//        Daily
-//Weekly
-//Monthly
+        if ($interval === 'Weekly'){
+            $date = $date->addWeeks($estimated_payment);
+        }
+
+        if ($interval === 'Monthly'){
+            $date = $date->addMonths($estimated_payment);
+        }
+
+        return $date;
+
+    }
+
+
+    public function fireSms($data)
+    {
+
+        $client = User::query()->where('id', $data['customer'])->first();
+
+        if (!empty($client)){
+            $sms_data = [
+                'phone' => trim($client->phone, ' '),
+                'msg' => "Hello $client->name, \r\n A new Susu Entry has been created for you. You are expected to pay GHC ".$data['all_net']." by ".date('l M d, Y', strtotime($this->getExpectedDate($data))).". For more details, kindly visit your portal at ".env('APP_URL')
+            ];
+            $this->sendSMS($sms_data);
+        }
     }
 }

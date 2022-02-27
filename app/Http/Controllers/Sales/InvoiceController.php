@@ -305,7 +305,7 @@ class InvoiceController extends Controller
         return [
             'user_id' => $data['customer'],
             'meta' =>  Cart::content(),
-            'payment_type' => $data['payment_type'],
+            'payment_type' => $data['payment_type'] ?? 'N/A',
             'payment_status' => $data['payment_status'],
             'invoice_number' => $data['invoice_number'] ?? (new CheckoutController())->generateOrderCode('invoice'),
             'is_admin_created' => true,
@@ -326,7 +326,7 @@ class InvoiceController extends Controller
             'discount' => $data['discount_total'],
             'shipping' => $data['shipping'],
             'net_total' => $data['all_net'],
-            'payment_type' => $data['payment_type'],
+            'payment_type' => $data['payment_type'] ?? 'N/A',
             'order_status' => $data['payment_status']
         ];
     }

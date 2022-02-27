@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class Controller extends BaseController
@@ -63,6 +64,40 @@ class Controller extends BaseController
     public function generateProductRoute($id)
     {
         return route('website.shop.detail', [$this->id, strtolower(str_replace(' ', '_', $this->name)), Str::random(10)]);
+
+    }
+
+
+    public function sendSMS($data)
+    {
+        $msg = $data['msg'];
+        $fields = [
+            'sender' => env('FAYASMS_SENDER'),
+            'message' => $msg,
+            'recipients' => [
+                $data['phone']
+            ]
+        ];
+
+        $ch = curl_init();
+        $headers = array();
+        $headers[] = "Content-Type: application/json";
+        $headers[] = 'fayasms-developer: 17596282.BD8nlMwlSlVUkXBvAa6uzLatjqBSDJpu';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_URL, env('FAYASMS_URL'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($ch);
+        $result = json_decode($result, TRUE);
+        curl_close($ch);
+
+        Log::info($result);
+
+        $data['type'] = "Susu SMS";
+
+
+        $this->logSMSData($data,$result);
 
     }
 }
