@@ -27,4 +27,9 @@ class PagesController extends Controller
     {
         return view('website.shop.detail');
     }
+
+    public function contact()
+    {
+        return view('website.contact.index');
+    }
 }

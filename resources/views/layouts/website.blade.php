@@ -62,6 +62,7 @@
                                 </ul>
                             </li>
                             <li><a href="{{ route('website.shop.index') }}">Shop</a></li>
+                            <li><a href="{{ route('website.contact.index') }}">Contact</a> </li>
                         </ul><!-- End .menu -->
                     </nav><!-- End .main-nav -->
 
@@ -155,6 +156,9 @@
                             </div><!-- End .dropdown-cart-total -->
                         </div><!-- End .dropdown-menu -->
                     </div><!-- End .cart-dropdown -->
+                    <a href="{{ route('account.dashboard.index') }}" class="wishlist-link">
+                        <i class="icon-user"></i>
+                    </a>
                 </div><!-- End .header-right -->
             </div><!-- End .container -->
         </div><!-- End .header-middle -->
@@ -277,6 +281,8 @@
                     </ul>
                 </li>
                 <li><a href="{{ route('website.shop.index') }}">Shop</a></li>
+                <li><a href="{{ route('website.contact.index') }}">Contact</a> </li>
+                <li><a href="{{ route('account.dashboard.index') }}">Account</a> </li>
             </ul>
         </nav><!-- End .mobile-nav -->
 
@@ -335,23 +341,6 @@
                                         <a href="#" class="forgot-link">Forgot Your Password?</a>
                                     </div><!-- End .form-footer -->
                                 </form>
-                                <div class="form-choice">
-                                    <p class="text-center">or sign in with</p>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <a href="#" class="btn btn-login btn-g">
-                                                <i class="icon-google"></i>
-                                                Login With Google
-                                            </a>
-                                        </div><!-- End .col-6 -->
-                                        <div class="col-sm-6">
-                                            <a href="#" class="btn btn-login btn-f">
-                                                <i class="icon-facebook-f"></i>
-                                                Login With Facebook
-                                            </a>
-                                        </div><!-- End .col-6 -->
-                                    </div><!-- End .row -->
-                                </div><!-- End .form-choice -->
                             </div><!-- .End .tab-pane -->
                             <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                                 <form action="#">

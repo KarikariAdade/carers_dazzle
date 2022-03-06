@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\DashboardController;
 use App\Http\Controllers\Website\PagesController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,10 @@ Route::get('category', [PagesController::class, 'category'])->name('website.cate
 Route::get('brand', [PagesController::class, 'brand'])->name('website.brand.index');
 Route::get('product/detail', [PagesController::class, 'productDetail'])->name('website.product.detail');
 Route::get('shop', [PagesController::class, 'shop'])->name('website.shop.index');
+Route::get('contact', [PagesController::class, 'contact'])->name('website.contact.index');
+
+
+
+Route::prefix('account')->group(function (){
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('account.dashboard.index');
+});

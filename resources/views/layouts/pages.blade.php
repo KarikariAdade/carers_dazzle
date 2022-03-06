@@ -98,6 +98,7 @@
                                 </ul>
                             </li>
                             <li><a href="{{ route('website.shop.index') }}">Shop</a></li>
+                            <li><a href="{{ route('website.contact.index') }}">Contact</a> </li>
                         </ul><!-- End .menu -->
                     </nav><!-- End .main-nav -->
                 </div><!-- End .header-left -->
@@ -197,6 +198,9 @@
                             </div><!-- End .dropdown-cart-total -->
                         </div><!-- End .dropdown-menu -->
                     </div><!-- End .cart-dropdown -->
+                    <a href="{{ route('account.dashboard.index') }}" class="wishlist-link">
+                        <i class="icon-user"></i>
+                    </a>
                 </div><!-- End .header-right -->
             </div><!-- End .container -->
         </div><!-- End .header-middle -->
@@ -233,7 +237,7 @@
                                 <li><a href="about.html">About Molla</a></li>
                                 <li><a href="#">How to shop on Molla</a></li>
                                 <li><a href="#">FAQ</a></li>
-                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="{{ route('account.dashboard.index') }}">Contact us</a></li>
                                 <li><a href="login.html">Log in</a></li>
                             </ul><!-- End .widget-list -->
                         </div><!-- End .widget -->
@@ -275,8 +279,8 @@
             <div class="container">
                 <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
                 <figure class="footer-payments">
-                    <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
-                </figure><!-- End .footer-payments -->
+                    <span>Developed by SamiTeck</span>
+                </figure>
             </div><!-- End .container -->
         </div><!-- End .footer-bottom -->
     </footer><!-- End .footer -->
@@ -319,6 +323,7 @@
                     </ul>
                 </li>
                 <li><a href="{{ route('website.shop.index') }}">Shop</a></li>
+                <li><a href="{{ route('website.contact.index') }}">Contact</a> </li>
             </ul>
         </nav><!-- End .mobile-nav -->
 
