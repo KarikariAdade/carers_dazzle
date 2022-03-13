@@ -32,4 +32,16 @@ class PagesController extends Controller
     {
         return view('website.contact.index');
     }
+
+
+    public function cart()
+    {
+        return view('website.cart.index');
+    }
+
+
+    public function checkout()
+    {
+        return view('website.checkout.index');
+    }
 }

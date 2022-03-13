@@ -54,7 +54,7 @@
                             <ul>
                                 <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
                                 <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="{{ route('website.contact.index') }}">Contact Us</a></li>
                                 <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
                             </ul>
                         </li>
@@ -138,7 +138,7 @@
                     </div><!-- End .compare-dropdown -->
 
                     <div class="dropdown cart-dropdown">
-                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                        <a href="{{ route('website.cart.index') }}" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                             <i class="icon-shopping-cart"></i>
                             <span class="cart-count">2</span>
                         </a>
@@ -193,8 +193,8 @@
                             </div><!-- End .dropdown-cart-total -->
 
                             <div class="dropdown-cart-action">
-                                <a href="cart.html" class="btn btn-primary">View Cart</a>
-                                <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                <a href="{{ route('website.cart.index') }}" class="btn btn-primary">View Cart</a>
+                                <a href="{{ route('website.cart.index') }}" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                             </div><!-- End .dropdown-cart-total -->
                         </div><!-- End .dropdown-menu -->
                     </div><!-- End .cart-dropdown -->
@@ -234,11 +234,11 @@
                             <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
                             <ul class="widget-list">
-                                <li><a href="about.html">About Molla</a></li>
-                                <li><a href="#">How to shop on Molla</a></li>
+                                <li><a href="#">About Carers Dazzle</a></li>
+                                <li><a href="#">How to shop on Carers Dazzle</a></li>
                                 <li><a href="#">FAQ</a></li>
-                                <li><a href="{{ route('account.dashboard.index') }}">Contact us</a></li>
-                                <li><a href="login.html">Log in</a></li>
+                                <li><a href="{{ route('website.contact.index') }}">Contact us</a></li>
+                                <li><a href="{{ route('account.dashboard.index') }}">Log in</a></li>
                             </ul><!-- End .widget-list -->
                         </div><!-- End .widget -->
                     </div><!-- End .col-sm-6 col-lg-3 -->
@@ -264,7 +264,7 @@
 
                             <ul class="widget-list">
                                 <li><a href="#">Sign In</a></li>
-                                <li><a href="cart.html">View Cart</a></li>
+                                <li><a href="{{ route('website.cart.index') }}">View Cart</a></li>
                                 <li><a href="#">My Wishlist</a></li>
                                 <li><a href="#">Track My Order</a></li>
                                 <li><a href="#">Help</a></li>
@@ -277,7 +277,7 @@
 
         <div class="footer-bottom">
             <div class="container">
-                <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+                <p class="footer-copyright">Copyright © {{ date('Y') }} Carers Dazzle. All Rights Reserved.</p><!-- End .footer-copyright -->
                 <figure class="footer-payments">
                     <span>Developed by SamiTeck</span>
                 </figure>
