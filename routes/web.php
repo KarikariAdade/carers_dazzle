@@ -7,6 +7,7 @@ use App\Http\Controllers\Stock\ProductCategoryController;
 use App\Http\Controllers\Stock\ProductController;
 use App\Http\Controllers\Stock\SubCategoryController;
 use App\Http\Controllers\Stock\TaxController;
+use App\Http\Controllers\Website\PagesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,13 +21,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+//Route::get('/', function () {
+//    return view('auth.login');
+//});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/', function () {
+    return view('home');
+})->name('website.home');
+
+Route::get('/admin', function () {
+//    return view('dashboard');
+    return view('auth.login');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('category', [PagesController::class, 'category'])->name('website.category.index');
+Route::get('brand', [PagesController::class, 'brand'])->name('website.brand.index');
+Route::get('product/detail', [PagesController::class, 'productDetail'])->name('website.product.detail');
+Route::get('shop', [PagesController::class, 'shop'])->name('website.shop.index');
 
 
 
