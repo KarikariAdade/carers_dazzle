@@ -12,13 +12,13 @@ class BrandController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
 
     public function index(BrandDataTable $dataTable)
     {
-        return $dataTable->render('stock.brands.index');
+        return $dataTable->render('admin.stock.brands.index');
     }
 
 
@@ -27,7 +27,7 @@ class BrandController extends Controller
         $data = $request->all();
 
         $validate = Validator::make($data, [
-            'name' => 'required',
+            'name' => 'required|unique:brands,name',
             'description' => 'nullable'
         ]);
 
@@ -50,7 +50,7 @@ class BrandController extends Controller
 
 
         $validate = Validator::make($data, [
-            'name' => 'required',
+            'name' => 'required|unique:brands,name,'.$brands->name,
             'description' => 'nullable'
         ]);
 

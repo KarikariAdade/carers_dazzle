@@ -7,10 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Brands;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductPicture;
 use App\Models\SubCategory;
+use App\Models\Taxes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -19,32 +22,43 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     public function index(ProductDatatable $datatable)
     {
         $items = $this->pageItems();
 
-        return $datatable->render('stock.products.index', compact('items'));
+        return $datatable->render('admin.stock.products.index', compact('items'));
     }
 
     public function store(Request $request)
     {
         $data = $request->all();
 
-        $validate = Validator::make($data, $this->validateData($data));
+        $validate = Validator::make($data, $this->validateData());
 
         if ($validate->fails()){
             return $this->failResponse($validate->errors()->first());
         }
 
+        $product = Product::query()->create($this->dump($data));
+
         if (!empty($request->file('image'))){
 
-            $data['image'] = $this->performUpload($request->file('image'));
+            $images = collect();
+
+            foreach ($request->file('image') as $image){
+                $images->push([
+                    'product_id' => $product->id,
+                    'path' => $this->performUpload($image)
+                ]);
+            }
+
+            DB::table('product_pictures')->insert($images->toArray());
 
         }
-        $product = Product::query()->create($this->dump($data));
+
 
         return $this->successResponse("Product: $product->name added successfully");
 
@@ -55,68 +69,182 @@ class ProductController extends Controller
     {
         $items = $this->pageItems();
 
-        return view('stock.products.edit', compact('product', 'items'));
+        return view('admin.stock.products.edit', compact('product', 'items'));
     }
 
+
+    public function details(Product $product)
+    {
+        $taxes = [];
+
+        if (!empty($product->taxes)){
+            $taxes = Taxes::query()->whereIn('id', json_decode($product->taxes))->get();
+        }
+
+        return view('admin.stock.products.show', compact('product', 'taxes'));
+    }
 
     public function update(Request $request, Product $product)
     {
         $data = $request->all();
 
-        $validate = Validator::make($data, $this->validateData($data));
+
+        $validate = Validator::make($data, $this->validateData($product->id));
 
         if ($validate->fails()){
             return $this->failResponse($validate->errors()->first());
         }
 
-        if (!empty($request->file('image'))){
+        if (!empty($request->file('image'))) {
 
-            if (File::exists($product->product_image)) {
-                File::delete($product->product_image);
+            $images = collect();
+
+            foreach ($request->file('image') as $image) {
+                $images->push([
+                    'product_id' => $product->id,
+                    'path' => $this->performUpload($image),
+                    'created_at' => now()
+                ]);
             }
 
-            $data['image'] = $this->performUpload($request->file('image'));
-
-
-            $product->update($this->dump($data));
-        }else{
-
-            $data['image'] = $product->product_image;
-
-            $product->update($this->dump($data));
+            DB::table('product_pictures')->insert($images->toArray());
         }
+
+
+        $product->update($this->dump($data));
 
         return $this->successResponse("Product: $product->name updated successfully");
     }
 
+
+    public function delete(Product $product)
+    {
+        DB::transaction(function () use ($product){
+            $images = ProductPicture::query()->where('product_id', $product->id)->get();
+
+
+            foreach($images as $image){
+
+                if (File::exists($image->path)){
+
+                    File::delete($image->path);
+
+                    Log::info('File deleted');
+                }
+            }
+
+            DB::table('product_pictures')->where('product_id', $product->id)->delete();
+
+            $product->delete();
+        });
+
+        return $this->successResponse('Product deleted successfully');
+
+    }
+
+
+    public function markFeatured(Product $product, $type, $origin = null)
+    {
+        if ($type === 'mark_featured'){
+            $product->update([
+                'is_featured' => true
+            ]);
+
+            if ($origin === 'raw'){
+                return back()->with('success', $product->name.' successfully featured');
+            }
+
+            return $this->successResponse($product->name.' successfully featured');
+
+        }
+
+        $product->update([
+            'is_featured' => false
+        ]);
+
+        if ($origin === 'raw'){
+            return back()->with('success', $product->name.' successfully featured');
+        }
+
+        return $this->successResponse($product->name.' successfully removed from featured');
+
+    }
+
+
+    public function markHot(Product $product, $type, $origin = null)
+    {
+        if ($type === 'hot'){
+            $product->update([
+                'is_hot_deal' => true
+            ]);
+
+            if ($origin === 'raw'){
+                return back()->with('success', $product->name.' successfully marked as Hot Deal');
+            }
+
+            return $this->successResponse($product->name.' successfully marked as Hot Deal');
+
+        }
+
+        $product->update([
+            'is_hot_deal' => false
+        ]);
+
+        if ($origin === 'raw'){
+            return back()->with('success', $product->name.' successfully unmarked as Hot Deal');
+        }
+
+        return $this->successResponse($product->name.' successfully unmarked as Hot Deal');
+    }
+
+
+    public function deleteProductPicture(ProductPicture $picture)
+    {
+        if (File::exists($picture->path)){
+            File::delete($picture->path);
+        }
+
+        $picture->delete();
+
+        return back()->withInput()->with('success', 'Image deleted successfully');
+    }
+
     public function dump($data)
     {
+        $taxes = null;
+
+        if (isset($data['taxes'])){
+            $taxes = json_encode($data['taxes'], JSON_THROW_ON_ERROR | true);
+        }
 
         return [
             'name' => $data['name'],
             'category_id' => $data['category'],
             'brand_id' => $data['brand'],
             'price' => $data['price'],
-            'product_image' => $data['image'] ?? null,
-            'sub_category_id' => $data['sub_category'],
+            'shelf_id' => $data['sub_category'],
             'description' => $data['description'],
             'quantity' => $data['quantity'],
+            'taxes' => $taxes,
+            'is_active' => $data['status']
         ];
     }
 
 
-    public function validateData()
+    public function validateData($product = null)
     {
 
         return [
-            'name' => 'required',
+            'name' => 'required|unique:taxes,name,'.$product,
             'category' => 'required',
             'brand' => 'required',
             'price' => 'required',
-            'product' => 'nullable|mimes:jpeg,jpg,png|max:2048',
+            'image.*' => 'required|image|mimes:jpeg,jpg,png|max:5048',
             'sub_category' => 'required',
             'description' => 'nullable',
             'quantity' => 'required',
+            'taxes' => 'nullable',
+            'is_active' => 'nullable',
         ];
     }
 
@@ -147,7 +275,10 @@ class ProductController extends Controller
             'categories' => ProductCategory::query()->get(),
             'sub_categories' => SubCategory::query()->get(),
             'brands' => Brands::query()->get(),
+            'taxes' => Taxes::query()->get(),
         ];
 
     }
+
+
 }
