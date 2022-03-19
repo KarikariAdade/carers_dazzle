@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="website_assets/images/icons/apple-touch-icon.png">
     <link rel="icon" type="img/png" sizes="32x32" href="website_assets/images/icons/favicon-32x32.png">
     <link rel="icon" type="img/png" sizes="16x16" href="website_assets/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="website_assets/images/icons/site.html">
+{{--    <link rel="manifest" href="website_assets/images/icons/site.html">--}}
     <link rel="mask-icon" href="website_assets/images/icons/safari-pinned-tab.svg" color="#666666">
     <link rel="shortcut icon" href="website_assets/images/icons/favicon.ico">
     <meta name="apple-mobile-web-app-title" content="Molla">
@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('website_assets/css/plugins/owl-carousel/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('website_assets/css/plugins/magnific-popup/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('website_assets/css/plugins/nouislider/nouislider.css') }}">
+    <link rel="stylesheet" href="{{ asset('website_assets/css/swiper.min.css') }}">
     @stack('custom-css')
 </head>
 
@@ -119,11 +120,11 @@
                             <ul class="compare-products">
                                 <li class="compare-product">
                                     <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    <h4 class="compare-product-title"><a href="{{ route('website.product.detail') }}">Blue Night Dress</a></h4>
+                                    <h4 class="compare-product-title"><a href="{{ route('website.shop.index') }}">Blue Night Dress</a></h4>
                                 </li>
                                 <li class="compare-product">
                                     <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    <h4 class="compare-product-title"><a href="{{ route('website.product.detail') }}">White Long Skirt</a></h4>
+                                    <h4 class="compare-product-title"><a href="{{ route('website.shop.index') }}">White Long Skirt</a></h4>
                                 </li>
                             </ul>
 
@@ -145,7 +146,7 @@
                                 <div class="product">
                                     <div class="product-cart-details">
                                         <h4 class="product-title">
-                                            <a href="{{ route('website.product.detail') }}">Beige knitted elastic runner shoes</a>
+                                            <a href="{{ route('website.shop.index') }}">Beige knitted elastic runner shoes</a>
                                         </h4>
 
                                         <span class="cart-product-info">
@@ -155,7 +156,7 @@
                                     </div><!-- End .product-cart-details -->
 
                                     <figure class="product-img-container">
-                                        <a href="{{ route('website.product.detail') }}" class="product-img">
+                                        <a href="{{ route('website.shop.index') }}" class="product-img">
                                             <img src="website_assets
 /images/products/cart/product-1.jpg" alt="product">
                                         </a>
@@ -166,7 +167,7 @@
                                 <div class="product">
                                     <div class="product-cart-details">
                                         <h4 class="product-title">
-                                            <a href="{{ route('website.product.detail') }}">Blue utility pinafore denim dress</a>
+                                            <a href="{{ route('website.shop.index') }}">Blue utility pinafore denim dress</a>
                                         </h4>
 
                                         <span class="cart-product-info">
@@ -176,7 +177,7 @@
                                     </div><!-- End .product-cart-details -->
 
                                     <figure class="product-img-container">
-                                        <a href="{{ route('website.product.detail') }}" class="product-img">
+                                        <a href="{{ route('website.shop.index') }}" class="product-img">
                                             <img src="website_assets
 /images/products/cart/product-2.jpg" alt="product">
                                         </a>
@@ -424,7 +425,8 @@
 <script src="{{ asset('website_assets/js/nouislider.min.js') }}"></script>
 <!-- Main JS File -->
 <script src="{{ asset('website_assets/js/main.js') }}"></script>
-@push('custom-js')
+<script src="{{ asset('website_assets/js/swiper.min.js') }}"></script>
+@stack('custom-js')
 </body>
 
 

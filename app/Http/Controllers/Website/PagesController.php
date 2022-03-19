@@ -18,9 +18,9 @@ class PagesController extends Controller
     public function category($random, ProductCategory $category, $name)
     {
 
-        $products = Product::query()->where('category_id', $category->id)->get();
+        $products = Product::query()->where('category_id', $category->id)->paginate(16);
 
-        return view('website.category.index', compact('products'));
+        return view('website.category.index', compact('products', 'category'));
     }
 
     public function brand()
@@ -28,8 +28,8 @@ class PagesController extends Controller
         return view('website.brand.index');
     }
 
-    public function productDetail()
+    public function productDetail(Product $product, $name, $hash)
     {
-        return view('website.shop.detail');
+        return view('website.shop.detail', compact('product'));
     }
 }

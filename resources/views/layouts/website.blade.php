@@ -103,7 +103,7 @@
                                 <div class="product">
                                     <div class="product-cart-details">
                                         <h4 class="product-title">
-                                            <a href="{{ route('website.product.detail') }}">Beige knitted elastic runner shoes</a>
+                                            <a href="{{ route('website.shop.index') }}">Beige knitted elastic runner shoes</a>
                                         </h4>
 
                                         <span class="cart-product-info">
@@ -113,7 +113,7 @@
                                     </div><!-- End .product-cart-details -->
 
                                     <figure class="product-img-container">
-                                        <a href="{{ route('website.product.detail') }}" class="product-img">
+                                        <a href="{{ route('website.shop.index') }}" class="product-img">
                                             <img src="website_assets/images/products/cart/product-1.jpg" alt="product">
                                         </a>
                                     </figure>
@@ -123,7 +123,7 @@
                                 <div class="product">
                                     <div class="product-cart-details">
                                         <h4 class="product-title">
-                                            <a href="{{ route('website.product.detail') }}">Blue utility pinafore denim dress</a>
+                                            <a href="{{ route('website.shop.index') }}">Blue utility pinafore denim dress</a>
                                         </h4>
 
                                         <span class="cart-product-info">
@@ -133,7 +133,7 @@
                                     </div><!-- End .product-cart-details -->
 
                                     <figure class="product-img-container">
-                                        <a href="{{ route('website.product.detail') }}" class="product-img">
+                                        <a href="{{ route('website.shop.index') }}" class="product-img">
                                             <img src="website_assets/images/products/cart/product-2.jpg" alt="product">
                                         </a>
                                     </figure>

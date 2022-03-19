@@ -17,6 +17,11 @@ class ProductCategory extends Model
         return $this->hasMany(SubCategory::class, 'category_id');
     }
 
+    public function getProducts()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
+
 
     public function generateCategoryRoute()
     {

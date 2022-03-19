@@ -47,7 +47,10 @@ Route::get('category/{random}/{category}/{name}', [PagesController::class, 'cate
 
 
 Route::get('brand/{random}/{id}/{name}', [PagesController::class, 'brand'])->name('website.brand.index');
-Route::get('product/detail', [PagesController::class, 'productDetail'])->name('website.product.detail');
+
+Route::get('product/{product}/{name}/{hash}', [PagesController::class, 'productDetail'])->name('website.product.detail');
+
+
 Route::get('shop', [PagesController::class, 'shop'])->name('website.shop.index');
 
 
