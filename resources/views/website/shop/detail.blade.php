@@ -1,6 +1,7 @@
 @extends('layouts.pages')
 @section('content')
-    <div class="page-header text-center" style="background-image: url({{ asset('assets/images/page-header-bg.jpg') }})">
+    <div class="page-header text-center" style="background-img: url({{ asset('website_assets
+/images/page-header-bg.jpg') }})">
         <div class="container">
             <h1 class="page-title">Shop</h1>
         </div><!-- End .container -->
@@ -21,29 +22,43 @@
                     <div class="col-md-6">
                         <div class="product-gallery product-gallery-vertical">
                             <div class="row">
-                                <figure class="product-main-image">
-                                    <img id="product-zoom" src="{{ asset('assets/images/products/single/centered/1.jpg') }}" data-zoom-image="{{ asset('assets/images/products/single/centered/1-big.jpg') }}" alt="product image">
+                                <figure class="product-main-img">
+                                    <img id="product-zoom" src="{{ asset('website_assets
+/images/products/single/centered/1.jpg') }}" data-zoom-img="{{ asset('website_assets
+/images/products/single/centered/1-big.jpg') }}" alt="product img">
 
                                     <a href="#" id="btn-product-gallery" class="btn-product-gallery">
                                         <i class="icon-arrows"></i>
                                     </a>
-                                </figure><!-- End .product-main-image -->
+                                </figure><!-- End .product-main-img -->
 
-                                <div id="product-zoom-gallery" class="product-image-gallery">
-                                    <a class="product-gallery-item active" href="#" data-image="{{ asset('assets/images/products/single/centered/1.jpg') }}" data-zoom-image="{{ asset('assets/images/products/single/centered/1-big.jpg') }}">
-                                        <img src="{{ asset('assets/images/products/single/centered/1-small.jpg') }}" alt="product side">
+                                <div id="product-zoom-gallery" class="product-img-gallery">
+                                    <a class="product-gallery-item active" href="#" data-img="{{ asset('website_assets
+/images/products/single/centered/1.jpg') }}" data-zoom-img="{{ asset('website_assets
+/images/products/single/centered/1-big.jpg') }}">
+                                        <img src="{{ asset('website_assets
+/images/products/single/centered/1-small.jpg') }}" alt="product side">
                                     </a>
 
-                                    <a class="product-gallery-item active" href="#" data-image="{{ asset('assets/images/products/single/centered/2.jpg') }}" data-zoom-image="{{ asset('assets/images/products/single/centered/2-big.jpg') }}">
-                                        <img src="{{ asset('assets/images/products/single/centered/2-small.jpg') }}" alt="product side">
+                                    <a class="product-gallery-item active" href="#" data-img="{{ asset('website_assets
+/images/products/single/centered/2.jpg') }}" data-zoom-img="{{ asset('website_assets
+/images/products/single/centered/2-big.jpg') }}">
+                                        <img src="{{ asset('website_assets
+/images/products/single/centered/2-small.jpg') }}" alt="product side">
                                     </a>
-                                    <a class="product-gallery-item active" href="#" data-image="{{ asset('assets/images/products/single/centered/3.jpg') }}" data-zoom-image="{{ asset('assets/images/products/single/centered/3-big.jpg') }}">
-                                        <img src="{{ asset('assets/images/products/single/centered/3-small.jpg') }}" alt="product side">
+                                    <a class="product-gallery-item active" href="#" data-img="{{ asset('website_assets
+/images/products/single/centered/3.jpg') }}" data-zoom-img="{{ asset('website_assets
+/images/products/single/centered/3-big.jpg') }}">
+                                        <img src="{{ asset('website_assets
+/images/products/single/centered/3-small.jpg') }}" alt="product side">
                                     </a>
-                                    <a class="product-gallery-item active" href="#" data-image="{{ asset('assets/images/products/single/centered/4.jpg') }}" data-zoom-image="{{ asset('assets/images/products/single/centered/4-big.jpg') }}">
-                                        <img src="{{ asset('assets/images/products/single/centered/4-small.jpg') }}" alt="product side">
+                                    <a class="product-gallery-item active" href="#" data-img="{{ asset('website_assets
+/images/products/single/centered/4.jpg') }}" data-zoom-img="{{ asset('website_assets
+/images/products/single/centered/4-big.jpg') }}">
+                                        <img src="{{ asset('website_assets
+/images/products/single/centered/4-small.jpg') }}" alt="product side">
                                     </a>
-                                </div><!-- End .product-image-gallery -->
+                                </div><!-- End .product-img-gallery -->
                             </div><!-- End .row -->
                         </div><!-- End .product-gallery -->
                     </div><!-- End .col-md-6 -->
@@ -281,7 +296,8 @@
                                 <figure class="product-media">
                                     <span class="product-label label-new">New</span>
                                     <a href="{{ route('website.product.detail') }}">
-                                        <img src="{{ asset('assets/images/products/product-4.jpg') }}" alt="Product image" class="product-image">
+                                        <img src="{{ asset('website_assets
+/images/products/product-4.jpg') }}" alt="Product img" class="product-img">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -315,7 +331,8 @@
                                 <figure class="product-media">
                                     <span class="product-label label-out">Out of Stock</span>
                                     <a href="{{ route('website.product.detail') }}">
-                                        <img src="{{ asset('assets/images/products/product-6.jpg') }}" alt="Product image" class="product-image">
+                                        <img src="{{ asset('website_assets
+/images/products/product-6.jpg') }}" alt="Product img" class="product-img">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -349,7 +366,8 @@
                                 <figure class="product-media">
                                     <span class="product-label label-top">Top</span>
                                     <a href="{{ route('website.product.detail') }}">
-                                        <img src="{{ asset('assets/images/products/product-11.jpg') }}" alt="Product image" class="product-image">
+                                        <img src="{{ asset('website_assets
+/images/products/product-11.jpg') }}" alt="Product img" class="product-img">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -380,7 +398,8 @@
                             </div></div><div class="owl-item active" style="width: 277px; margin-right: 20px;"><div class="product product-7 text-center">
                                 <figure class="product-media">
                                     <a href="{{ route('website.product.detail') }}">
-                                        <img src="{{ asset('assets/images/products/product-10.jpg') }}" alt="Product image" class="product-image">
+                                        <img src="{{ asset('website_assets
+/images/products/product-10.jpg') }}" alt="Product img" class="product-img">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -413,7 +432,8 @@
                         <div class="owl-item" style="width: 277px; margin-right: 20px;"><div class="product product-7 text-center">
                                 <figure class="product-media">
                                     <a href="{{ route('website.product.detail') }}">
-                                        <img src="{{ asset('assets/images/products/product-7.jpg') }}" alt="Product image" class="product-image">
+                                        <img src="{{ asset('website_assets
+/images/products/product-7.jpg') }}" alt="Product img" class="product-img">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -458,6 +478,7 @@
         </div><!-- End .container -->
     </div>
     @push('custom-js')
-    <script src="{{ asset('assets/js/jquery.elevateZoom.min.js') }}"></script>
+    <script src="{{ asset('website_assets
+/js/jquery.elevateZoom.min.js') }}"></script>
     @endpush
 @endsection

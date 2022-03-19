@@ -13,24 +13,24 @@
     <meta name="description" content="Carers Dazzle">
     <meta name="author" content="p-themes">
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="assets/images/icons/site.html">
-    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
-    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="website_assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="img/png" sizes="32x32" href="website_assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="img/png" sizes="16x16" href="website_assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="website_assets/images/icons/site.html">
+    <link rel="mask-icon" href="website_assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="website_assets/images/icons/favicon.ico">
     <meta name="apple-mobile-web-app-title" content="Molla">
     <meta name="application-name" content="Molla">
     <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
+    <meta name="msapplication-config" content="website_assets/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <!-- Plugins CSS File -->
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/owl-carousel/owl.carousel.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/magnific-popup/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('website_assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('website_assets/css/plugins/owl-carousel/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('website_assets/css/plugins/magnific-popup/magnific-popup.css') }}">
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/demos/demo-18.css') }}">
+    <link rel="stylesheet" href="{{ asset('website_assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('website_assets/css/demos/demo-18.css') }}">
 </head>
 
 <body>
@@ -46,23 +46,20 @@
                                 <a href="#" class="sf-with-ul">Categories</a>
 
                                 <ul>
-                                    <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
-                                    <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
-                                    <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
-                                    <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
+                                    @foreach($categories as $category)
+                                    <li><a href="{{ $category->generateCategoryRoute() }}">{{ strtoupper($category->name) }}</a></li>
+                                    @endforeach
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" class="sf-with-ul">Brands</a>
                                 <ul>
-                                    <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
-                                    <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
-                                    <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
-                                    <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
+                                    @foreach($brands as $brand)
+                                    <li><a href="{{ $brand->generateBrandRoute() }}">{{ strtoupper($brand->name) }}</a></li>
+                                    @endforeach
                                 </ul>
                             </li>
                             <li><a href="{{ route('website.shop.index') }}">Shop</a></li>
-                            <li><a href="{{ route('website.contact.index') }}">Contact</a> </li>
                         </ul><!-- End .menu -->
                     </nav><!-- End .main-nav -->
 
@@ -74,7 +71,7 @@
 
                 <div class="header-center">
                     <a href="{{ route('website.home') }}" class="logo">
-                        <img src="assets/images/demos/demo-18/logo.png" alt="Molla Logo" width="82" height="25">
+                        <img src="website_assets/images/demos/demo-18/logo.png" alt="Molla Logo" width="82" height="25">
                     </a>
                 </div><!-- End .header-center -->
 
@@ -115,9 +112,9 @@
                                             </span>
                                     </div><!-- End .product-cart-details -->
 
-                                    <figure class="product-image-container">
-                                        <a href="{{ route('website.product.detail') }}" class="product-image">
-                                            <img src="assets/images/products/cart/product-1.jpg" alt="product">
+                                    <figure class="product-img-container">
+                                        <a href="{{ route('website.product.detail') }}" class="product-img">
+                                            <img src="website_assets/images/products/cart/product-1.jpg" alt="product">
                                         </a>
                                     </figure>
                                     <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
@@ -135,9 +132,9 @@
                                             </span>
                                     </div><!-- End .product-cart-details -->
 
-                                    <figure class="product-image-container">
-                                        <a href="{{ route('website.product.detail') }}" class="product-image">
-                                            <img src="assets/images/products/cart/product-2.jpg" alt="product">
+                                    <figure class="product-img-container">
+                                        <a href="{{ route('website.product.detail') }}" class="product-img">
+                                            <img src="website_assets/images/products/cart/product-2.jpg" alt="product">
                                         </a>
                                     </figure>
                                     <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
@@ -151,14 +148,11 @@
                             </div><!-- End .dropdown-cart-total -->
 
                             <div class="dropdown-cart-action">
-                                <a href="{{ route('website.cart.index') }}" class="btn btn-primary">View Cart</a>
-                                <a href="{{ route('website.checkout.index') }}" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                <a href="cart.html" class="btn btn-primary">View Cart</a>
+                                <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                             </div><!-- End .dropdown-cart-total -->
                         </div><!-- End .dropdown-menu -->
                     </div><!-- End .cart-dropdown -->
-                    <a href="{{ route('account.dashboard.index') }}" class="wishlist-link">
-                        <i class="icon-user"></i>
-                    </a>
                 </div><!-- End .header-right -->
             </div><!-- End .container -->
         </div><!-- End .header-middle -->
@@ -174,7 +168,7 @@
                 <div class="row">
                     <div class="col-sm-6 col-lg-3">
                         <div class="widget widget-about">
-                            <img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+                            <img src="website_assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
                             <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
 
                             <div class="social-icons">
@@ -192,11 +186,11 @@
                             <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
                             <ul class="widget-list">
-                                <li><a href="">About Carers Dazzle</a></li>
-                                <li><a href="#">How to shop on Carers Dazzle</a></li>
+                                <li><a href="about.html">About Molla</a></li>
+                                <li><a href="#">How to shop on Molla</a></li>
                                 <li><a href="#">FAQ</a></li>
-                                <li><a href="">Contact us</a></li>
-                                <li><a href="">Log in</a></li>
+                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="login.html">Log in</a></li>
                             </ul><!-- End .widget-list -->
                         </div><!-- End .widget -->
                     </div><!-- End .col-sm-6 col-lg-3 -->
@@ -222,7 +216,7 @@
 
                             <ul class="widget-list">
                                 <li><a href="#">Sign In</a></li>
-                                <li><a href="{{ route('website.cart.index') }}">View Cart</a></li>
+                                <li><a href="cart.html">View Cart</a></li>
                                 <li><a href="#">My Wishlist</a></li>
                                 <li><a href="#">Track My Order</a></li>
                                 <li><a href="#">Help</a></li>
@@ -265,24 +259,20 @@
                     <a href="#" class="sf-with-ul">Categories</a>
 
                     <ul>
-                        <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
-                        <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
-                        <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
-                        <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
+                        @foreach($categories as $category)
+                        <li><a href="{{ $category->generateCategoryRoute() }}">{{ strtoupper($category->name) }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
                 <li>
                     <a href="#" class="sf-with-ul">Brands</a>
                     <ul>
-                        <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
-                        <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
-                        <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
-                        <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
+                        @foreach($brands as $brand)
+                        <li><a href="{{ $brand->generateBrandRoute() }}">{{ strtoupper($brand->name) }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
                 <li><a href="{{ route('website.shop.index') }}">Shop</a></li>
-                <li><a href="{{ route('website.contact.index') }}">Contact</a> </li>
-                <li><a href="{{ route('account.dashboard.index') }}">Account</a> </li>
             </ul>
         </nav><!-- End .mobile-nav -->
 
@@ -341,6 +331,23 @@
                                         <a href="#" class="forgot-link">Forgot Your Password?</a>
                                     </div><!-- End .form-footer -->
                                 </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
                             </div><!-- .End .tab-pane -->
                             <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                                 <form action="#">
@@ -398,7 +405,7 @@
 {{--            <div class="row no-gutters bg-white newsletter-popup-content">--}}
 {{--                <div class="col-xl-3-5col col-lg-7 banner-content-wrap">--}}
 {{--                    <div class="banner-content text-center">--}}
-{{--                        <img src="assets/images/popup/newsletter/logo.png" class="logo" alt="logo" width="60" height="15">--}}
+{{--                        <img src="website_assets/images/popup/newsletter/logo.png" class="logo" alt="logo" width="60" height="15">--}}
 {{--                        <h2 class="banner-title">get <span>25<light>%</light></span> off</h2>--}}
 {{--                        <p>Subscribe to the Molla eCommerce newsletter to receive timely updates from your favorite products.</p>--}}
 {{--                        <form action="#">--}}
@@ -416,24 +423,24 @@
 {{--                    </div>--}}
 {{--                </div>--}}
 {{--                <div class="col-xl-2-5col col-lg-5 ">--}}
-{{--                    <img src="assets/images/popup/newsletter/img-1.jpg" class="newsletter-img" alt="newsletter">--}}
+{{--                    <img src="website_assets/images/popup/newsletter/img-1.jpg" class="newsletter-img" alt="newsletter">--}}
 {{--                </div>--}}
 {{--            </div>--}}
 {{--        </div>--}}
 {{--    </div>--}}
 {{--</div>--}}
 <!-- Plugins JS File -->
-<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.hoverIntent.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.waypoints.min.js') }}"></script>
-<script src="{{ asset('assets/js/superfish.min.js') }}"></script>
-<script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap-input-spinner.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('website_assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('website_assets/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('website_assets/js/jquery.hoverIntent.min.js') }}"></script>
+<script src="{{ asset('website_assets/js/jquery.waypoints.min.js') }}"></script>
+<script src="{{ asset('website_assets/js/superfish.min.js') }}"></script>
+<script src="{{ asset('website_assets/js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('website_assets/js/bootstrap-input-spinner.js') }}"></script>
+<script src="{{ asset('website_assets/js/jquery.magnific-popup.min.js') }}"></script>
 <!-- Main JS File -->
-<script src="{{ asset('assets/js/main.js') }}"></script>
-<script src="{{ asset('assets/js/demos/demo-18.js') }}"></script>
+<script src="{{ asset('website_assets/js/main.js') }}"></script>
+<script src="{{ asset('website_assets/js/demos/demo-18.js') }}"></script>
 </body>
 
 </html>

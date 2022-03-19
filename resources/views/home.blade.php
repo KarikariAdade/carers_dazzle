@@ -2,7 +2,7 @@
 @section('content')
         <div class="intro-slider-container mb-3 mb-lg-5">
             <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" data-owl-options='{"dots": true, "nav": false}'>
-                <div class="intro-slide" style="background-image: url(assets/images/demos/demo-18/slider/slide-1.jpg);">
+                <div class="intro-slide" style="background-image: url('website_assets/images/demos/demo-18/slider/slide-1.jpg');">
                     <div class="container">
                         <div class="intro-content text-center">
                             <h3 class="intro-subtitle cross-txt" style="color: #c96;">SEASONAL PICKS</h3><!-- End .h3 intro-subtitle -->
@@ -17,7 +17,7 @@
                     </div><!-- End .intro-content -->
                 </div><!-- End .intro-slide -->
 
-                <div class="intro-slide" style="background-image: url(assets/images/demos/demo-18/slider/slide-2.jpg);">
+                <div class="intro-slide" style="background-image: url('website_assets/images/demos/demo-18/slider/slide-2.jpg');">
                     <div class="container">
                         <div class="intro-content text-center">
                             <h3 class="intro-subtitle text-primary cross-txt" style="color: #c96;">Women's Accessories</h3><!-- End .h3 intro-subtitle -->
@@ -41,7 +41,7 @@
                 <div class="col-lg-6">
                     <div class="banner banner-hover">
                         <a href="#">
-                            <img src="assets/images/demos/demo-18/banners/banner-1.jpg" alt="Banner">
+                            <img src="website_assets/images/demos/demo-18/banners/banner-1.jpg" alt="Banner">
                         </a>
 
                         <div class="banner-content">
@@ -54,7 +54,7 @@
                 <div class="col-sm-6 col-lg-3">
                     <div class="banner banner-hover">
                         <a href="#">
-                            <img src="assets/images/demos/demo-18/banners/banner-2.jpg" alt="Banner">
+                            <img src="website_assets/images/demos/demo-18/banners/banner-2.jpg" alt="Banner">
                         </a>
 
                         <div class="banner-content">
@@ -67,7 +67,7 @@
                 <div class="col-sm-6 col-lg-3">
                     <div class="banner banner-hover">
                         <a href="#">
-                            <img src="assets/images/demos/demo-18/banners/banner-3.jpg" alt="Banner">
+                            <img src="website_assets/images/demos/demo-18/banners/banner-3.jpg" alt="Banner">
                         </a>
 
                         <div class="banner-content">
@@ -78,7 +78,7 @@
 
                     <div class="banner banner-hover">
                         <a href="#">
-                            <img src="assets/images/demos/demo-18/banners/banner-4.jpg" alt="Banner">
+                            <img src="website_assets/images/demos/demo-18/banners/banner-4.jpg" alt="Banner">
                         </a>
 
                         <div class="banner-content">
@@ -100,8 +100,8 @@
                                 <div class="product product-4">
                                     <figure class="product-media">
                                         <a href="{{ route('website.product.detail') }}">
-                                            <img src="assets/images/demos/demo-18/products/product-1.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-18/products/product-1-2.jpg" alt="Product image" class="product-image-hover">
+                                            <img src="website_assets/images/demos/demo-18/products/product-1.jpg" alt="Product image" class="product-image">
+                                            <img src="website_assets/images/demos/demo-18/products/product-1-2.jpg" alt="Product image" class="product-image-hover">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -135,8 +135,8 @@
                                     <figure class="product-media">
                                         <span class="product-label label-primary">Sale</span>
                                         <a href="{{ route('website.product.detail') }}">
-                                            <img src="assets/images/demos/demo-18/products/product-2.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-18/products/product-2-2.jpg" alt="Product image" class="product-image-hover">
+                                            <img src="website_assets/images/demos/demo-18/products/product-2.jpg" alt="Product image" class="product-image">
+                                            <img src="website_assets/images/demos/demo-18/products/product-2-2.jpg" alt="Product image" class="product-image-hover">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -167,8 +167,8 @@
                                 <div class="product product-4">
                                     <figure class="product-media">
                                         <a href="{{ route('website.product.detail') }}">
-                                            <img src="assets/images/demos/demo-18/products/product-3.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-18/products/product-3-2.jpg" alt="Product image" class="product-image-hover">
+                                            <img src="website_assets/images/demos/demo-18/products/product-3.jpg" alt="Product image" class="product-image">
+                                            <img src="website_assets/images/demos/demo-18/products/product-3-2.jpg" alt="Product image" class="product-image-hover">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -201,8 +201,8 @@
                                 <div class="product product-4">
                                     <figure class="product-media">
                                         <a href="{{ route('website.product.detail') }}">
-                                            <img src="assets/images/demos/demo-18/products/product-4.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-18/products/product-4-2.jpg" alt="Product image" class="product-image-hover">
+                                            <img src="website_assets/images/demos/demo-18/products/product-4.jpg" alt="Product image" class="product-image">
+                                            <img src="website_assets/images/demos/demo-18/products/product-4-2.jpg" alt="Product image" class="product-image-hover">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -236,8 +236,8 @@
                                 <div class="product product-4">
                                     <figure class="product-media">
                                         <a href="{{ route('website.product.detail') }}">
-                                            <img src="assets/images/demos/demo-18/products/product-5.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-18/products/product-5-2.jpg" alt="Product image" class="product-image-hover">
+                                            <img src="website_assets/images/demos/demo-18/products/product-5.jpg" alt="Product image" class="product-image">
+                                            <img src="website_assets/images/demos/demo-18/products/product-5-2.jpg" alt="Product image" class="product-image-hover">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -266,8 +266,10 @@
                                 <div class="product product-4">
                                     <figure class="product-media">
                                         <a href="{{ route('website.product.detail') }}">
-                                            <img src="assets/images/demos/demo-18/products/product-6.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-18/products/product-6-2.jpg" alt="Product image" class="product-image-hover">
+                                            <img src="website_assets
+/images/demos/demo-18/products/product-6.jpg" alt="Product image" class="product-image">
+                                            <img src="website_assets
+/images/demos/demo-18/products/product-6-2.jpg" alt="Product image" class="product-image-hover">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -296,8 +298,10 @@
                                 <div class="product product-4">
                                     <figure class="product-media">
                                         <a href="{{ route('website.product.detail') }}">
-                                            <img src="assets/images/demos/demo-18/products/product-7.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-18/products/product-7-2.jpg" alt="Product image" class="product-image-hover">
+                                            <img src="website_assets
+/images/demos/demo-18/products/product-7.jpg" alt="Product image" class="product-image">
+                                            <img src="website_assets
+/images/demos/demo-18/products/product-7-2.jpg" alt="Product image" class="product-image-hover">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -327,8 +331,10 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="{{ route('website.product.detail') }}">
-                                            <img src="assets/images/demos/demo-18/products/product-8.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-18/products/product-8-2.jpg" alt="Product image" class="product-image-hover">
+                                            <img src="website_assets
+/images/demos/demo-18/products/product-8.jpg" alt="Product image" class="product-image">
+                                            <img src="website_assets
+/images/demos/demo-18/products/product-8-2.jpg" alt="Product image" class="product-image-hover">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -358,8 +364,10 @@
                                 <div class="product product-4">
                                     <figure class="product-media">
                                         <a href="{{ route('website.product.detail') }}">
-                                            <img src="assets/images/demos/demo-18/products/product-9.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-18/products/product-9-2.jpg" alt="Product image" class="product-image-hover">
+                                            <img src="website_assets
+/images/demos/demo-18/products/product-9.jpg" alt="Product image" class="product-image">
+                                            <img src="website_assets
+/images/demos/demo-18/products/product-9-2.jpg" alt="Product image" class="product-image-hover">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -404,7 +412,8 @@
                                         <div class="product product-sm">
                                             <figure class="product-media">
                                                 <a href="{{ route('website.product.detail') }}">
-                                                    <img src="assets/images/demos/demo-18/products/small/product-1.jpg" alt="Product image" class="product-image">
+                                                    <img src="website_assets
+/images/demos/demo-18/products/small/product-1.jpg" alt="Product image" class="product-image">
                                                 </a>
                                             </figure>
 
@@ -423,7 +432,8 @@
                                         <div class="product product-sm">
                                             <figure class="product-media">
                                                 <a href="{{ route('website.product.detail') }}">
-                                                    <img src="assets/images/demos/demo-18/products/small/product-2.jpg" alt="Product image" class="product-image">
+                                                    <img src="website_assets
+/images/demos/demo-18/products/small/product-2.jpg" alt="Product image" class="product-image">
                                                 </a>
                                             </figure>
 
@@ -441,7 +451,8 @@
                                         <div class="product product-sm">
                                             <figure class="product-media">
                                                 <a href="{{ route('website.product.detail') }}">
-                                                    <img src="assets/images/demos/demo-18/products/small/product-3.jpg" alt="Product image" class="product-image">
+                                                    <img src="website_assets
+/images/demos/demo-18/products/small/product-3.jpg" alt="Product image" class="product-image">
                                                 </a>
                                             </figure>
 
@@ -459,7 +470,8 @@
                                         <div class="product product-sm">
                                             <figure class="product-media">
                                                 <a href="{{ route('website.product.detail') }}">
-                                                    <img src="assets/images/demos/demo-18/products/small/product-4.jpg" alt="Product image" class="product-image">
+                                                    <img src="website_assets
+/images/demos/demo-18/products/small/product-4.jpg" alt="Product image" class="product-image">
                                                 </a>
                                             </figure>
 
@@ -478,7 +490,8 @@
                             </div><!-- End .col-sm-6 col-lg-12 -->
 
                             <div class="col-sm-6 col-lg-12">
-                                <div class="widget widget-subscribe" style="background-image: url(assets/images/demos/demo-18/bg-newsletter.jpg);">
+                                <div class="widget widget-subscribe" style="background-image: url(website_assets
+/images/demos/demo-18/bg-newsletter.jpg);">
                                     <h2 class="widget-title">Sign up for email <br>& get 25% off </h2><!-- End .widget-title -->
                                     <p>Subcribe to get information about products and coupons</p>
 
@@ -495,7 +508,8 @@
                                 <div class="widget widget-banner">
                                     <div class="banner banner-overlay">
                                         <a href="#">
-                                            <img src="assets/images/demos/demo-18/banners/banner-5.jpg" alt="Banner">
+                                            <img src="website_assets
+/images/demos/demo-18/banners/banner-5.jpg" alt="Banner">
                                         </a>
 
                                         <div class="banner-content">
@@ -544,31 +558,38 @@
                         }
                     }'>
                 <a href="#" class="brand">
-                    <img src="assets/images/brands/1.png" alt="Brand Name">
+                    <img src="website_assets
+/images/brands/1.png" alt="Brand Name">
                 </a>
 
                 <a href="#" class="brand">
-                    <img src="assets/images/brands/2.png" alt="Brand Name">
+                    <img src="website_assets
+/images/brands/2.png" alt="Brand Name">
                 </a>
 
                 <a href="#" class="brand">
-                    <img src="assets/images/brands/3.png" alt="Brand Name">
+                    <img src="website_assets
+/images/brands/3.png" alt="Brand Name">
                 </a>
 
                 <a href="#" class="brand">
-                    <img src="assets/images/brands/4.png" alt="Brand Name">
+                    <img src="website_assets
+/images/brands/4.png" alt="Brand Name">
                 </a>
 
                 <a href="#" class="brand">
-                    <img src="assets/images/brands/5.png" alt="Brand Name">
+                    <img src="website_assets
+/images/brands/5.png" alt="Brand Name">
                 </a>
 
                 <a href="#" class="brand">
-                    <img src="assets/images/brands/6.png" alt="Brand Name">
+                    <img src="website_assets
+/images/brands/6.png" alt="Brand Name">
                 </a>
 
                 <a href="#" class="brand">
-                    <img src="assets/images/brands/7.png" alt="Brand Name">
+                    <img src="website_assets
+/images/brands/7.png" alt="Brand Name">
                 </a>
             </div><!-- End .owl-carousel -->
         </div><!-- End .container -->
@@ -606,7 +627,8 @@
                             }
                         }'>
                     <div class="instagram-feed">
-                        <img src="assets/images/demos/demo-18/instagram/1.jpg" alt="img">
+                        <img src="website_assets
+/images/demos/demo-18/instagram/1.jpg" alt="img">
 
                         <div class="instagram-feed-content">
                             <a href="#"><i class="icon-heart-o"></i>466</a>
@@ -615,7 +637,8 @@
                     </div><!-- End .instagram-feed -->
 
                     <div class="instagram-feed">
-                        <img src="assets/images/demos/demo-18/instagram/2.jpg" alt="img">
+                        <img src="website_assets
+/images/demos/demo-18/instagram/2.jpg" alt="img">
 
                         <div class="instagram-feed-content">
                             <a href="#"><i class="icon-heart-o"></i>280</a>
@@ -624,7 +647,8 @@
                     </div><!-- End .instagram-feed -->
 
                     <div class="instagram-feed">
-                        <img src="assets/images/demos/demo-18/instagram/3.jpg" alt="img">
+                        <img src="website_assets
+/images/demos/demo-18/instagram/3.jpg" alt="img">
 
                         <div class="instagram-feed-content">
                             <a href="#"><i class="icon-heart-o"></i>123</a>
@@ -632,7 +656,8 @@
                         </div><!-- End .instagram-feed-content -->
                     </div><!-- End .instagram-feed -->
                     <div class="instagram-feed">
-                        <img src="assets/images/demos/demo-18/instagram/4.jpg" alt="img">
+                        <img src="website_assets
+/images/demos/demo-18/instagram/4.jpg" alt="img">
 
                         <div class="instagram-feed-content">
                             <a href="#"><i class="icon-heart-o"></i>290</a>
@@ -640,7 +665,8 @@
                         </div><!-- End .instagram-feed-content -->
                     </div><!-- End .instagram-feed -->
                     <div class="instagram-feed">
-                        <img src="assets/images/demos/demo-18/instagram/5.jpg" alt="img">
+                        <img src="website_assets
+/images/demos/demo-18/instagram/5.jpg" alt="img">
 
                         <div class="instagram-feed-content">
                             <a href="#"><i class="icon-heart-o"></i>582</a>
