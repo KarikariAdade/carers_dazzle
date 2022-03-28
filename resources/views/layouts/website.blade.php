@@ -46,19 +46,17 @@
                                 <a href="#" class="sf-with-ul">Categories</a>
 
                                 <ul>
-                                    <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
-                                    <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
-                                    <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
-                                    <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
+                                    @foreach($categories as $category)
+                                    <li><a href="{{ $category->generateCategoryRoute() }}">{{ strtoupper($category->name) }}</a></li>
+                                    @endforeach
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" class="sf-with-ul">Brands</a>
                                 <ul>
-                                    <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
-                                    <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
-                                    <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
-                                    <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
+                                    @foreach($brands as $brand)
+                                    <li><a href="{{ $brand->generateBrandRoute() }}">{{ strtoupper($brand->name) }}</a></li>
+                                    @endforeach
                                 </ul>
                             </li>
                             <li><a href="{{ route('website.shop.index') }}">Shop</a></li>
@@ -105,7 +103,7 @@
                                 <div class="product">
                                     <div class="product-cart-details">
                                         <h4 class="product-title">
-                                            <a href="{{ route('website.product.detail') }}">Beige knitted elastic runner shoes</a>
+                                            <a href="{{ route('website.shop.index') }}">Beige knitted elastic runner shoes</a>
                                         </h4>
 
                                         <span class="cart-product-info">
@@ -115,7 +113,7 @@
                                     </div><!-- End .product-cart-details -->
 
                                     <figure class="product-img-container">
-                                        <a href="{{ route('website.product.detail') }}" class="product-img">
+                                        <a href="{{ route('website.shop.index') }}" class="product-img">
                                             <img src="website_assets/images/products/cart/product-1.jpg" alt="product">
                                         </a>
                                     </figure>
@@ -125,7 +123,7 @@
                                 <div class="product">
                                     <div class="product-cart-details">
                                         <h4 class="product-title">
-                                            <a href="{{ route('website.product.detail') }}">Blue utility pinafore denim dress</a>
+                                            <a href="{{ route('website.shop.index') }}">Blue utility pinafore denim dress</a>
                                         </h4>
 
                                         <span class="cart-product-info">
@@ -135,7 +133,7 @@
                                     </div><!-- End .product-cart-details -->
 
                                     <figure class="product-img-container">
-                                        <a href="{{ route('website.product.detail') }}" class="product-img">
+                                        <a href="{{ route('website.shop.index') }}" class="product-img">
                                             <img src="website_assets/images/products/cart/product-2.jpg" alt="product">
                                         </a>
                                     </figure>
@@ -261,19 +259,17 @@
                     <a href="#" class="sf-with-ul">Categories</a>
 
                     <ul>
-                        <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
-                        <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
-                        <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
-                        <li><a href="{{ route('website.category.index') }}">Category Name</a></li>
+                        @foreach($categories as $category)
+                        <li><a href="{{ $category->generateCategoryRoute() }}">{{ strtoupper($category->name) }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
                 <li>
                     <a href="#" class="sf-with-ul">Brands</a>
                     <ul>
-                        <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
-                        <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
-                        <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
-                        <li><a href="{{ route('website.brand.index') }}">Brand Name</a></li>
+                        @foreach($brands as $brand)
+                        <li><a href="{{ $brand->generateBrandRoute() }}">{{ strtoupper($brand->name) }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
                 <li><a href="{{ route('website.shop.index') }}">Shop</a></li>

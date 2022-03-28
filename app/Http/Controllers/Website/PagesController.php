@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -13,9 +15,12 @@ class PagesController extends Controller
     }
 
 
-    public function category()
+    public function category($random, ProductCategory $category, $name)
     {
-        return view('website.category.index');
+
+        $products = Product::query()->where('category_id', $category->id)->paginate(16);
+
+        return view('website.category.index', compact('products', 'category'));
     }
 
     public function brand()
@@ -23,8 +28,8 @@ class PagesController extends Controller
         return view('website.brand.index');
     }
 
-    public function productDetail()
+    public function productDetail(Product $product, $name, $hash)
     {
-        return view('website.shop.detail');
+        return view('website.shop.detail', compact('product'));
     }
 }

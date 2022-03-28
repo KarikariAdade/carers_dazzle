@@ -57,7 +57,7 @@ class Product extends Model implements Buyable
 
     public function generateRoute()
     {
-        return route('website.shop.detail', [$this->id, strtolower(str_replace(' ', '_', $this->name)), Str::random(10)]);
+        return route('website.product.detail', [$this->id, strtolower(str_replace(' ', '_', $this->name)), Str::random(10)]);
     }
 
     public function getSingleImage()
