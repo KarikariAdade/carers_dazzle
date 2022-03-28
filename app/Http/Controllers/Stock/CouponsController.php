@@ -13,12 +13,12 @@ class CouponsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     public function index(CouponDatatable $datatable)
     {
-        return $datatable->render('stock.coupon.index');
+        return $datatable->render('admin.stock.coupon.index');
     }
 
 

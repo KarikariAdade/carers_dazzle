@@ -12,12 +12,12 @@ class ProductCategoryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     public function index(ProductCategoryDatatable $datatable)
     {
-        return $datatable->render('stock.categories.index');
+        return $datatable->render('admin.stock.categories.index');
     }
 
 

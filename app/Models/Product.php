@@ -2,14 +2,28 @@
 
 namespace App\Models;
 
+use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
-class Product extends Model
+class Product extends Model implements Buyable
 {
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function getBuyableIdentifier($options = null){
+        return $this->id;
+    }
+
+    public function getBuyableDescription($options = null){
+        return $this->name;
+    }
+
+    public function getBuyablePrice($options = null){
+        return $this->price;
+    }
 
     public function getBrand()
     {
@@ -25,6 +39,37 @@ class Product extends Model
 
     public function getSubCategory()
     {
-        return $this->belongsTo(SubCategory::class, 'sub_category_id');
+        return $this->belongsTo(SubCategory::class, 'shelf_id');
+    }
+
+
+    public function getPicture()
+    {
+        return $this->hasMany(ProductPicture::class, 'product_id');
+    }
+
+
+    public function getTaxes()
+    {
+        return $this->hasMany(Taxes::class, 'id');
+    }
+
+
+    public function generateRoute()
+    {
+        return route('website.shop.detail', [$this->id, strtolower(str_replace(' ', '_', $this->name)), Str::random(10)]);
+    }
+
+    public function getSingleImage()
+    {
+        $image = ProductPicture::query()->where('product_id', $this->id)->first();
+
+        return $image->path ?? null;
+
+    }
+
+    public function generateCartRoute()
+    {
+        return route('website.cart.add', $this->id);
     }
 }
