@@ -37,16 +37,18 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('home');
-})->name('website.home');
+//Route::get('/', function () {
+//    return view('home');
+//})->name('website.home');
 
+
+Route::get('/', [PagesController::class, 'home'])->name('website.home');
 
 Route::get('category/{random}/{category}/{name}', [PagesController::class, 'category'])->name('website.category.index');
 
 
 
-Route::get('brand/{random}/{id}/{name}', [PagesController::class, 'brand'])->name('website.brand.index');
+Route::get('brand/{random}/{brand}/{name}', [PagesController::class, 'brand'])->name('website.brand.index');
 
 Route::get('product/{product}/{name}/{hash}', [PagesController::class, 'productDetail'])->name('website.product.detail');
 
@@ -58,28 +60,28 @@ Route::get('shop', [PagesController::class, 'shop'])->name('website.shop.index')
 //
 //Route::get('/', [HomepageController::class, 'index'])->name('website.index');
 //
-//Route::prefix('shop')->group(function(){
+Route::prefix('shop')->group(function(){
 //    Route::get('brand/{brand}', [HomepageController::class, 'brand'])->name('website.brand');
 //    Route::get('category/{category}', [HomepageController::class, 'categories'])->name('website.category');
 //    Route::get('/', [HomepageController::class, 'shops'])->name('website.shop');
 //    Route::get('product/{product}/{name}/{hash}', [HomepageController::class, 'shopDetail'])->name('website.shop.detail');
-//
-//    Route::prefix('cart')->group(function (){
-//        Route::get('/', [CartController::class, 'index'])->name('website.cart.index');
-//        Route::any('add/{product}', [CartController::class, 'addToCart'])->name('website.cart.add');
-//        Route::post('item/{row}/remove', [CartController::class, 'removeFromCart'])->name('website.cart.remove');
-//        Route::post('update', [CartController::class, 'updateCart'])->name('website.cart.update');
-//        Route::post('coupon/add', [CartController::class, 'addCoupon'])->name('website.cart.coupon.add');
-//        Route::any('clear', [CartController::class, 'clearCart'])->name('website.cart.clear');
-//        Route::post('calculate/shipping', [CartController::class, 'calculateShipping'])->name('website.cart.shipping.calculate');
-//    });
-//
-//    Route::prefix('checkout')->group(function (){
-//        Route::get('/', [CheckoutController::class, 'index'])->name('website.checkout.index');
-//        Route::post('customer/login', [CheckoutController::class, 'customerLogin'])->name('website.checkout.customer.login');
-//        Route::post('order', [CheckoutController::class, 'order'])->name('website.checkout.order');
-//    });
-//});
+
+    Route::prefix('cart')->group(function (){
+        Route::get('/', [CartController::class, 'index'])->name('website.cart.index');
+        Route::any('add/{product}', [CartController::class, 'addToCart'])->name('website.cart.add');
+        Route::any('item/{row}/remove', [CartController::class, 'removeFromCart'])->name('website.cart.remove');
+        Route::post('update', [CartController::class, 'updateCart'])->name('website.cart.update');
+        Route::post('coupon/add', [CartController::class, 'addCoupon'])->name('website.cart.coupon.add');
+        Route::any('clear', [CartController::class, 'clearCart'])->name('website.cart.clear');
+        Route::post('calculate/shipping', [CartController::class, 'calculateShipping'])->name('website.cart.shipping.calculate');
+    });
+
+    Route::prefix('checkout')->group(function (){
+        Route::get('/', [CheckoutController::class, 'index'])->name('website.checkout.index');
+        Route::post('customer/login', [CheckoutController::class, 'customerLogin'])->name('website.checkout.customer.login');
+        Route::post('order', [CheckoutController::class, 'order'])->name('website.checkout.order');
+    });
+});
 
 
 //Route::get('admin/dashboard', function () {

@@ -729,44 +729,67 @@ $(document).ready(function (){
 
         $.each(response.cart, function (i, item){
             $.each(item.options, function (option, items_option){
-                item_image = items_option
+                item_image = item.options['product_image']
+
+                console.log('item_option', item.options['product_image'])
             })
             route = response.base_path+item.rowId+'/remove';
 
-            cart_dropdown += `<li>
-                                            <div class="cart-img">
-                                                <a href="#"><img src="${item_image}" alt=""></a>
-                                            </div>
-                                            <div class="cart-info">
-                                                <h4><a href="">${item.name} (${item.qty})</a></h4>
-                                                <span>GHS ${item.subtotal}</span>
-                                            </div>
-                                            <div class="del-icon">
-                                                <a href="${route}" class="text-danger" id="del-icon"><i class="fa fa-times"></i></a>
-                                            </div>
-                                        </li>
-                                    `;
+            cart_dropdown += `
+                <div class="product">
+                    <div class="product-cart-details" style="width: 100%;">
+                        <h4 class="product-title">
+                            <a href="#">${item.name}</a>
+                        </h4>
+                        <span class="cart-product-info">
+                                           <span class="cart-product-qty">${item.qty}</span>
+                                             x GHS ${item.subtotal}
+                                            </span>
+                    </div>
+                    <figure class="product-img-container" style="width:100%;">
+                        <a href="#" class="product-img">
+                            <img src="../../../${item_image}" alt="product" class="img-fluid" style="height: 100px; width: 100%;">
+                        </a>
+                    </figure>
+                    <a href="${route}" class="btn-remove" id="del-icon" title="Remove Product"><i class="icon-close"></i></a>
+                </div>`
+
+
         });
 
-        cart_dropdown += ` <li class="mini-cart-price">
-                                            <span class="subtotal">subtotal : </span>
-                                            <span class="subtotal-price">GHS ${response.cart_total}</span>
-                                        </li>
-                                        <li class="checkout-btn">
-                                            <a href="${response.checkout}">checkout</a>
-                                        </li>`;
+        console.log('item image', item_image)
 
-        cart_total = `<div class="cart-total-price">
-                                        <span>total</span>
-                                        GHS ${response.cart_total}
-                                    </div>`;
+        // cart_dropdown += ` <li class="mini-cart-price">
+        //                                     <span class="subtotal">subtotal : </span>
+        //                                     <span class="subtotal-price">GHS ${response.cart_total}</span>
+        //                                 </li>
+        //                                 <li class="checkout-btn">
+        //                                     <a href="${response.checkout}">checkout</a>
+        //                                 </li>`;
+        //
+        // cart_total = `<div class="cart-total-price">
+        //                                 <span>total</span>
+        //                                 GHS ${response.cart_total}
+        //                             </div>`;
 
-        $('#cart-list').html(cart_dropdown)
-        $('.cart-notification').html(response.cart_count)
-        $('.cart-total-price').html(cart_total)
+        $('.dropdown-cart-products').html(cart_dropdown)
+        // $('.cart-notification').html(response.cart_count)
+        $('.cart-total-price').html(response.cart_total)
     }
 
-
+    // cart_dropdown += `<li>
+    //                                         <div class="cart-img">
+    //                                             <a href="#"><img src="${item_image}" alt=""></a>
+    //                                         </div>
+    //                                         <div class="cart-info">
+    //                                             <h4><a href="">${item.name} (${item.qty})</a></h4>
+    //                                             <span>GHS ${item.subtotal}</span>
+    //                                         </div>
+    //                                         <div class="del-icon">
+    //                                             <a href="${route}" class="text-danger" id="del-icon"><i class="fa fa-times"></i></a>
+    //                                         </div>
+    //                                     </li>
+    //                                 `;
 
 
     /* ================================== CHECKOUT SCRIPTS =============================== */

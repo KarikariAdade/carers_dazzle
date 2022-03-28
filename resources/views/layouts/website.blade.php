@@ -24,6 +24,7 @@
     <meta name="msapplication-TileColor" content="#cc9966">
     <meta name="msapplication-config" content="website_assets/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="{{ asset('website_assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('website_assets/css/plugins/owl-carousel/owl.carousel.css') }}">
@@ -31,6 +32,7 @@
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{{ asset('website_assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('website_assets/css/demos/demo-18.css') }}">
+    <link rel="stylesheet" href="{{ asset('website_assets/css/custom.css') }}">
 </head>
 
 <body>
@@ -441,6 +443,8 @@
 <!-- Main JS File -->
 <script src="{{ asset('website_assets/js/main.js') }}"></script>
 <script src="{{ asset('website_assets/js/demos/demo-18.js') }}"></script>
+<script src="{{ asset('assets/js/sweet_alert.min.js') }}"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
 </body>
 
 </html>

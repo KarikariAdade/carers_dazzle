@@ -6,6 +6,7 @@ use App\Models\Brands;
 use App\Models\ProductCategory;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class WebsiteDataDependencies extends ServiceProvider
 {
@@ -27,22 +28,20 @@ class WebsiteDataDependencies extends ServiceProvider
     public function boot()
     {
 
-        view()->composer(['layouts.website', 'layouts.pages'], function ($view) {
+        view()->composer(['layouts.website', 'layouts.pages', 'home'], function ($view) {
+
             $categories = ProductCategory::query()->orderBy('id', 'DESC')->get();
 
             $brands = Brands::query()->orderBy('id', 'DESC')->get();
 
+            $carts = Cart::content();
+
             $view->with([
                 'categories' => $categories,
-                'brands' => $brands
+                'brands' => $brands,
+                'carts' => $carts
             ]);
         });
 
-
-
-//        return View::share([
-//            'categories' => $categories,
-////            'brands' => $brands
-//        ]);
     }
 }

@@ -36,12 +36,13 @@
                                 </div>
                                 <div thumbsSlider="" class="swiper mySwiper">
                                     <div class="swiper-wrapper">
-{{--                                        {{ $product->getPicture }}--}}
+                                        @if(count($product->getPicture) > 1)
                                         @foreach($product->getPicture as $image)
                                             <div class="swiper-slide" >
                                                 <img class="img-fluid" src="{{ asset($image->path) }}" style="width: 100%; height: 100px;"/>
                                             </div>
                                         @endforeach
+                                        @endif
                                     </div>
                                 </div>
                             </div><!-- End .row -->

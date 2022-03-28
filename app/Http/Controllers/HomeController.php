@@ -24,9 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = ProductCategory::query()->get();
 
-        return $categories;
         return view('home');
     }
 }

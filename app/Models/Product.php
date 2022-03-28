@@ -68,6 +68,13 @@ class Product extends Model implements Buyable
 
     }
 
+    public function getLastImage()
+    {
+        $image = ProductPicture::query()->where('product_id', $this->id)->orderBy('id', 'DESC')->first();
+
+        return $image->path ?? null;
+    }
+
     public function generateCartRoute()
     {
         return route('website.cart.add', $this->id);

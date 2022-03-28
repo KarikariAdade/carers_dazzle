@@ -1,7 +1,6 @@
 @extends('layouts.pages')
 @section('content')
-        <div class="page-header text-center" style="background-img: url('website_assets
-/images/page-header-bg.jpg')">
+        <div class="page-header text-center" style="background-image: url({{asset('website_assets/images/page-header-bg.jpg')}})">
             <div class="container">
                 <h1 class="page-title">Categories<span>{{ $category->name }}</span></h1>
             </div><!-- End .container -->
@@ -44,6 +43,7 @@
 
                         <div class="products mb-3">
                             <div class="row justify-content-center">
+                                @if($products->count() > 0)
                                 @foreach($products as $product)
                                 <div class="col-6 col-md-4 col-lg-4 col-xl-3">
                                     <div class="product product-7 text-center">
@@ -59,7 +59,7 @@
                                             </div><!-- End .product-action-vertical -->
 
                                             <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                                <a href="{{ route('website.cart.add', $product->id) }}" class="btn-product btn-cart addToCartBtn"><span>add to cart</span></a>
                                             </div><!-- End .product-action -->
                                         </figure><!-- End .product-media -->
 
@@ -81,6 +81,9 @@
                                     </div><!-- End .product -->
                                 </div>
                                 @endforeach
+                                @else
+                                    <div class="col-md-12 mt-5"><h6>There are no products under {{ $brand->name }} at the moment. Kindly visit this page later.</h6></div>
+                                @endif
                             </div><!-- End .row -->
                             {{ $products->links('vendor.pagination.bootstrap-4') }}
                         </div><!-- End .products -->
