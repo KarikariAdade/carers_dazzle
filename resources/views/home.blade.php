@@ -115,7 +115,7 @@
                                         </div><!-- End .product-action -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                            <a href="{{ route('website.cart.add', $arrival->id) }}" class="btn-product btn-cart addToCartBtn"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -123,7 +123,7 @@
                                         <div class="product-cat">
                                             <a href="{{ $arrival->getCategory->generateCategoryRoute() }}">{{ $arrival->getCategory->name }}</a>
                                         </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="{{ route('website.shop.index') }}">{{ $arrival->name }}</a></h3><!-- End .product-title -->
+                                        <h3 class="product-title"><a href="{{ $arrival->generateRoute() }}">{{ $arrival->name }}</a></h3><!-- End .product-title -->
                                         <div class="product-price">
                                             $ {{ number_format($arrival->price, 2) }}
                                         </div><!-- End .product-price -->

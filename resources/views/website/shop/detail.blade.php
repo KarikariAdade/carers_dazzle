@@ -71,10 +71,10 @@
                             <div class="product-details-action">
                                 <div class="details-action-col">
                                     <div class="product-details-quantity">
-                                        <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required="" style="display: none;">
+                                        <input type="number" id="itemQuantity" class="form-control" value="1" min="1" max="{{ $product->quantity }}" step="1" data-decimals="0" required="" style="display: none;">
                                     </div><!-- End .product-details-quantity -->
 
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                    <a href="{{ $product->generateCartRoute() }}" class="btn-product btn-cart" id="addToCartWithItem"><span>add to cart</span></a>
                                 </div><!-- End .details-action-col -->
 
                                 <div class="details-action-wrapper">

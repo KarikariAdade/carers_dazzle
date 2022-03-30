@@ -1,9 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- molla/index-18.html  22 Nov 2019 10:00:41 GMT -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -97,61 +94,43 @@
                     <div class="dropdown cart-dropdown">
                         <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                             <i class="icon-shopping-cart"></i>
-                            <span class="cart-count">2</span>
+                            <span class="cart-count">{{ Cart::count()  }}</span>
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-menu dropdown-menu-right" id="cart-list">
                             <div class="dropdown-cart-products">
-                                <div class="product">
-                                    <div class="product-cart-details">
-                                        <h4 class="product-title">
-                                            <a href="{{ route('website.shop.index') }}">Beige knitted elastic runner shoes</a>
-                                        </h4>
-
-                                        <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $84.00
+                                @if(!empty($carts))
+                                    @foreach($carts as $cart)
+                                        <div class="product">
+                                            <div class="product-cart-details" style="width: 100%;">
+                                                <h4 class="product-title">
+                                                    <a href="#">{{ $cart->name }}</a>
+                                                </h4>
+                                                <span class="cart-product-info">
+                                                <span class="cart-product-qty">{{ $cart->qty }}</span>
+                                                x GHS {{ $cart->price }}
                                             </span>
-                                    </div><!-- End .product-cart-details -->
-
-                                    <figure class="product-img-container">
-                                        <a href="{{ route('website.shop.index') }}" class="product-img">
-                                            <img src="website_assets/images/products/cart/product-1.jpg" alt="product">
-                                        </a>
-                                    </figure>
-                                    <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                </div><!-- End .product -->
-
-                                <div class="product">
-                                    <div class="product-cart-details">
-                                        <h4 class="product-title">
-                                            <a href="{{ route('website.shop.index') }}">Blue utility pinafore denim dress</a>
-                                        </h4>
-
-                                        <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $76.00
-                                            </span>
-                                    </div><!-- End .product-cart-details -->
-
-                                    <figure class="product-img-container">
-                                        <a href="{{ route('website.shop.index') }}" class="product-img">
-                                            <img src="website_assets/images/products/cart/product-2.jpg" alt="product">
-                                        </a>
-                                    </figure>
-                                    <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                </div><!-- End .product -->
+                                            </div><!-- End .product-cart-details -->
+                                            <figure class="product-img-container" style="width:100%;">
+                                                <a href="#" class="product-img">
+                                                    <img src="{{ asset($cart->options['product_image']) }}" alt="product" style="height: 100px; width: 100%;">
+                                                </a>
+                                            </figure>
+                                            <a href="{{ route('website.cart.remove', $cart->rowId) }}" class="btn-remove removeCart" title="Remove Product"><i class="icon-close"></i></a>
+                                        </div><!-- End .product -->
+                                    @endforeach
+                                @endif
                             </div><!-- End .cart-product -->
 
                             <div class="dropdown-cart-total">
                                 <span>Total</span>
 
-                                <span class="cart-total-price">$160.00</span>
+                                <span class="cart-total-price">GHS {{ Cart::subtotal() }}</span>
                             </div><!-- End .dropdown-cart-total -->
 
                             <div class="dropdown-cart-action">
-                                <a href="cart.html" class="btn btn-primary">View Cart</a>
-                                <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                <a href="{{ route('website.cart.index') }}" class="btn btn-primary">View Cart</a>
+                                <a href="{{ route('website.checkout.index') }}" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                             </div><!-- End .dropdown-cart-total -->
                         </div><!-- End .dropdown-menu -->
                     </div><!-- End .cart-dropdown -->

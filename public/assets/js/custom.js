@@ -552,13 +552,15 @@ $(document).ready(function (){
 
 
     // Remove item from cart in notification area
-    $('.cart-list').on('click', '#del-icon', function (e){
+    $('#cart-list').on('click', '#del-icon', function (e){
 
         e.preventDefault();
 
-        let parent = $(this).closest('li'),
+        let parent = $(this).closest('.product'),
             url = $(this).attr('href'),
             path = window.location.pathname;
+
+
 
         $.post(url, function (response){
             console.log(response)
@@ -773,7 +775,7 @@ $(document).ready(function (){
         //                             </div>`;
 
         $('.dropdown-cart-products').html(cart_dropdown)
-        // $('.cart-notification').html(response.cart_count)
+        $('.cart-count').html(response.cart_count)
         $('.cart-total-price').html(response.cart_total)
     }
 

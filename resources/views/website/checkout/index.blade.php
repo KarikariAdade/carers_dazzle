@@ -17,12 +17,81 @@
     <div class="page-content">
         <div class="checkout">
             <div class="container">
-                <div class="checkout-discount">
-                    <form action="#">
-                        <input type="text" class="form-control" required id="checkout-discount-input">
-                        <label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here to enter your code</span></label>
-                    </form>
-                </div><!-- End .checkout-discount -->
+                @include('layouts.errors')
+                <div class="col-md-12">
+
+                    <div class="accordion accordion-icon" id="accordion-3">
+                        @if(!auth()->guard('web')->check())
+                        <div class="card">
+                            <div class="card-header" id="heading3-1">
+                                <h2 class="card-title">
+                                    <a role="button" data-toggle="collapse" href="#collapse3-1" aria-expanded="true" aria-controls="collapse3-1">
+                                        <i class="icon-user"></i>Returning Customer? Click here to log in
+                                    </a>
+                                </h2>
+                            </div><!-- End .card-header -->
+                            <div id="collapse3-1" class="collapse" aria-labelledby="heading3-1" data-parent="#accordion-3">
+                                <div class="card-body">
+                                    <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the checkout section.</p>
+                                    <div class="mt-4">
+                                        <div class="row">
+                                            <div class="col-lg-7">
+                                                <form  method="POST" action="{{ route('website.checkout.customer.login') }}" id="cartLogin">
+                                                    @csrf
+                                                    @method('POST')
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="single-input-item form-group">
+                                                                <input type="email" name="email" class="form-control" placeholder="Enter your Email" required="">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            <div class="single-input-item form-group">
+                                                                <input type="password" class="form-control" name="password" placeholder="Enter your Password" required="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="single-input-item">
+                                                        <button class="btn btn-primary" type="submit">Login</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End .card-body -->
+                            </div><!-- End .collapse -->
+                        </div><!-- End .card -->
+                        @endif
+
+                            @if(empty(session()->get('checkout_data.coupon')))
+                        <div class="card">
+                            <div class="card-header" id="heading3-2">
+                                <h2 class="card-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" href="#collapse3-2" aria-expanded="false" aria-controls="collapse3-2">
+                                        <i class="icon-info-circle"></i>Have a Coupon? Click here to enter your code
+                                    </a>
+                                </h2>
+                            </div><!-- End .card-header -->
+                            <div id="collapse3-2" class="collapse" aria-labelledby="heading3-2" data-parent="#accordion-3">
+                                <div class="card-body">
+                                    <div class="cart-update-option">
+                                        <div class="apply-coupon-wrapper row">
+                                            <form action="{{ route('website.cart.coupon.add') }}" method="POST" id="couponForm" class="col-md-7">
+                                                <div class="form-group">
+                                                    <input type="text" name="coupon" class="form-control" placeholder="Enter Your Coupon Code" required="">
+                                                </div>
+                                                <button class="btn btn-outline-primary-2" type="submit">Apply Coupon</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- End .collapse -->
+                        </div><!-- End .card -->
+                            @endif
+                    </div><!-- End .accordion -->
+                </div><!-- End .col-md-6 -->
                 <form action="#">
                     <div class="row">
                         <div class="col-lg-9">
@@ -102,26 +171,28 @@
                                     </thead>
 
                                     <tbody>
+                                    @foreach(Cart::content() as $cart)
                                     <tr>
-                                        <td><a href="#">Beige knitted elastic runner shoes</a></td>
-                                        <td>$84.00</td>
+                                        <td><a href="#">{{ $cart->name }} <strong> × {{ $cart->qty }}</strong> </a></td>
+                                        <td>GHS {{ number_format($cart->subtotal, 2) }}</td>
                                     </tr>
+                                    @endforeach
 
                                     <tr>
-                                        <td><a href="#">Blue utility pinafore denimdress</a></td>
-                                        <td>$76,00</td>
+                                        <td>Shipping:</td>
+                                        <td>{{ session()->get('checkout_data.delivery') ? 'GHS '.number_format(session()->get('checkout_data.delivery'), 2) : 'GHS 0.00' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Discount:</td>
+                                        <td>{{ session()->get('checkout_data.sub_total') ? 'GHS '.number_format(session()->get('checkout_data.sub_total'), 2) : 'GHS 0.00' }}</td>
                                     </tr>
                                     <tr class="summary-subtotal">
                                         <td>Subtotal:</td>
-                                        <td>$160.00</td>
+                                        <td>{{ 'GHS '.Cart::subtotal() }}</td>
                                     </tr><!-- End .summary-subtotal -->
-                                    <tr>
-                                        <td>Shipping:</td>
-                                        <td>Free shipping</td>
-                                    </tr>
                                     <tr class="summary-total">
                                         <td>Total:</td>
-                                        <td>$160.00</td>
+                                        <td>{{ session()->get('checkout_data') ? 'GHS '.number_format(session()->get('checkout_data.total'), 2) : 'GHS '.Cart::subtotal() }}</td>
                                     </tr><!-- End .summary-total -->
                                     </tbody>
                                 </table><!-- End .table table-summary -->

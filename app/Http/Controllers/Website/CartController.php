@@ -21,7 +21,7 @@ class CartController extends Controller
     {
         $regions = Regions::query()->get();
 
-        return view('website.cart.index', ['pageItems' => $this->pageDependencies(), 'regions' => $regions]);
+        return view('website.cart.index', ['regions' => $regions]);
     }
 
 
