@@ -66,7 +66,7 @@
                                                 </div><!-- End .product-cat -->
                                                 <h3 class="product-title"><a href="{{ $product->generateRoute() }}">{{ $product->name }}</a></h3><!-- End .product-title -->
                                                 <div class="product-price">
-                                                    ${{ number_format($product->price, 2) }}
+                                                    {{ $product->convertCurrency() }}
                                                 </div><!-- End .product-price -->
                                                 <div class="ratings-container">
                                                     <div class="ratings">

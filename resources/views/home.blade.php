@@ -125,7 +125,7 @@
                                         </div><!-- End .product-cat -->
                                         <h3 class="product-title"><a href="{{ $arrival->generateRoute() }}">{{ $arrival->name }}</a></h3><!-- End .product-title -->
                                         <div class="product-price">
-                                            $ {{ number_format($arrival->price, 2) }}
+                                            {{ $arrival->convertCurrency() }}
                                         </div><!-- End .product-price -->
                                     </div><!-- End .product-body -->
                                 </div><!-- End .product -->

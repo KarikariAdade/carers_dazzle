@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use AmrShawky\LaravelCurrency\Facade\Currency;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use willvincent\Rateable\Rateable;
 
 class Product extends Model implements Buyable
 {
-    use HasFactory;
+    use HasFactory, Rateable;
 
     protected $guarded = ['id'];
 
@@ -78,5 +80,25 @@ class Product extends Model implements Buyable
     public function generateCartRoute()
     {
         return route('website.cart.add', $this->id);
+    }
+
+
+    public function getReviews()
+    {
+        return $this->hasMany(Review::class, 'product_id');
+    }
+
+    public function convertCurrency()
+    {
+        $amount = Currency::convert()
+            ->from(session()->get('from_currency'))
+            ->to(session()->get('to_currency'))
+            ->amount($this->price)
+            ->get();
+
+        return session()->get('sign').' '.number_format($amount, 2);
+
+
+
     }
 }

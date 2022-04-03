@@ -17,7 +17,8 @@
     </nav><!-- End .breadcrumb-nav -->
     <div class="page-content">
         <div class="container">
-            <div class="product-details-top mb-2">
+            @include('layouts.errors')
+            <div class="product-details-top mb-2 mt-4">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="product-gallery product-gallery-vertical">
@@ -54,14 +55,14 @@
                             <h1 class="product-title">{{ $product->name }}</h1><!-- End .product-title -->
 
                             <div class="ratings-container">
-                                <div class="ratings">
-                                    <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                </div><!-- End .ratings -->
-                                <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
+                                @if($rating > 0)
+                                    <div class='starrr'></div>
+                                @endif
+                                <a class="ratings-text" href="#product-review-link" id="review-link">( {{ $product->getReviews->count() }} Reviews )</a>
                             </div><!-- End .rating-container -->
 
                             <div class="product-price">
-                                ${{ number_format($product->price, 2) }}
+                                {{ $product->convertCurrency() }}
                             </div><!-- End .product-price -->
 
                             <div class="product-content">
@@ -110,7 +111,7 @@
                         <a class="nav-link" id="product-shipping-link" data-toggle="tab" href="#product-shipping-tab" role="tab" aria-controls="product-shipping-tab" aria-selected="false">Shipping &amp; Returns</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews (2)</a>
+                        <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews ({{ $product->getReviews->count() }})</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -129,32 +130,81 @@
                     </div><!-- .End .tab-pane -->
                     <div class="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
                         <div class="reviews">
-                            <h3>Reviews (2)</h3>
+                            <h3>Reviews ({{ $product->getReviews->count() }})</h3>
+                            @if($product->getReviews->count() > 0)
                             <div class="review">
+                                @foreach($product->getReviews as $review)
                                 <div class="row no-gutters">
                                     <div class="col-auto">
-                                        <h4><a href="#">Samanta J.</a></h4>
+                                        <h4><a href="#" class="text-primary">{{ $review->getUser->name }}</a></h4>
                                         <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
+                                            @for($i = 1; $i < $review->rating; $i++)
+                                                <i class="fas fa-star filled" style="color: #fcb941;"></i>
+                                            @endfor
                                         </div><!-- End .rating-container -->
-                                        <span class="review-date">6 days ago</span>
+                                        <span class="review-date"> {{ \Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</span>
                                     </div><!-- End .col -->
                                     <div class="col">
-                                        <h4>Good, perfect size</h4>
+                                        <h4 class="text-primary">{{ $review->title }}</h4>
 
                                         <div class="review-content">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cum dolores assumenda asperiores facilis porro reprehenderit animi culpa atque blanditiis commodi perspiciatis doloremque, possimus, explicabo, autem fugit beatae quae voluptas!</p>
+                                            <p>{{ $review->description }}</p>
                                         </div><!-- End .review-content -->
 
-                                        <div class="review-action">
-                                            <a href="#"><i class="icon-thumbs-up"></i>Helpful (2)</a>
-                                            <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
-                                        </div><!-- End .review-action -->
                                     </div><!-- End .col-auto -->
                                 </div><!-- End .row -->
-                            </div><!-- End .review -->
+                                    @endforeach
+
+                                <button class="btn btn-primary" id="view_more_btn">Show More Reviews</button>
+                            </div>
+                            @endif
+                            @if(auth()->guard('web')->check())
+                            <div>
+                                <h4> Add Review</h4>
+
+                                <form class="row reviewForm mt-4" action="{{ route('customer.review.store', $product->id) }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="form-group col-md-3">
+                                        <label>Rating <span class="text-danger">*</span></label>
+                                        <div class="star-rating">
+                                            <input id="star-5" type="radio" name="rating" value="5">
+                                            <label for="star-5" title="5 stars">
+                                                <i class="active fa fa-star"></i>
+                                            </label>
+                                            <input id="star-4" type="radio" name="rating" value="4">
+                                            <label for="star-4" title="4 stars">
+                                                <i class="active fa fa-star"></i>
+                                            </label>
+                                            <input id="star-3" type="radio" name="rating" value="3">
+                                            <label for="star-3" title="3 stars">
+                                                <i class="active fa fa-star"></i>
+                                            </label>
+                                            <input id="star-2" type="radio" name="rating" value="2">
+                                            <label for="star-2" title="2 stars">
+                                                <i class="active fa fa-star"></i>
+                                            </label>
+                                            <input id="star-1" type="radio" name="rating" value="1">
+                                            <label for="star-1" title="1 star">
+                                                <i class="active fa fa-star"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Title <span class="text-danger">*</span></label>
+                                        <input type="text" name="title" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label>Your review <span class="text-danger">*</span></label>
+                                        <textarea id="review_desc" maxlength="300" name="description" class="form-control"></textarea>
+                                        <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span id="chars"></span> characters remaining</small></div>
+                                    </div>
+                                    <div class="col-md-12 text-danger">
+                                        <button class="btn btn-primary" id="reviewBtn" type="submit">Submit Review</button>
+                                    </div>
+                                </form>
+                            </div>
+                            @endif
                         </div><!-- End .reviews -->
                     </div><!-- .End .tab-pane -->
                 </div><!-- End .tab-content -->
@@ -212,23 +262,29 @@
                                         <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
                                     </div>
                                     <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                        <a href="{{ route('website.cart.add', $product->id) }}" class="btn-product btn-cart addToCartBtn"><span>add to cart</span></a>
                                     </div><!-- End .product-action -->
                                 </figure><!-- End .product-media -->
 
                                 <div class="product-body">
                                     <div class="product-cat">
-                                        <a href="#">{{ $related->getCategory->name }}</a>
+                                        <a href="">{{ $related->getCategory->name }}</a>
                                     </div><!-- End .product-cat -->
-                                    <h3 class="product-title"><a href="{{ route('website.shop.index') }}">{{ $related->name }}</a></h3><!-- End .product-title -->
+                                    <h3 class="product-title"><a href="{{ $related->generateRoute() }}">{{ $related->name }}</a></h3><!-- End .product-title -->
                                     <div class="product-price">
-                                        $ {{ number_format($related->price, 2) }}
+                                        $ {{ $related->convertCurrency() }}
                                     </div><!-- End .product-price -->
                                     <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 2 Reviews )</span>
+                                        @for($i = 1; $i < number_format($product->averageRating, 1); $i++)
+                                            <i class="fa-solid fa-star starrr"></i>
+                                        @endfor
+                                        @if($product->getReviews->count() < 1)
+                                            <span class="ratings-text">( {{ $product->getReviews->count() }} Reviews)</span>
+                                        @elseif($product->getReviews->count() > 1)
+                                            <span class="ratings-text">( {{ $product->getReviews->count() }} Reviews)</span>
+                                        @else
+                                            <span class="ratings-text">( {{ $product->getReviews->count() }} Review)</span>
+                                        @endif
                                     </div><!-- End .rating-container -->
                                 </div><!-- End .product-body -->
                             </div>
@@ -270,6 +326,33 @@
                 swiper: swiper,
             },
         });
+
+        function checkChars(){
+            let numChars = $('#review_desc').val().length,
+                maxChars = 300,
+                remChars = maxChars - numChars;
+
+            if (remChars < 1) {
+                console.log('rem chars', remChars)
+                $('#review_desc').val($('#review_desc').val().substring(0, maxChars));
+                remChars = 0;
+            }
+            $('#review_desc').text(remChars);
+
+            $('#chars').html(remChars)
+
+        }
+
+        $('#review_desc').bind('input keyup', function(){
+            checkChars();
+        });
+
+        checkChars();
+
+        $('.starrr').starrr({
+            rating: {{ $rating }},
+            readOnly: true
+        })
     </script>
     @endpush
 @endsection

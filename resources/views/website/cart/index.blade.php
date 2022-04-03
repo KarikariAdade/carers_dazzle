@@ -15,6 +15,7 @@
         </div><!-- End .container -->
     </nav><!-- End .breadcrumb-nav -->
     <div class="page-content">
+        @if(Cart::count() > 0)
         <div class="cart">
             <div class="container">
                 <div class="row">
@@ -140,6 +141,9 @@
                 </div><!-- End .row -->
             </div><!-- End .container -->
         </div><!-- End .cart -->
+        @else
+        <h3 class="text-center">Cart Empty. Kindly visit the <a href="{{ route('website.shop.index') }}">shop</a> to add items.</h3>
+        @endif
     </div><!-- End .page-content -->
 @endsection
 @push('custom-js')

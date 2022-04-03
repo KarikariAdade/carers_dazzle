@@ -47,6 +47,9 @@ class PagesController extends Controller
     {
         $product->update(['views' => $product->views + 1]);
 
-        return view('website.shop.detail', compact('product'));
+        $rating = number_format($product->averageRating, 0);
+//        return $rating;
+
+        return view('website.shop.detail', compact('product', 'rating'));
     }
 }

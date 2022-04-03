@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="{{ asset('website_assets/css/plugins/nouislider/nouislider.css') }}">
     <link rel="stylesheet" href="{{ asset('website_assets/css/swiper.min.css') }}">
     <link rel="stylesheet" href="{{ asset('website_assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('website_assets/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('website_assets/css/starrr.css') }}">
     @stack('custom-css')
 </head>
 
@@ -43,8 +45,8 @@
                         <a href="#">Usd</a>
                         <div class="header-menu">
                             <ul>
-                                <li><a href="#">Eur</a></li>
-                                <li><a href="#">Usd</a></li>
+                                <li><a href="{{ route('website.currency.convert', 'GHS') }}">GHS</a></li>
+                                <li><a href="{{ route('website.currency.convert', 'USD') }}">USD</a></li>
                             </ul>
                         </div><!-- End .header-menu -->
                     </div><!-- End .header-dropdown -->
@@ -58,7 +60,18 @@
                                 <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
                                 <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
                                 <li><a href="contact.html">Contact Us</a></li>
+                                @if(auth()->guard('web')->check())
+                                    <li><a class="dropdown-item" href="{{ route('customer.dashboard') }}">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                    </li>
+                                @else
                                 <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                                @endif
                             </ul>
                         </li>
                     </ul><!-- End .top-menu -->
@@ -174,12 +187,11 @@
                                 <span class="cart-total-price">GHS {{ Cart::subtotal() }}</span>
                             </div><!-- End .dropdown-cart-total -->
 
-                            @if(Cart::count() > 0)
                             <div class="dropdown-cart-action">
                                 <a href="{{ route('website.cart.index') }}" class="btn btn-primary">View Cart</a>
                                 <a href="{{ route('website.checkout.index') }}" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                             </div><!-- End .dropdown-cart-total -->
-                                @endif
+
                         </div>
 
                     </div><!-- End .cart-dropdown -->
@@ -337,16 +349,18 @@
                             </li>
                         </ul>
                         <div class="tab-content" id="tab-content-5">
-                            <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-                                <form action="#">
+                            <div class="tab-pane fade show active clientLogin" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                <form action="{{ route('website.client.login.post') }}" method="POST" class="clientLogin">
+                                    @csrf
+                                    @method('POST')
                                     <div class="form-group">
-                                        <label for="singin-email">Username or email address *</label>
-                                        <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                        <label>Email Address *</label>
+                                        <input type="text" class="form-control" name="email" required autocomplete>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
-                                        <label for="singin-password">Password *</label>
-                                        <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                        <label >Password *</label>
+                                        <input type="password" class="form-control" name="password" required autocomplete>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-footer">
@@ -355,37 +369,36 @@
                                             <i class="icon-long-arrow-right"></i>
                                         </button>
 
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="signin-remember">
-                                            <label class="custom-control-label" for="signin-remember">Remember Me</label>
-                                        </div><!-- End .custom-checkbox -->
-
                                         <a href="#" class="forgot-link">Forgot Your Password?</a>
                                     </div><!-- End .form-footer -->
                                 </form>
                             </div><!-- .End .tab-pane -->
                             <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                                <form action="#">
+                                <form class="clientRegister" action="{{ route('website.client.register') }}" method="POST">
+{{--                                    @csrf--}}
+                                    @method('POST')
                                     <div class="form-group">
-                                        <label for="register-email">Your email address *</label>
-                                        <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                        <label>Your Full Name *</label>
+                                        <input type="text" class="form-control" name="name" required autocomplete>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Your email address *</label>
+                                        <input type="email" class="form-control" name="email" required autocomplete>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
-                                        <label for="register-password">Password *</label>
-                                        <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                        <label>Password *</label>
+                                        <input type="password" class="form-control" name="password" required autocomplete>
                                     </div><!-- End .form-group -->
-
+                                    <div class="form-group">
+                                        <label>Confirm Password *</label>
+                                        <input type="password" class="form-control" name="password_confirmation" required autocomplete>
+                                    </div>
                                     <div class="form-footer">
                                         <button type="submit" class="btn btn-outline-primary-2">
                                             <span>SIGN UP</span>
                                             <i class="icon-long-arrow-right"></i>
                                         </button>
-
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="register-policy" required>
-                                            <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
-                                        </div><!-- End .custom-checkbox -->
                                     </div><!-- End .form-footer -->
                                 </form>
                             </div><!-- .End .tab-pane -->
@@ -413,6 +426,8 @@
 <script src="{{ asset('website_assets/js/swiper.min.js') }}"></script>
 <script src="{{ asset('assets/js/sweet_alert.min.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
+<script src="{{ asset('website_assets/js/starrr.js') }}"></script>
+<script src="{{ asset('website_assets/js/all.min.js') }}"></script>
 @stack('custom-js')
 </body>
 

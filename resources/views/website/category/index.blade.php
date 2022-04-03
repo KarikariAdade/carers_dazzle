@@ -69,13 +69,20 @@
                                             </div><!-- End .product-cat -->
                                             <h3 class="product-title"><a href="{{ $product->generateRoute() }}">{{ $product->name }}</a></h3><!-- End .product-title -->
                                             <div class="product-price">
-                                                {{ number_format($product->price, 2) }}
+                                                {{ $product->convertCurrency() }}
                                             </div><!-- End .product-price -->
                                             <div class="ratings-container">
-                                                <div class="ratings">
-                                                    <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                                </div><!-- End .ratings -->
-                                                <span class="ratings-text">( 2 Reviews )</span>
+                                                @for($i = 1; $i < number_format($product->averageRating, 1); $i++)
+                                                    <i class="fa-solid fa-star starrr"></i>
+                                                @endfor
+                                                @if($product->getReviews->count() < 1)
+                                                        <span class="ratings-text">( {{ $product->getReviews->count() }} Reviews)</span>
+                                                    @elseif($product->getReviews->count() > 1)
+                                                        <span class="ratings-text">( {{ $product->getReviews->count() }} Reviews)</span>
+                                                    @else
+                                                        <span class="ratings-text">( {{ $product->getReviews->count() }} Review)</span>
+                                                    @endif
+
                                             </div><!-- End .rating-container -->
                                         </div><!-- End .product-body -->
                                     </div><!-- End .product -->

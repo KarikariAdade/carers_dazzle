@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "ext-curl": "*",
         "ext-json": "*",
+        "amrshawky/laravel-currency": "^5.0",
         "barryvdh/laravel-dompdf": "^0.9.0",
         "doctrine/dbal": "^3.1",
         "fruitcake/laravel-cors": "^2.0",
@@ -18,6 +19,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "torann/currency": "^1.1",
+        "willvincent/laravel-rateable": "^2.4",
         "yajra/laravel-datatables": "^1.5"
     },
     "require-dev": {

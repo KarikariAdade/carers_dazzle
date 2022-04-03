@@ -12,6 +12,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use AmrShawky\LaravelCurrency\Facade\Currency;
 
 class Controller extends BaseController
 {
@@ -99,5 +100,26 @@ class Controller extends BaseController
 
         $this->logSMSData($data,$result);
 
+    }
+
+
+    public function convertCurrency($selected)
+    {
+        if ($selected === 'GHS'){
+            session()->put('from_currency', 'GHS');
+
+            session()->put('to_currency', 'GHS');
+
+            session()->put('sign', 'GHS');
+        }else{
+
+            session()->put('from_currency', 'GHS');
+
+            session()->put('to_currency', 'USD');
+
+            session()->put('sign', '$');
+        }
+
+        return back();
     }
 }

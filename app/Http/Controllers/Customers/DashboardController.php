@@ -30,7 +30,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('customers.dashboard', ['pageItems' => $this->pageItems]);
+        return view('client.dashboard');
     }
 
 

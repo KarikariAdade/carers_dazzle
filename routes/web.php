@@ -3,6 +3,8 @@
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\AdminAuthController;
+use App\Http\Controllers\Client\AuthController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Customers\DashboardController;
 use App\Http\Controllers\Sales\InvoiceController;
 use App\Http\Controllers\Sales\OrderController;
@@ -21,6 +23,7 @@ use App\Http\Controllers\Website\CartController;
 use App\Http\Controllers\Website\CheckoutController;
 use App\Http\Controllers\Website\HomepageController;
 use App\Http\Controllers\Website\PagesController;
+use App\Http\Controllers\Website\ReviewsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -46,14 +49,17 @@ Route::get('/', [PagesController::class, 'home'])->name('website.home');
 
 Route::get('category/{random}/{category}/{name}', [PagesController::class, 'category'])->name('website.category.index');
 
-
-
 Route::get('brand/{random}/{brand}/{name}', [PagesController::class, 'brand'])->name('website.brand.index');
 
 Route::get('product/{product}/{name}/{hash}', [PagesController::class, 'productDetail'])->name('website.product.detail');
 
-
 Route::get('shop', [PagesController::class, 'shop'])->name('website.shop.index');
+
+Route::post('client/register', [AuthController::class, 'register'])->name('website.client.register');
+
+Route::post('client/login/post', [AuthController::class, 'loginUser'])->name('website.client.login.post');
+
+Route::any('currency/convert/{selected}', [Controller::class, 'convertCurrency'])->name('website.currency.convert');
 
 
 #=========================================  WEBSITE ROUTES ==================================================#
@@ -80,6 +86,11 @@ Route::prefix('shop')->group(function(){
         Route::get('/', [CheckoutController::class, 'index'])->name('website.checkout.index');
         Route::post('customer/login', [CheckoutController::class, 'customerLogin'])->name('website.checkout.customer.login');
         Route::post('order', [CheckoutController::class, 'order'])->name('website.checkout.order');
+    });
+
+
+    Route::prefix('review')->group(function (){
+        Route::get('add', [ReviewsController::class, 'add'])->name('website.review.add');
     });
 });
 
@@ -254,6 +265,7 @@ Route::group(['middleware' => 'auth:admin'], function (){
 
 
 Route::group(['middleware' => 'web', 'prefix' => 'customer/dashboard'], function (){
+
     Route::get('/', [DashboardController::class, 'index'])->name('customer.dashboard');
     Route::get('orders', [DashboardController::class, 'orders'])->name('customer.orders');
     Route::get('orders/{order}/{hash}/{random}', [DashboardController::class, 'orderDetail'])->name('customer.orders.detail');
@@ -267,6 +279,11 @@ Route::group(['middleware' => 'web', 'prefix' => 'customer/dashboard'], function
     Route::prefix('account')->group(function (){
         Route::get('/', [DashboardController::class, 'accountDetails'])->name('customer.account.index');
         Route::post('update', [DashboardController::class, 'updateAccountDetails'])->name('customer.account.update');
+    });
+
+    Route::prefix('reviews')->group(function (){
+        Route::post('submit/{product}', [ReviewsController::class, 'addReview'])->name('customer.review.store');
+
     });
 
 });

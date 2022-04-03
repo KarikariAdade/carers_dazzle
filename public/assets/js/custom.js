@@ -761,19 +761,6 @@ $(document).ready(function (){
 
         console.log('item image', item_image)
 
-        // cart_dropdown += ` <li class="mini-cart-price">
-        //                                     <span class="subtotal">subtotal : </span>
-        //                                     <span class="subtotal-price">GHS ${response.cart_total}</span>
-        //                                 </li>
-        //                                 <li class="checkout-btn">
-        //                                     <a href="${response.checkout}">checkout</a>
-        //                                 </li>`;
-        //
-        // cart_total = `<div class="cart-total-price">
-        //                                 <span>total</span>
-        //                                 GHS ${response.cart_total}
-        //                             </div>`;
-
         $('.dropdown-cart-products').html(cart_dropdown)
         $('.cart-count').html(response.cart_count)
         $('.cart-total-price').html(response.cart_total)
@@ -825,5 +812,88 @@ $(document).ready(function (){
         e.preventDefault();
         runCartAjaxCalls($(this).attr('action'), $(this).serialize());
     })
+
+
+    $('.clientRegister').submit(function (e){
+        e.preventDefault();
+        url = $(this).attr('action');
+        let formdata = new FormData(this);
+
+        runSubmission(url, formdata);
+
+    })
+
+
+    $('.clientLogin').submit(function (e){
+        e.preventDefault();
+        url = $(this).attr('action');
+
+        console.log(url)
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: $(this).serialize(),
+        }).done((response) => {
+            console.log(response)
+            if(response.code == '200'){
+                window.location = response.msg
+            }else {
+                runToast(response.msg, response.code)
+            }
+            })
+
+    })
+
+
+    $('.reviewForm').submit(function (e){
+        e.preventDefault();
+
+        url = $(this).attr('action');
+
+        // $('#reviewBtn').prop('disabled', true)
+        switchButton(true, 'Add Review', 'reviewBtn')
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: $(this).serialize()
+        }).done((response) => {
+
+            if (response.code == '200'){
+                window.location.reload();
+
+                switchButton(false, 'Add Review', 'reviewBtn');
+            }else{
+                switchButton(false, 'Add Review', 'reviewBtn')
+                runToast(response.msg)
+            }
+        })
+
+    })
+
+
+    function switchButton(is_not_switched = true, text, element){
+        element = $(`#${element}`);
+
+        if(is_not_switched === true){
+            console.log('button not swtiched to switch it')
+            element.prop('disabled', true);
+            element.text('Processing...')
+        }else{
+            console.log('button back to default')
+            element.prop('disabled', false);
+            element.text(text)
+        }
+
+    }
+
+
+
+
+
+
+
+
 });
 
