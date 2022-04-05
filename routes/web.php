@@ -62,6 +62,14 @@ Route::post('client/login/post', [AuthController::class, 'loginUser'])->name('we
 Route::any('currency/convert/{selected}', [Controller::class, 'convertCurrency'])->name('website.currency.convert');
 
 
+
+
+
+
+
+
+
+
 #=========================================  WEBSITE ROUTES ==================================================#
 //
 //Route::get('/', [HomepageController::class, 'index'])->name('website.index');
