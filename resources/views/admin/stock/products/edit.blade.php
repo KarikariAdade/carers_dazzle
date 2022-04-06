@@ -25,15 +25,15 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-md-4">
-                    <label>Sub Category <span class="text-danger">*</span></label>
-                    <select name="sub_category" class="form-control select2">
-                        <option></option>
-                        @foreach($items['sub_categories'] as $shelf)
-                            <option {{ $product->shelf_id == $shelf->id ? 'selected' : ''}} value="{{ $shelf->id }}">{{ $shelf->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+{{--                <div class="form-group col-md-4">--}}
+{{--                    <label>Sub Category <span class="text-danger">*</span></label>--}}
+{{--                    <select name="sub_category" class="form-control select2">--}}
+{{--                        <option></option>--}}
+{{--                        @foreach($items['sub_categories'] as $shelf)--}}
+{{--                            <option {{ $product->shelf_id == $shelf->id ? 'selected' : ''}} value="{{ $shelf->id }}">{{ $shelf->name }}</option>--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
+{{--                </div>--}}
                 <div class="form-group col-md-4">
                     <label>Brand <span class="text-danger">*</span></label>
                     <select name="brand" class="form-control select2">

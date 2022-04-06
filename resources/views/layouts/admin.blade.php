@@ -19,7 +19,7 @@
 </head>
 
 <body>
-<div class="loader"></div>
+{{--<div class="loader"></div>--}}
 <div id="app">
     <div class="main-wrapper main-wrapper-1">
         <div class="navbar-bg"></div>
@@ -196,9 +196,9 @@
                     <li class="dropdown">
                         <a href="{{ route('product.brands.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Brands</span></a>
                     </li>
-                    <li class="dropdown">
-                        <a href="{{ route('product.sub_category.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Sub Category</span></a>
-                    </li>
+{{--                    <li class="dropdown">--}}
+{{--                        <a href="{{ route('product.sub_category.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Sub Category</span></a>--}}
+{{--                    </li>--}}
                     <li class="dropdown">
                         <a href="{{ route('product.tax.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Taxes</span></a>
                     </li>
