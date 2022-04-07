@@ -1,5 +1,6 @@
 @extends('layouts.pages')
 @section('content')
+    @inject('shopHelper', 'App\Helpers\ShopHelper');
     <div class="page-header text-center" style="background-image: url({{ asset('assets/images/page-header-bg.jpg') }})">
         <div class="container">
             <h1 class="page-title">Shopping Cart<span>Shop</span></h1>
@@ -48,13 +49,13 @@
                                         </h3>
                                     </div>
                                 </td>
-                                <td class="price-col">GHC {{ $cart->price }}</td>
+                                <td class="price-col"> {{ $shopHelper->calculateExchangeRate($cart->price) }}</td>
                                 <td class="quantity-col">
                                     <div class="cart-product-quantity">
                                         <input type="number" class="form-control" title="{{ $cart->rowId }}" value="{{ $cart->qty }}" min="1" max="{{ $cart->options['product_quantity'] }}" step="1" name="item_quantity" required>
                                     </div><!-- End .cart-product-quantity -->
                                 </td>
-                                <td class="total-col">GHS {{ $cart->subtotal }}</td>
+                                <td class="total-col"> {{ $shopHelper->calculateExchangeRate($cart->subtotal) }}</td>
                                 <td class="remove-col"><a href="{{ route('website.cart.remove', $cart->rowId) }}" class="btn-remove removeCart"><i class="icon-close"></i></a></td>
                             </tr>
                             @endforeach
@@ -113,21 +114,21 @@
                                 <tbody>
                                 <tr class="summary-subtotal">
                                     <td>Subtotal:</td>
-                                    <td> {{ 'GHS '.Cart::subtotal() }}</td>
+                                    <td> {{  $shopHelper->calculateExchangeRate(Cart::subtotal()) }}</td>
                                 </tr><!-- End .summary-subtotal -->
                                 <tr class="summary-shipping">
                                     <td>Shipping:</td>
-                                    <td id="shipping Total">{{ session()->get('checkout_data.delivery') ? 'GHS '.number_format(session()->get('checkout_data.delivery'), 2) : 'GHS 0.00' }}</td>
+                                    <td id="shipping Total">{{ session()->get('checkout_data.delivery') ? $shopHelper->calculateExchangeRate(session()->get('checkout_data.delivery')) : $shopHelper->calculateExchangeRate(0) }}</td>
                                 </tr>
                                 <tr class="summary-shipping">
                                     <td>Discount:</td>
-                                    <td id="discountTotal">{{ session()->get('checkout_data.sub_total') ? 'GHS '.number_format(session()->get('checkout_data.sub_total'), 2) : 'GHS 0.00' }}</td>
+                                    <td id="discountTotal">{{ session()->get('checkout_data.sub_total') ? $shopHelper->calculateExchangeReate(session()->get('checkout_data.sub_total')) : $shopHelper->calculateExchangeRate(0) }}</td>
                                 </tr>
 
 
                                 <tr class="summary-total">
                                     <td>Total:</td>
-                                    <td class="total-amount">{{ session()->get('checkout_data') ? 'GHS '.number_format(session()->get('checkout_data.total'), 2) : 'GHS '.Cart::subtotal() }}</td>
+                                    <td class="total-amount">{{ session()->get('checkout_data') ? $shopHelper->calculateExchangeRate(session()->get('checkout_data.total')): $shopHelper->calculateExchangeRate(Cart::subtotal()) }}</td>
                                 </tr><!-- End .summary-total -->
                                 </tbody>
                             </table><!-- End .table table-summary -->
