@@ -90,14 +90,18 @@ class Product extends Model implements Buyable
 
     public function convertCurrency()
     {
-        $amount = Currency::convert()
-            ->from(session()->get('from_currency'))
-            ->to(session()->get('to_currency'))
-            ->amount($this->price)
-            ->get();
 
-        return session()->get('sign').' '.number_format($amount, 2);
+        if (!empty(session()->get('from_currency')) && !empty(session()->get('to_currency'))){
+            $amount = Currency::convert()
+                ->from(session()->get('from_currency'))
+                ->to(session()->get('to_currency'))
+                ->amount($this->price)
+                ->get();
 
+            return session()->get('sign').' '.number_format($amount, 2);
+        }
+
+        return 'GHS '.number_format($this->price, 2);
 
 
     }

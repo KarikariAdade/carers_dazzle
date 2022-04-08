@@ -33,6 +33,7 @@
 </head>
 
 <body>
+@inject('shopHelper', 'App\Helpers\ShopHelper')
 <div class="page-wrapper">
     <header class="header header-11">
         <div class="header-middle sticky-header">
@@ -108,7 +109,7 @@
                                                 </h4>
                                                 <span class="cart-product-info">
                                                 <span class="cart-product-qty">{{ $cart->qty }}</span>
-                                                x GHS {{ $cart->price }}
+                                                x {{ $shopHelper->calculateExchangeRate($cart->price) }}
                                             </span>
                                             </div><!-- End .product-cart-details -->
                                             <figure class="product-img-container" style="width:100%;">
@@ -125,7 +126,7 @@
                             <div class="dropdown-cart-total">
                                 <span>Total</span>
 
-                                <span class="cart-total-price">GHS {{ Cart::subtotal() }}</span>
+                                <span class="cart-total-price"> {{ $shopHelper->calculateExchangeRate(Cart::subtotal()) }}</span>
                             </div><!-- End .dropdown-cart-total -->
 
                             <div class="dropdown-cart-action">
