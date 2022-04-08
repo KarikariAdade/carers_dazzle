@@ -6,6 +6,7 @@ use App\DataTables\ProductCategoryDatatable;
 use App\Http\Controllers\Controller;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ProductCategoryController extends Controller
@@ -28,7 +29,7 @@ class ProductCategoryController extends Controller
         $validate = Validator::make($data, [
             'name' => 'required',
             'description' => 'nullable',
-            'image' => 'required'
+            'image' => 'nullable'
         ]);
 
         if ($validate->fails()){
@@ -39,7 +40,6 @@ class ProductCategoryController extends Controller
             'name' => $data['name'],
             'description' => $data['description']
         ]);
-
 
         if (!empty($request->file('image'))){
 
@@ -64,7 +64,6 @@ class ProductCategoryController extends Controller
     public function update(Request $request, ProductCategory $category)
     {
         $data = $request->all();
-
 
         $validate = Validator::make($data, [
             'name' => 'required',

@@ -9,38 +9,37 @@ $(document).ready(function (){
         url = '',
         dataTable = $('#dataTable');
         form_loader = $('.form-loader');
+
     // Add Product Category Form
-
     form_loader.hide();
-
-
-
 
     $('.product_category_form').submit(function (e) {
         e.preventDefault();
-
         url = $(this).attr('action')
+        let formdata = new FormData(this);
 
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: $(this).serialize(),
-        }).done((response)=>{
-            if(response.code == '200'){
-                runToast(response.msg, response.code)
-                $('#dataTable').DataTable().ajax.reload();
-            }else{
-                runToast(response.msg, response.code)
-            }
-        })
+        runSubmission(url, formdata, true);
+
+
+
+        // $.ajax({
+        //     url: url,
+        //     method: 'POST',
+        //     data: $(this).serialize(),
+        // }).done((response)=>{
+        //     if(response.code == '200'){
+        //         runToast(response.msg, response.code)
+        //         $('#dataTable').DataTable().ajax.reload();
+        //     }else{
+        //         runToast(response.msg, response.code)
+        //     }
+        // })
     })
-
 
     $('#dataTable').on('click', '#deleteCategory', function (e) {
         e.preventDefault();
         runAjaxPrompt($(this).attr('href'));
     })
-
 
     dataTable.on('click', '#deleteShelf', function (e){
         e.preventDefault();
@@ -144,21 +143,27 @@ $(document).ready(function (){
 
 
     $('.updateCategoryForm').submit(function (e){
+        // e.preventDefault();
+        // url = $(this).attr('action');
+        // $.ajax({
+        //     url: url,
+        //     method: 'POST',
+        //     data: $(this).serialize(),
+        // }).done((response)=>{
+        //     if(response.code == '200'){
+        //         runToast(response.msg, response.code)
+        //         $('#dataTable').DataTable().ajax.reload();
+        //         $('#editCategoryModal').modal('hide');
+        //     }else{
+        //         runToast(response.msg, response.code)
+        //     }
+        // })
+
         e.preventDefault();
         url = $(this).attr('action');
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: $(this).serialize(),
-        }).done((response)=>{
-            if(response.code == '200'){
-                runToast(response.msg, response.code)
-                $('#dataTable').DataTable().ajax.reload();
-                $('#editCategoryModal').modal('hide');
-            }else{
-                runToast(response.msg, response.code)
-            }
-        })
+        let formdata = new FormData(this);
+
+        runSubmission(url, formdata );
     })
 
 
