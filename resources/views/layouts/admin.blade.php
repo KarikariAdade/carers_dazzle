@@ -196,9 +196,9 @@
                     <li class="dropdown">
                         <a href="{{ route('product.brands.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Brands</span></a>
                     </li>
-                    <li class="dropdown">
-                        <a href="{{ route('product.sub_category.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Sub Category</span></a>
-                    </li>
+{{--                    <li class="dropdown">--}}
+{{--                        <a href="{{ route('product.sub_category.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Sub Category</span></a>--}}
+{{--                    </li>--}}
                     <li class="dropdown">
                         <a href="{{ route('product.tax.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Taxes</span></a>
                     </li>
