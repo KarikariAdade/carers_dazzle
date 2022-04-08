@@ -1,6 +1,6 @@
 @extends('layouts.pages')
 @section('content')
-    @inject('shopHelper', 'App\Helpers\ShopHelper');
+    @inject('shopHelper', 'App\Helpers\ShopHelper')
     <div class="page-header text-center" style="background-image: url({{ asset('assets/images/page-header-bg.jpg') }})">
         <div class="container">
             <h1 class="page-title">Shopping Cart<span>Shop</span></h1>

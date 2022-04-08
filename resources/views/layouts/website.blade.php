@@ -33,7 +33,7 @@
 </head>
 
 <body>
-@inject('shopHelper', 'App\Helpers\ShopHelper');
+@inject('shopHelper', 'App\Helpers\ShopHelper')
 <div class="page-wrapper">
     <header class="header header-11">
         <div class="header-middle sticky-header">
