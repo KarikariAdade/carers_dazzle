@@ -85,59 +85,6 @@ class CheckoutController extends Controller
     {
         $data = $request->all();
 
-
-
-//        $curl = curl_init();
-//
-//        curl_setopt_array($curl, array(
-//            CURLOPT_URL => "https://api.paystack.co/transaction/verify/3m36vizpg2",
-//            CURLOPT_RETURNTRANSFER => true,
-//            CURLOPT_ENCODING => "",
-//            CURLOPT_MAXREDIRS => 10,
-//            CURLOPT_TIMEOUT => 30,
-//            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//            CURLOPT_CUSTOMREQUEST => "GET",
-//            CURLOPT_HTTPHEADER => array(
-//                "Authorization: Bearer ".env('PAYSTACK_SECRET_KEY'),
-//                "Cache-Control: no-cache",
-//            ),
-//        ));
-//
-//        $response = curl_exec($curl);
-//        $err = curl_error($curl);
-//        curl_close($curl);
-//
-//        if ($err) {
-//            echo "cURL Error #:" . $err;
-//        } else {
-//            echo $response;
-//        }
-
-//        $url = "https://api.paystack.co/transaction/initialize";
-//        $fields = [
-//            'email' => "iamkarikari98@email.com",
-//            'amount' => "20000",
-//        ];
-//        $fields_string = http_build_query($fields);
-//        //open connection
-//        $ch = curl_init();
-//
-//        //set the url, number of POST vars, POST data
-//        curl_setopt($ch,CURLOPT_URL, $url);
-//        curl_setopt($ch,CURLOPT_POST, true);
-//        curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-//        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-//            "Authorization: Bearer ".env('PAYSTACK_SECRET_KEY'),
-//            "Cache-Control: no-cache",
-//        ));
-//
-//        //So that curl_exec returns the contents of the cURL; rather than echoing it
-//        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
-//
-//        //execute post
-//        $result = curl_exec($ch);
-//        return $result;
-
         $validate = Validator::make($data, $this->validateOrderFields(), ['account_password.required_with' => 'Account Password is required when Create an Account is checked']);
 
         if ($validate->fails()){
@@ -166,7 +113,6 @@ class CheckoutController extends Controller
 
             }
 
-
             $this->runCheckoutForDiffAddress($data);
 
         }
@@ -177,9 +123,7 @@ class CheckoutController extends Controller
 
         $payable_amount = explode(' ', $this->shop_helper->calculateExchangeRate($payable_amount));
 
-
         $data['net_total'] = session()->get('checkout_data') ? session()->get('checkout_data.total') : Cart::subtotal(0,'', '');
-
 
         $order = Order::query()->create( $this->createOrder($data));
 
@@ -187,14 +131,13 @@ class CheckoutController extends Controller
 
         $order->update(['invoice_id' => $invoice->id]);
 
-
         $data['order_id'] = $order->order_id;
 
         $pdf = PDF::loadView('emails.invoice_attach')->setPaper('A4');
 
         $data['msg'] = 'Dear '.$data['name'].', your order('.$data['order_id'].') has been placed. Please visit your portal or your email to download your invoice.';
 
-        Mail::send('emails.orders', ['data'=>$data], function($message)use($data, $pdf, $invoice) {
+        Mail::send('emails.orders', ['data'=>$data], function ($message) use ($data, $pdf, $invoice) {
             $message->to($data["email"], $data["name"])
                 ->subject('Order ('.$data['order_id'].') made successfully')
                 ->attachData($pdf->output(), $invoice->invoice_number.'.pdf', [
@@ -203,30 +146,41 @@ class CheckoutController extends Controller
         });
 
         if ($data['payment_method'] === 'payment_on_delivery'){
-            return $this->successResponse($data['msg']);
+
+            session()->remove('checkout_data');
+
+            session()->remove('delivery_bill');
+
+            Cart::destroy();
+
+            return response()->json([
+                'code' => 200,
+                'msg' => $data['msg'],
+                'url' => route('website.checkout.payment.delivery', ['order' => $order]),
+            ]);
         }
 
 
-        $fields = [
+        $payment_data = [
             'email' => "iamkarikari98@email.com",
             'amount' => (int) $payable_amount[1] * 100, #TODO check if client can enable USD in portal, else change to cedis
             'currency' => $payable_amount[0] === '$' ? 'GHS' : $payable_amount[0]
         ];
 
-        $result = $this->initiatePaymentProcess($fields);
+        $result = $this->initiatePaymentProcess($payment_data);
 
 
         if ($result['status'] === true){
             Payment::query()->create([
-                'invoice_id' => 1,
-                'order_id' => 1,
+                'invoice_id' => $invoice->id,
+                'order_id' => $order->id,
                 'reference_id' => $result['data']['reference'],
                 'amount' => $data['net_total'],
                 'status' => 'processing'
             ]);
             return response()->json([
                 'code' => 200,
-                'msg' => "Order made successfully. Thanks for doing business with E-SQUARE ELECTRONICS",
+                'msg' => "Order made successfully. Thanks for doing business with Carers Dazzle",
                 'url' => $result['data']['authorization_url'],
             ]);
         }
@@ -268,26 +222,25 @@ class CheckoutController extends Controller
         $url = env('PAYSTACK_PAYMENT_URL');
 
         $fields_string = http_build_query($fields);
-        //open connection
+
         $ch = curl_init();
 
-        //set the url, number of POST vars, POST data
         curl_setopt($ch,CURLOPT_URL, $url);
+
         curl_setopt($ch,CURLOPT_POST, true);
+
         curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             "Authorization: Bearer ".env('PAYSTACK_SECRET_KEY'),
             "Cache-Control: no-cache",
         ));
 
-        //So that curl_exec returns the contents of the cURL; rather than echoing it
         curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 
-        //execute post
         $result = curl_exec($ch);
-        $result = json_decode($result, true);
 
-        return $result;
+        return json_decode($result, true, 512, JSON_THROW_ON_ERROR);
     }
 
 
@@ -426,21 +379,23 @@ class CheckoutController extends Controller
     public function generateOrderCode($type, $int = 1)
     {
         if ($type === 'invoice'){
+
             $batch = 'INV'.sprintf('%06d', Invoice::query()->count() + $int);
 
             $exist = Invoice::query()->where('invoice_number', $batch)->first();
 
         }elseif($type === 'susu'){
+
             $batch = 'SU'.sprintf('%06d', Susu::query()->count() + $int);
 
             $exist = Susu::query()->where('susu_number', $batch)->first();
 
         }else{
+
             $batch = "ODR" . sprintf('%06d', Order::query()->count() + $int);
 
             $exist = Order::query()->where('order_id',$batch)->first();
         }
-
 
 
         return empty($exist) ? $batch : $this->generateOrderCode(++$int);
@@ -465,17 +420,19 @@ class CheckoutController extends Controller
 
         if ($status === 'success'){
 
-
             session()->remove('checkout_data');
 
             session()->remove('delivery_bill');
 
             Cart::destroy();
 
-
             if (!empty($payment)){
 
                 $payment->update(['status' => 'success']);
+
+                $payment->getOrder->update(['order_status' => 'Paid']);
+
+                $payment->getInvoice->update(['payment_status' => 'Paid']);
 
             }
 
@@ -485,7 +442,7 @@ class CheckoutController extends Controller
 
         }
 
-        return view('website.checkout.status', compact('status'));
+        return view('website.checkout.status', compact('status', 'payment'));
     }
 
 
@@ -522,5 +479,11 @@ class CheckoutController extends Controller
     public function status()
     {
         return view('website.checkout.status');
+    }
+
+
+    public function payOnDelivery(Order $order)
+    {
+        return view('website.checkout.payment_on_delivery', compact('order'));
     }
 }

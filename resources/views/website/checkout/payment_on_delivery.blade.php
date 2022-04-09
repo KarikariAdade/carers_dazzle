@@ -65,7 +65,7 @@
         }
 
     </style>
-    @if($status === 'success')
+
 
         <div class="container mb-5 mt-5">
             <div class="row">
@@ -75,35 +75,18 @@
                             <div class="check"><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></div>
                         </div>
                         <div class="content p-3">
-                            <h1>Payment Successful !</h1>
-                            <p>Hello {{ $payment->getOrder ? $payment->getOrder->name : null }}, your payment of {{ $shopHelper->calculateExchangeRate($payment->getOrder->net_total) }} is successful. Kindly visit your portal or email for your payment receipt.</p><br>
-                            <a class="bg-success main-link" href="{{ route('website.home') }}">Go to Home</a><br>
+                            <h1>Order Successful !</h1>
+                            <p>Hello {{ $order->name}}, your order is successful. Kindly visit your portal or email to view your order details.</p><br>
+                            @if(!auth()->guard('web')->check())
+                                <a class="bg-success main-link" href="{{ route('website.home') }}">Go Home</a><br>
+                            @else
+                                <a class="bg-success main-link" href="{{ route('customer.dashboard') }}">Go to my Dashboard</a><br>
+                            @endif
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-    @else
-
-        <div class="container mb-5 mt-5">
-            <div class="row">
-                <div class="col-md-6 mx-auto mt-5">
-                    <div class="payment">
-                        <div class="payment_header bg-danger">
-                            <div class="check"><i class="fa fa-check fa-2x text-danger" aria-hidden="true"></i></div>
-                        </div>
-                        <div class="content p-3">
-                            <h1>Payment Failed !</h1>
-                            <p>Hello {{ $payment->getOrder ? $payment->getOrder->name : null }}, your payment of {{ $shopHelper->calculateExchangeRate($payment->getOrder->net_total) }} was not successful. Kindly try again or <a class="text-primary" href="{{ route('website.contact.index') }}">contact us.</a></p><br>
-                            <a class="bg-danger main-link" href="{{ route('website.cart.index') }}">Go to Cart</a><br>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    @endif
 
 @endsection

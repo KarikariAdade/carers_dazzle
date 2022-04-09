@@ -122,7 +122,7 @@
                                 </tr>
                                 <tr class="summary-shipping">
                                     <td>Discount:</td>
-                                    <td id="discountTotal">{{ session()->get('checkout_data.sub_total') ? $shopHelper->calculateExchangeReate(session()->get('checkout_data.sub_total')) : $shopHelper->calculateExchangeRate(0) }}</td>
+                                    <td id="discountTotal">{{ session()->get('checkout_data.sub_total') ? $shopHelper->calculateExchangeRate(session()->get('checkout_data.sub_total')) : $shopHelper->calculateExchangeRate(0) }}</td>
                                 </tr>
 
 

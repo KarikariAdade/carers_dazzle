@@ -52,4 +52,10 @@ class PagesController extends Controller
 
         return view('website.shop.detail', compact('product', 'rating'));
     }
+
+    public function contact()
+    {
+        return view('website.contact.index');
+    }
+
 }

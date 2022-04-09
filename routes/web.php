@@ -63,8 +63,12 @@ Route::any('currency/convert/{selected}', [Controller::class, 'convertCurrency']
 
 Route::any('payment/callback', [CheckoutController::class, 'callback'])->name('website.checkout.payment.callback');
 
+Route::get('contact', [PagesController::class, 'contact'])->name('website.contact.index');
+
 
 Route::get('payment/status', [CheckoutController::class, 'status'])->name('website.checkout.payment.status');
+
+Route::get('order/delivery/{order}/success', [CheckoutController::class, 'payOnDelivery'])->name('website.checkout.payment.delivery');
 
 
 

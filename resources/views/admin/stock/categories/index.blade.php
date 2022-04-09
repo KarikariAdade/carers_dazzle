@@ -8,20 +8,25 @@
             <div class="errorMsg">
 
             </div>
-            <form class="row product_category_form" action="{{ route('product.category.store') }}">
+            <form class="row product_category_form" action="{{ route('product.category.store') }}" enctype="multipart/form-data">
                 @method('POST')
                 @csrf
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-3">
                     <label>Category Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="name">
                 </div>
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-3">
                     <label>Category Description</label>
                     <textarea class="form-control" name="description"></textarea>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Category Image </label>
+                    <input type="file" name="image[]" multiple class="form-control">
                 </div>
                 <div class="col-md-2 mt-4 pt-2">
                     <button type="submit" class="btn btn-success">Add Category</button>
                 </div>
+
             </form>
 
             <div class="row">
@@ -53,6 +58,11 @@
                             <label>Description</label>
                             <textarea class="form-control" name="description" id="editDescription"></textarea>
                         </div>
+
+                    <div class="form-group">
+                        <label>Category Image </label>
+                        <input type="file" name="image[]" multiple class="form-control">
+                    </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
                     <button type="submit" class="btn btn-success">Update Category</button>
