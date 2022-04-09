@@ -61,9 +61,10 @@ Route::post('client/login/post', [AuthController::class, 'loginUser'])->name('we
 
 Route::any('currency/convert/{selected}', [Controller::class, 'convertCurrency'])->name('website.currency.convert');
 
+Route::any('payment/callback', [CheckoutController::class, 'callback'])->name('website.checkout.payment.callback');
 
 
-
+Route::get('payment/status', [CheckoutController::class, 'status'])->name('website.checkout.payment.status');
 
 
 
@@ -101,6 +102,7 @@ Route::prefix('shop')->group(function(){
         Route::get('add', [ReviewsController::class, 'add'])->name('website.review.add');
     });
 });
+
 
 
 //Route::get('admin/dashboard', function () {

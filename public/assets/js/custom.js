@@ -799,9 +799,10 @@ $(document).ready(function (){
             data: $(this).serialize(),
         }).done((response) => {
             console.log(response)
+
             if (response.code == '200'){
                 runToast(response.msg, response.code)
-                window.location = response.msg.url;
+                window.location.href = response.url;
             }else{
                 runToast(response.msg, response.code)
             }
@@ -890,10 +891,36 @@ $(document).ready(function (){
 
 
 
+    $('#checkout-create-acc').change(function (){
+        toggleFormFields($(this), $('.create_account'))
+    });
+
+    $('#checkout-diff-address').change(function () {
+        toggleFormFields($(this), $('.ship_to_diff_address'))
+    })
+
+
+    function toggleFormFields(item, form_field){
+        if(item.is(":checked")){
+            form_field.show(400)
+        }else{
+            form_field.hide(400)
+        }
+    }
 
 
 
 
-
+    // $('.orderForm').submit(function (e){
+    //     e.preventDefault();
+    //
+    //     $.ajax({
+    //         url: $(this).attr('href'),
+    //         method: 'POST',
+    //         data: $(this).serialize(),
+    //     }).done((response) => {
+    //         console.log(response)
+    //     })
+    // })
 });
 

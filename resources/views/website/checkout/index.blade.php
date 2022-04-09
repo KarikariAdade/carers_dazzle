@@ -93,9 +93,9 @@
                             @endif
                     </div><!-- End .accordion -->
                 </div><!-- End .col-md-6 -->
-                <form action="{{ route('website.checkout.order') }}" method="POST">
-                    @csrf
+                <form method="POST" action="{{ route('website.checkout.order') }}" id="orderForm">
                     @method('POST')
+                    @csrf
                     <div class="row">
                         <div class="col-lg-9">
                             <h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
@@ -120,12 +120,12 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <label>Town / City *</label>
-                                    <input type="text" class="form-control" name="town" required value="{{ $town->name }}">
+                                    <input type="text" class="form-control" name="town" readonly required value="{{ $town->name }}">
                                 </div><!-- End .col-sm-6 -->
 
                                 <div class="col-sm-6">
                                     <label>State / County *</label>
-                                    <input type="text" class="form-control" name="region" required value="{{ $region->name }}">
+                                    <input type="text" class="form-control" name="region" readonly required value="{{ $region->name }}">
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
 
@@ -140,52 +140,61 @@
                                     <input type="tel" class="form-control" required name="phone" value="{{ $user ? $user->phone : old('phone')  }}">
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Payment Method <span class="text-danger">*</span></label>
+                                    <select class="select-custom form-control" name="payment_method">
+                                        <option></option>
+                                        <option value="payment_on_delivery">Payment on Delivery</option>
+                                        <option value="pay_online">Pay Online</option>
+                                    </select>
+                                </div>
+                            </div>
 
                             @if(!auth()->guard('web')->check())
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="checkout-create-acc">
+                                <input type="checkbox" class="custom-control-input" name="create_pwd" id="checkout-create-acc">
                                 <label class="custom-control-label" for="checkout-create-acc">Create an account?</label>
                             </div><!-- End .custom-checkbox -->
 
-                            <div class="create_account">
+                            <div class="create_account" style="display:none;">
                                 <label>Password *</label>
-                                <input type="text" class="form-control" placeholder="Password">
+                                <input type="text" class="form-control" name="account_password" placeholder="Password">
                             </div>
                             @endif
 
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="checkout-diff-address">
+                                <input type="checkbox" class="custom-control-input" name="checkout_diff_address" id="checkout-diff-address">
                                 <label class="custom-control-label" for="checkout-diff-address">Ship to a different address?</label>
                             </div><!-- End .custom-checkbox -->
 
 
-                            <div class="ship_to_diff_address">
+                            <div class="ship_to_diff_address" style="display:none;">
                                 <label>Street address *</label>
-                                <input type="text" class="form-control" placeholder="Street Address 1" required>
-                                <input type="text" class="form-control" placeholder="Street Address 2 (Optional)">
+                                <input type="text" class="form-control" name="diff_street_address" placeholder="Street Address 1">
 
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label>Town / City *</label>
-                                        <input type="text" class="form-control" required>
+                                        <input type="text" class="form-control" name="diff_town">
                                     </div><!-- End .col-sm-6 -->
 
                                     <div class="col-sm-6">
                                         <label>State / County *</label>
-                                        <input type="text" class="form-control" required>
+                                        <input type="text" class="form-control" name="diff_city">
                                     </div><!-- End .col-sm-6 -->
                                 </div><!-- End .row -->
 
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label>Postcode / ZIP *</label>
-                                        <input type="text" class="form-control" required>
+                                        <input type="text" class="form-control" name="diff_post_code">
                                     </div><!-- End .col-sm-6 -->
                                 </div>
                             </div>
 
                             <label>Order notes (optional)</label>
-                            <textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+                            <textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery" name="order_note"></textarea>
                         </div><!-- End .col-lg-9 -->
                         <aside class="col-lg-3">
                             <div class="summary">
@@ -228,8 +237,9 @@
 
                                 <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
                                     <span class="btn-text">Place Order</span>
-                                    <span class="btn-hover-text">Proceed to Payment</span>
+                                    <span class="btn-hover-text">Proceed to Checkout</span>
                                 </button>
+
                             </div><!-- End .summary -->
                         </aside><!-- End .col-lg-3 -->
                     </div><!-- End .row -->

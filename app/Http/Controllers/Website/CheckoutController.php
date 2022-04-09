@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Helpers\ShopHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Regions;
 use App\Models\Susu;
 use App\Models\Towns;
@@ -24,6 +26,14 @@ use Unicodeveloper\Paystack\Facades\Paystack;
 
 class CheckoutController extends Controller
 {
+
+    private $shop_helper;
+
+    public function __construct()
+    {
+        $this->shop_helper = new ShopHelper();
+    }
+
     public function index()
     {
         $checkout_data = session()->get('checkout_data');
@@ -74,6 +84,8 @@ class CheckoutController extends Controller
     public function order(Request $request)
     {
         $data = $request->all();
+
+
 
 //        $curl = curl_init();
 //
@@ -145,7 +157,29 @@ class CheckoutController extends Controller
 
         }
 
+
+        if (isset($data['checkout_diff_address'])){
+
+            if (empty($data['diff_street_address']) || empty($data['diff_town']) || empty($data['diff_city']) || empty($data['diff_post_code'])){
+
+                return $this->failResponse('Kindly fill all fields under new shipping address');
+
+            }
+
+
+            $this->runCheckoutForDiffAddress($data);
+
+        }
+
         $data['meta'] = Cart::content();
+
+        $payable_amount = session()->get('checkout_data') ? session()->get('checkout_data.total') : Cart::subtotal(0,'', '');
+
+        $payable_amount = explode(' ', $this->shop_helper->calculateExchangeRate($payable_amount));
+
+
+        $data['net_total'] = session()->get('checkout_data') ? session()->get('checkout_data.total') : Cart::subtotal(0,'', '');
+
 
         $order = Order::query()->create( $this->createOrder($data));
 
@@ -153,18 +187,6 @@ class CheckoutController extends Controller
 
         $order->update(['invoice_id' => $invoice->id]);
 
-        $data['msg'] = 'Dear '.$data['name'].', your order('.$order->order_id.') has been placed. Please visit your portal or your email to download your invoice.';
-
-        $this->sendSMS($data);
-
-        if ($data['payment_method'] === 'momo'){
-
-            $total = session()->get('checkout_data') ? 'GHS '.number_format(session()->get('checkout_data.total'), 2) : number_format(Cart::subtotal(0,'', ''));
-
-            $data['msg'] = 'Dear '.$data['name'].', kindly pay an amount of '.$total.' to 0548876922 via momo to complete your order. Account name is Karikari Adade. Kindly use '.$order->trans_code.' as reference ID';
-
-            $this->sendSMS($data);
-        }
 
         $data['order_id'] = $order->order_id;
 
@@ -180,28 +202,92 @@ class CheckoutController extends Controller
                 ]);
         });
 
-        session()->remove('checkout_data');
-
-        session()->remove('delivery_bill');
-
-        Cart::destroy();
-
-        Session::flash('success', 'You have successfully placed your order. Thank You for doing business with E-SQUARE ELECTRONICS');
-
-        $url = '';
-
-        if(!empty(auth()->guard('web')->user())){
-            $url = route('customer.dashboard');
-        }else{
-            $url = route('website.index');
+        if ($data['payment_method'] === 'payment_on_delivery'){
+            return $this->successResponse($data['msg']);
         }
 
-        return response()->json([
-            'code' => 200,
-            'msg' => "Order made successfully. Thanks for doing business with E-SQUARE ELECTRONICS",
-            'url' => $url,
+
+        $fields = [
+            'email' => "iamkarikari98@email.com",
+            'amount' => (int) $payable_amount[1] * 100, #TODO check if client can enable USD in portal, else change to cedis
+            'currency' => $payable_amount[0] === '$' ? 'GHS' : $payable_amount[0]
+        ];
+
+        $result = $this->initiatePaymentProcess($fields);
+
+
+        if ($result['status'] === true){
+            Payment::query()->create([
+                'invoice_id' => 1,
+                'order_id' => 1,
+                'reference_id' => $result['data']['reference'],
+                'amount' => $data['net_total'],
+                'status' => 'processing'
             ]);
+            return response()->json([
+                'code' => 200,
+                'msg' => "Order made successfully. Thanks for doing business with E-SQUARE ELECTRONICS",
+                'url' => $result['data']['authorization_url'],
+            ]);
+        }
+
+        return $this->failResponse('Payment could not be initiated. Kindly try again or contact support');
+
+
+//         return $this->failResponse($result['data']['authorization_url']);
+
+
+
+//        session()->remove('checkout_data');
+//
+//        session()->remove('delivery_bill');
+//
+//        Cart::destroy();
+//
+//        Session::flash('success', 'You have successfully placed your order. Thank You for doing business with E-SQUARE ELECTRONICS');
+//
+//        $url = '';
+//
+//        if(!empty(auth()->guard('web')->user())){
+//            $url = route('customer.dashboard');
+//        }else{
+//            $url = route('website.index');
+//        }
+//
+//        return response()->json([
+//            'code' => 200,
+//            'msg' => "Order made successfully. Thanks for doing business with E-SQUARE ELECTRONICS",
+//            'url' => $url,
+//            ]);
 //        return $this->successResponse("Order made successfully");
+    }
+
+
+    public function initiatePaymentProcess($fields)
+    {
+        $url = env('PAYSTACK_PAYMENT_URL');
+
+        $fields_string = http_build_query($fields);
+        //open connection
+        $ch = curl_init();
+
+        //set the url, number of POST vars, POST data
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch,CURLOPT_POST, true);
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Authorization: Bearer ".env('PAYSTACK_SECRET_KEY'),
+            "Cache-Control: no-cache",
+        ));
+
+        //So that curl_exec returns the contents of the cURL; rather than echoing it
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+
+        //execute post
+        $result = curl_exec($ch);
+        $result = json_decode($result, true);
+
+        return $result;
     }
 
 
@@ -240,6 +326,19 @@ class CheckoutController extends Controller
 
     }
 
+
+    public function runCheckoutForDiffAddress(&$data)
+    {
+        $data['street_address'] = $data['diff_street_address'];
+
+        $data['town'] = $data['diff_town'];
+
+        $data['region'] = $data['diff_city'];
+
+        $data['post_code'] = $data['diff_post_code'];
+
+        return $data;
+    }
 
 
     public function validateOrderFields()
@@ -301,11 +400,11 @@ class CheckoutController extends Controller
     public function computeTownAndRegion($data, $type)
     {
         if ($type === 'town'){
-            return Towns::query()->where('name', 'LIKE', $data)->first()->id;
+            return Towns::query()->where('name', 'LIKE', '%'.$data.'%')->first()->id ?? null;
 
         }
 
-        return Regions::query()->where('name', 'LIKE', $data)->first()->id;
+        return Regions::query()->where('name', 'LIKE', $data)->first()->id ?? null;
     }
 
 
@@ -345,5 +444,83 @@ class CheckoutController extends Controller
 
 
         return empty($exist) ? $batch : $this->generateOrderCode(++$int);
+    }
+
+
+    public function callback(Request $request)
+    {
+
+        $validator = $this->validatePayment($request);
+
+        if (!empty($validator['error'])) {
+            return "cURL Error #:" . $validator['error'];
+        }
+
+        $response = json_decode($validator['response'],true);
+
+
+        $status = $response['data']['status'];
+
+        $payment = Payment::query()->where('reference_id', $request->get('reference'))->first();
+
+        if ($status === 'success'){
+
+
+            session()->remove('checkout_data');
+
+            session()->remove('delivery_bill');
+
+            Cart::destroy();
+
+
+            if (!empty($payment)){
+
+                $payment->update(['status' => 'success']);
+
+            }
+
+        }else if (!empty($payment)){
+
+            $payment->update(['status' => 'fail']);
+
+        }
+
+        return view('website.checkout.status', compact('status'));
+    }
+
+
+    public function validatePayment(Request $request)
+    {
+        $curl = curl_init();
+
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.paystack.co/transaction/verify/".$request->get('reference'),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "Authorization: Bearer ".env('PAYSTACK_SECRET_KEY'),
+                "Cache-Control: no-cache",
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+
+        return [
+            'error' => $err,
+            'response' => $response
+        ];
+    }
+
+
+    public function status()
+    {
+        return view('website.checkout.status');
     }
 }
