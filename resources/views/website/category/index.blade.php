@@ -54,7 +54,9 @@
                                             </a>
 
                                             <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                                @if(auth()->guard('web')->check())
+                                                <a href="{{ route('customer.wishlist.store', $product->id) }}" class="btn-product-icon btn-wishlist btn-expandable addToWishlist"><span>add to wishlist</span></a>
+                                                @endif
 {{--                                                <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>--}}
                                             </div><!-- End .product-action-vertical -->
 

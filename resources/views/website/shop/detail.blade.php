@@ -79,7 +79,9 @@
                                 </div><!-- End .details-action-col -->
 
                                 <div class="details-action-wrapper">
-                                    <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
+                                    @if(auth()->guard('web')->check())
+                                    <a href="{{ route('customer.wishlist.store', $product->id) }}" class="btn-product btn-wishlist addToWishlist" title="Wishlist"><span>Add to Wishlist</span></a>
+                                    @endif
                                 </div><!-- End .details-action-wrapper -->
                             </div><!-- End .product-details-action -->
 
@@ -259,7 +261,9 @@
                                         <img src="{{ asset($related->getSingleImage()) }}" alt="Product img" class="product-img">
                                     </a>
                                     <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                        @if(auth()->guard('web')->check())
+                                        <a href="{{ route('customer.wishlist.store', $related->id) }}" class="btn-product-icon btn-wishlist btn-expandable addToWishlist"><span>add to wishlist</span></a>
+                                        @endif
                                     </div>
                                     <div class="product-action">
                                         <a href="{{ route('website.cart.add', $product->id) }}" class="btn-product btn-cart addToCartBtn"><span>add to cart</span></a>

@@ -59,8 +59,10 @@
                             <a href="#">Links</a>
                             <ul>
                                 <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
-                                <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
+                                @if(auth()->guard('web')->check())
+                                <li><a href="{{ route('customer.wishlist.index') }}"><i class="icon-heart-o"></i>Wishlist <span class="wishlist_count">({{ $wishlist }})</span></a></li>
+                                @endif
+                                <li><a href="{{ route('website.contact.index') }}">Contact Us</a></li>
                                 @if(auth()->guard('web')->check())
                                     <li><a class="dropdown-item" href="{{ route('customer.dashboard') }}">Dashboard</a></li>
                                     <li><a class="dropdown-item" href="" onclick="event.preventDefault();
@@ -127,29 +129,6 @@
                             </div><!-- End .header-search-wrapper -->
                         </form>
                     </div><!-- End .header-search -->
-                    <div class="dropdown compare-dropdown">
-                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
-                            <i class="icon-random"></i>
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <ul class="compare-products">
-                                <li class="compare-product">
-                                    <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    <h4 class="compare-product-title"><a href="{{ route('website.shop.index') }}">Blue Night Dress</a></h4>
-                                </li>
-                                <li class="compare-product">
-                                    <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    <h4 class="compare-product-title"><a href="{{ route('website.shop.index') }}">White Long Skirt</a></h4>
-                                </li>
-                            </ul>
-
-                            <div class="compare-actions">
-                                <a href="#" class="action-link">Clear All</a>
-                                <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></a>
-                            </div>
-                        </div><!-- End .dropdown-menu -->
-                    </div><!-- End .compare-dropdown -->
 
                     <div class="dropdown cart-dropdown">
                         <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">

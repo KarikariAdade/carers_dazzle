@@ -54,12 +54,12 @@ class OrdersDatatable extends DataTable
 
                 $output = '<div style="display: inline-flex;">';
 
-                $output .= '<a href="'.$query->generateRoute().'" title="View Order" class="btn table-btn btn-icon btn-success btn-sm shadow-success mr-2"><i class="fa mt-2 fa-eye"></i> View Order</a>
+                $output .= '<a href="'.$query->generateRoute().'" title="View Order" class=" mr-2"><i class="fa mt-2 fa-eye"></i></a>
                         ';
 
 
                 if ($query->getInvoice){
-                    $output .= '<a href="'.$invoice_route.'" title="View Invoice" class="btn text-white table-btn btn-icon btn-primary btn-sm shadow-primary"><i class="fa mt-2 fa-file-alt"></i> View Invoice</a>
+                    $output .= '<a href="'.$invoice_route.'" title="View Invoice" class=""><i class="fa mt-2 fa-file-alt"></i> </a>
                         </div>';
                 }
 
@@ -107,7 +107,7 @@ class OrdersDatatable extends DataTable
             Column::make('order_status'),
             Column::make('payment_type'),
             Column::make('invoice_id')->title('Invoice'),
-            Column::make('net_total')->width(200),
+            Column::make('net_total'),
             Column::computed('items'),
             Column::make('created_at')->title('Date'),
             Column::computed('action')

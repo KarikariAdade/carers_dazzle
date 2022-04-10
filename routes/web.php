@@ -24,6 +24,7 @@ use App\Http\Controllers\Website\CheckoutController;
 use App\Http\Controllers\Website\HomepageController;
 use App\Http\Controllers\Website\PagesController;
 use App\Http\Controllers\Website\ReviewsController;
+use App\Http\Controllers\Website\WishlistController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -298,6 +299,12 @@ Route::group(['middleware' => 'web', 'prefix' => 'customer/dashboard'], function
     Route::prefix('reviews')->group(function (){
         Route::post('submit/{product}', [ReviewsController::class, 'addReview'])->name('customer.review.store');
 
+    });
+
+    Route::prefix('wishlist')->group(function () {
+        Route::get('/', [WishlistController::class, 'index'])->name('customer.wishlist.index');
+        Route::any('store/{product}', [WishlistController::class, 'store'])->name('customer.wishlist.store');
+        Route::get('remove/{wishlist}', [WishlistController::class, 'remove'])->name('customer.wishlist.remove');
     });
 
 });

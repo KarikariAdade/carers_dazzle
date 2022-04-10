@@ -920,6 +920,24 @@ $(document).ready(function (){
 
 
 
+    $('.addToWishlist').click(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('href'),
+            method: 'POST',
+            data: $(this).serialize(),
+        }).done((response) => {
+            if(response.code == '200'){
+                runToast(response.msg, response.code)
+                $('.wishlist_count').html(`(${response.count})`)
+            }else {
+                runToast(response.msg, response.code)
+            }
+        })
+    })
+
+
 
     // $('.orderForm').submit(function (e){
     //     e.preventDefault();

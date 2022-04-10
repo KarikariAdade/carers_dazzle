@@ -110,8 +110,10 @@
                                         </a>
 
                                         <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-{{--                                            <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>--}}
+                                            @if(auth()->guard('web')->check())
+                                            <a href="{{ route('customer.wishlist.store', $arrival->id) }}" class="btn-product-icon btn-wishlist btn-expandable addToWishlist"><span>add to wishlist</span></a>
+                                            @endif
+                                                {{--                                            <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>--}}
                                         </div><!-- End .product-action -->
 
                                         <div class="product-action">

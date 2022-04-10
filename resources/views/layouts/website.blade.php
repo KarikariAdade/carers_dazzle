@@ -87,10 +87,12 @@
                         </form>
                     </div><!-- End .header-search -->
 
-                    <a href="wishlist.html" class="wishlist-link">
+                    @if(auth()->guard('web')->check())
+                    <a href="{{ route('customer.wishlist.index') }}" class="wishlist-link">
                         <i class="icon-heart-o"></i>
-                        <span class="wishlist-count">3</span>
+                        <span class="wishlist-count">{{ $wishlist }}</span>
                     </a>
+                    @endif
 
                     <div class="dropdown cart-dropdown">
                         <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">

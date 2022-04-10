@@ -52,7 +52,9 @@
                                                 </a>
 
                                                 <div class="product-action-vertical">
-                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                                    @if(auth()->guard('web')->check())
+                                                    <a href="{{ route('customer.wishlist.store', $product->id) }}" class="btn-product-icon btn-wishlist btn-expandable addToWishlist"><span>add to wishlist</span></a>
+                                                    @endif
                                                 </div><!-- End .product-action-vertical -->
 
                                                 <div class="product-action">
