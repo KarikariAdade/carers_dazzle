@@ -16,19 +16,16 @@
 <aside class="col-md-3">
     <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="tab-dashboard-link">Dashboard</a>
+            <a class="nav-link active" id="tab-dashboard-link" href="{{ route('customer.dashboard') }}">Dashboard</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link"  href="{{ route('customer.orders') }}" >Orders</a>
+            <a class="nav-link" href="{{ route('customer.orders') }}" >Orders</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="tab-downloads-link" href="#" role="tab">Downloads</a>
+            <a class="nav-link" href="{{ route('customer.invoices') }}">Invoices</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="tab-address-link" href="#" role="tab">Adresses</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="tab-account-link" href="#" role="tab">Account Details</a>
+            <a class="nav-link" href="{{ route('customer.account.index') }}">Account Details</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Sign Out</a>

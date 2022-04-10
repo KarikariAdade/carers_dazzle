@@ -1,32 +1,27 @@
-@extends('layouts.website')
+@extends('layouts.pages')
 @section('content')
-    <style>
-        .borderless{
-            border-right-color: transparent !important;
-        }
-        .mt-5 {
-            margin-top: 5%;
-        }
-        .mb-5{
-            margin-bottom: 5%;
-        }
-        .f-bold{
-            font-weight: bold;
-        }
-    </style>
-    <div class="my-account-wrapper mt-5">
+    @inject('shopHelper', 'App\Helpers\ShopHelper')
+    @push('custom-css')
+        <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
+        <style>
+            .borderless {
+                border:none;
+            }
+        </style>
+    @endpush
+    <div class="page-header mt-5 text-center" style="background-image: url({{ asset('assets/images/page-header-bg.jpg') }})">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- My Account Page Start -->
-                    <div class="myaccount-page-wrapper">
-                        <!-- My Account Tab Menu Start -->
-                        <div class="row">
-                        @include('layouts.customers')
-                        <!-- My Account Tab Menu End -->
+            <h1 class="page-title">Dashboard<span>Account</span></h1>
+        </div><!-- End .container -->
+    </div>
 
+    <div class="page-content mt-5">
+        <div class="dashboard">
+            <div class="container">
+                <div class="row">
+                @include('layouts.customers')
                             <!-- My Account Tab Content Start -->
-                            <div class="col-lg-9 col-md-8">
+                            <div class="col-lg-9 col-md-9">
                                 <h4 class="mb-10 f-bold">Order Details ({{ $order->order_id }})</h4>
                                 <div class="row mt-5">
                                     <div class="col-md-6 mb-5">
@@ -57,9 +52,9 @@
                                     </div>
                                 </div><br>
                                 <div class="cart-table table-responsive">
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered text-center">
                                         <thead>
-                                        <tr>
+                                        <tr style="border: 1px solid #ccc;">
                                             <th class="pro-thumbnail">Thumbnail</th>
                                             <th class="pro-title">Product</th>
                                             <th class="pro-price">Price</th>
@@ -70,7 +65,11 @@
                                         <tbody>
                                         @foreach($order_items as $item)
                                         <tr>
-                                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="{{ asset($item['options']['product_image']) }}" alt="{{ $item['name'] }}"></a></td>
+                                            <td class="pro-thumbnail p-3">
+                                                <a href="#">
+                                                    <img class="img-fluid" src="{{ asset($item['options']['product_image']) }}" alt="{{ $item['name'] }}" style="width:100%; height:100px; border-radius: 10px;">
+                                                </a>
+                                            </td>
                                             <td class="pro-title"><a href="#">{{ $item['name'] }}</a></td>
                                             <td class="pro-price"><span>GHS {{ number_format($item['price'], 2) }}</span></td>
                                             <td class="pro-quantity">{{ $item['qty'] }}</td>
@@ -82,31 +81,23 @@
                                             <td colspan="4">{{ $order->order_note ?? 'N/A' }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="borderless"></td>
-                                            <td class="borderless"></td>
-                                            <td class="borderless"></td>
+                                            <td class="borderless" colspan="3"></td>
                                             <td>SUBTOTAL</td>
                                             <td>GHS {{ number_format($order->sub_total, 2) }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="borderless"></td>
-                                            <td class="borderless"></td>
-                                            <td class="borderless"></td>
+                                            <td class="borderless" colspan="3"></td>
                                             <td>DISCOUNT</td>
                                             <td>GHS {{ number_format($order->discount, 2) }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="borderless"></td>
-                                            <td class="borderless"></td>
-                                            <td class="borderless"></td>
+                                            <td class="borderless" colspan="3"></td>
                                             <td>SHIPPING</td>
                                             <td>GHS {{ number_format($order->shipping, 2) }}</td>
                                         </tr>
 
                                         <tr>
-                                            <td class="borderless"></td>
-                                            <td class="borderless"></td>
-                                            <td class="borderless"></td>
+                                            <td class="borderless" colspan="3"></td>
                                             <td>NET TOTAL</td>
                                             <td>GHS {{ number_format($order->net_total, 2) }}</td>
                                         </tr>
@@ -119,7 +110,5 @@
                     </div> <!-- My Account Page End -->
                 </div>
             </div>
-        </div>
-    </div>
 @endsection
 

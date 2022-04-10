@@ -36,7 +36,9 @@ class DashboardController extends Controller
 
     public function orders(OrdersDatatable $datatable)
     {
-        return $datatable->render('customers.orders.index', ['pageItems' => $this->pageItems]);
+        $orders = Order::query()->where('user_id', auth()->guard('web')->user()->id)->paginate(7);
+
+        return view('customers.orders.index', compact('orders'));
     }
 
     public function orderDetail(Order $order)
@@ -46,9 +48,11 @@ class DashboardController extends Controller
         return view('customers.orders.details', ['pageItems' => $this->pageItems, 'order' => $order, 'order_items' => $order_items]);
     }
 
-    public function invoices(InvoiceDatatable $datatable)
+    public function invoices()
     {
-        return $datatable->render('customers.invoice.index', ['pageItems' => $this->pageItems]);
+        $invoices = Invoice::query()->where('user_id', auth()->guard('web')->user()->id)->paginate(7);
+
+        return view('customers.invoice.index', compact('invoices'));
     }
 
 
