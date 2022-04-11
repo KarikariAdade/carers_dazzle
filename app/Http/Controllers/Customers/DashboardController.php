@@ -9,8 +9,8 @@ use App\Http\Controllers\Website\HomepageController;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Regions;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade as PDF;
-use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -22,7 +22,7 @@ class DashboardController extends Controller
 
     public function __construct()
     {
-        $this->middleware('web');
+        $this->middleware('auth:web');
 
         $this->pageItems = (new HomepageController())->pageDependencies();
     }
@@ -91,8 +91,14 @@ class DashboardController extends Controller
 
     public function updateAccountDetails(Request $request)
     {
-        $user = \App\Models\User::query()->where('id', auth()->user()->id)->first();
+        $user = User::query()->where('id', auth()->user()->id)->first();
+
         $data = $request->all();
+
+
+
+
+//        return $data;
 
         $validator = Validator::make($data, [
             'first_name' => 'required',
@@ -111,7 +117,7 @@ class DashboardController extends Controller
             return $this->failResponse($validator->errors()->first());
         }
 
-        DB::beginTransaction();
+//        return $data;
 
         try{
             if (!empty($data['current_password'])){
@@ -134,21 +140,20 @@ class DashboardController extends Controller
                 'name' => $data['first_name'].' '.$data['last_name'],
                 'email' => $data['email'],
                 'region_id' => $data['region'],
-                'street_address_1' => 'required',
-                'street_address_2' => 'nullable',
+                'street_address_1' => $data['street_address_1'],
+                'street_address_2' => $data['street_address_2'],
                 'town_id' => $data['town'],
                 'zip_code' => $data['zip_code'],
             ]);
 
             session()->flash('success', 'Profile successfully updated');
 
-            DB::commit();
 
             return $this->successResponse("Profile successfully updated");
 
 
         } catch (\Exception $exception){
-            DB::rollBack();
+//            DB::rollBack();
             Log::info($exception->getMessage());
 
             return $this->failResponse("Failed to update. Try again later");

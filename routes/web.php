@@ -128,7 +128,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('auth/logout', [AdminAuthController::class, 'logout'])->name('admin.auth.logout');
     Route::post('get/towns', [ShippingController::class, 'getTowns'])->name('product.shipping.get.town');
 
-Route::group(['middleware' => 'auth:admin'], function (){
+    Route::group(['middleware' => 'auth:admin'], function (){
 
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::post('update/phone', [AdminDashboardController::class, 'updatePhone'])->name('admin.dashboard.update.phone');
@@ -279,7 +279,7 @@ Route::group(['middleware' => 'auth:admin'], function (){
 
 
 
-Route::group(['middleware' => 'web', 'prefix' => 'customer/dashboard'], function (){
+Route::group(['middleware' => 'auth:web', 'prefix' => 'customer/dashboard'], function (){
 
     Route::get('/', [DashboardController::class, 'index'])->name('customer.dashboard');
     Route::get('orders', [DashboardController::class, 'orders'])->name('customer.orders');

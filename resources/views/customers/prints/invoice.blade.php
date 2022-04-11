@@ -208,7 +208,7 @@
                         @endif
                         <div class="mb-5">
                                 <h4>Payment Options</h4>
-                                <strong>{{ ucfirst($invoice->getOrder->payment_type) }}</strong>
+                                <p>{{ ucfirst(str_replace('_', ' ', $invoice->getOrder->payment_type)) }}</p>
                         </div>
 
 {{--                            <div class="mb-5">--}}

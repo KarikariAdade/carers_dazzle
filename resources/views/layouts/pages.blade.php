@@ -9,12 +9,12 @@
     <meta name="description" content="Carers Dazzle">
     <meta name="author" content="p-themes">
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="website_assets/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="img/png" sizes="32x32" href="website_assets/images/icons/favicon-32x32.png">
-    <link rel="icon" type="img/png" sizes="16x16" href="website_assets/images/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo.png') }}">
+    <link rel="icon" type="img/png" sizes="32x32" href="{{ asset('logo.png') }}">
+    <link rel="icon" type="img/png" sizes="16x16" href="{{ asset('logo.png') }}">
 {{--    <link rel="manifest" href="website_assets/images/icons/site.html">--}}
     <link rel="mask-icon" href="website_assets/images/icons/safari-pinned-tab.svg" color="#666666">
-    <link rel="shortcut icon" href="website_assets/images/icons/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('logo.png') }}">
     <meta name="apple-mobile-web-app-title" content="Molla">
     <meta name="application-name" content="Molla">
     <meta name="msapplication-TileColor" content="#cc9966">
@@ -91,7 +91,7 @@
                     </button>
 
                     <a href="{{ route('website.home') }}" class="logo">
-                        <img src="website_assets/images/logo.png" alt="Molla Logo" width="105" height="25">
+                        <img src="{{ asset('logo.png') }}" alt="Carers Dazzle" width="105" height="25">
                     </a>
 
                     <nav class="main-nav">

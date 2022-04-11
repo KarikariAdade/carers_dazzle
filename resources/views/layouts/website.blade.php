@@ -71,7 +71,8 @@
 
                 <div class="header-center">
                     <a href="{{ route('website.home') }}" class="logo">
-                        <img src="website_assets/images/demos/demo-18/logo.png" alt="Molla Logo" width="82" height="25">
+{{--                        <img src="{{ asset('logo.png') }}" alt="Carers Dazzle" width="82" height="25">--}}
+                        <img src="{{ asset('logo.png') }}" alt="Carers Dazzle" width="100" height="100">
                     </a>
                 </div><!-- End .header-center -->
 
@@ -137,6 +138,12 @@
                             </div><!-- End .dropdown-cart-total -->
                         </div><!-- End .dropdown-menu -->
                     </div><!-- End .cart-dropdown -->
+                    <div class="dropdown cart-dropdown">
+                        <a href="{{ route('login') }}" class="dropdown-toggle">
+                            <i class="icon-user"></i>
+{{--                            <span class="cart-count">{{ Cart::count()  }}</span>--}}
+                        </a>
+                    </div>
                 </div><!-- End .header-right -->
             </div><!-- End .container -->
         </div><!-- End .header-middle -->

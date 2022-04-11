@@ -28,10 +28,12 @@
             <a class="nav-link" href="{{ route('customer.account.index') }}">Account Details</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Sign Out</a>
+            <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign Out</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
 
 
-            
         </li>
     </ul>
 </aside><!-- End .col-lg-3 -->
