@@ -35,6 +35,10 @@ class WebsiteDataDependencies extends ServiceProvider
 
             $brands = Brands::query()->orderBy('id', 'DESC')->get();
 
+            $footer_categories = ProductCategory::query()->orderByDesc('id')->take(6)->get();
+
+            $footer_brands = Brands::query()->orderByDesc('id')->take(6)->get();
+
             $carts = Cart::content();
 
             $wishlist = 0;
@@ -49,7 +53,9 @@ class WebsiteDataDependencies extends ServiceProvider
                 'categories' => $categories,
                 'brands' => $brands,
                 'carts' => $carts,
-                'wishlist' => $wishlist
+                'wishlist' => $wishlist,
+                'footer_categories' => $footer_categories,
+                'footer_brands' => $footer_brands
             ]);
         });
 

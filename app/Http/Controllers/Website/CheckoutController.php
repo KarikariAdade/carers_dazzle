@@ -187,33 +187,6 @@ class CheckoutController extends Controller
 
         return $this->failResponse('Payment could not be initiated. Kindly try again or contact support');
 
-
-//         return $this->failResponse($result['data']['authorization_url']);
-
-
-
-//        session()->remove('checkout_data');
-//
-//        session()->remove('delivery_bill');
-//
-//        Cart::destroy();
-//
-//        Session::flash('success', 'You have successfully placed your order. Thank You for doing business with E-SQUARE ELECTRONICS');
-//
-//        $url = '';
-//
-//        if(!empty(auth()->guard('web')->user())){
-//            $url = route('customer.dashboard');
-//        }else{
-//            $url = route('website.index');
-//        }
-//
-//        return response()->json([
-//            'code' => 200,
-//            'msg' => "Order made successfully. Thanks for doing business with E-SQUARE ELECTRONICS",
-//            'url' => $url,
-//            ]);
-//        return $this->successResponse("Order made successfully");
     }
 
 

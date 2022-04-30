@@ -21,6 +21,7 @@ use App\Http\Controllers\Stock\SubCategoryController;
 use App\Http\Controllers\Stock\TaxController;
 use App\Http\Controllers\Website\CartController;
 use App\Http\Controllers\Website\CheckoutController;
+use App\Http\Controllers\Website\FilterController;
 use App\Http\Controllers\Website\HomepageController;
 use App\Http\Controllers\Website\PagesController;
 use App\Http\Controllers\Website\ReviewsController;
@@ -70,6 +71,8 @@ Route::get('contact', [PagesController::class, 'contact'])->name('website.contac
 Route::get('payment/status', [CheckoutController::class, 'status'])->name('website.checkout.payment.status');
 
 Route::get('order/delivery/{order}/success', [CheckoutController::class, 'payOnDelivery'])->name('website.checkout.payment.delivery');
+
+Route::any('shop/filter', [FilterController::class, 'index'])->name('website.filter.index');
 
 
 

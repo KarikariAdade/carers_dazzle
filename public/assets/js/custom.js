@@ -939,16 +939,12 @@ $(document).ready(function (){
 
 
 
-    // $('.orderForm').submit(function (e){
-    //     e.preventDefault();
-    //
-    //     $.ajax({
-    //         url: $(this).attr('href'),
-    //         method: 'POST',
-    //         data: $(this).serialize(),
-    //     }).done((response) => {
-    //         console.log(response)
-    //     })
-    // })
+    $('#sortby').change(function (e){
+        e.preventDefault();
+
+        url = $('#filterUrl').val();
+
+        window.location.href = url+'?sort='+$(this).val();
+    })
 });
 
