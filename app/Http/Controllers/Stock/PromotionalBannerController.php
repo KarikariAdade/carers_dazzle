@@ -241,6 +241,9 @@ class PromotionalBannerController extends Controller
         return [
             'name' => $data['name'],
             'description' => $data['description'],
+            'header_message' => $data['header_message'],
+            'footer_message' => $data['footer_message'],
+            'content_message' => $data['content_message'],
             'banner' => $data['banner'],
             'is_slider_featured' => $data['slider_feature'],
             'is_active' => $data['mark_active'],

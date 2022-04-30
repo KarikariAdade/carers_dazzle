@@ -66,6 +66,19 @@
                             <label>Description</label>
                             <textarea class="form-control" name="description"></textarea>
                         </div>
+
+                        <div class="form-group col-md-12">
+                            <label>Header Message</label>
+                            <textarea class="form-control" name="header_message"></textarea>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Footer Message</label>
+                            <textarea class="form-control" name="footer_message"></textarea>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Content Message</label>
+                            <textarea class="form-control" name="content_message"></textarea>
+                        </div>
                     </div>
                     <div class="modal-footer bg-whitesmoke br">
                         <button type="submit" class="btn btn-success">Add Banner</button>

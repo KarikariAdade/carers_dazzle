@@ -46,7 +46,19 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Description</label>
-                    <textarea class="form-control" name="description"></textarea>
+                    <textarea class="form-control" name="description">{{$banner->description}}</textarea>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Header Message</label>
+                    <textarea class="form-control" name="header_message">{{$banner->header_message}}</textarea>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Footer Message</label>
+                    <textarea class="form-control" name="footer_message">{{$banner->footer_message}}</textarea>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Content Message</label>
+                    <textarea class="form-control" name="content_message">{{$banner->content_message}}</textarea>
                 </div>
             </div>
 
