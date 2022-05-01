@@ -15,7 +15,11 @@ class PagesController extends Controller
     {
         $arrivals = Product::query()->orderBy('id', 'DESC')->skip(0)->take(10)->get();
 
-        return view('home', compact('arrivals'));
+        $most_viewed = Product::query()->orderBy('views', 'DESC')->skip(0)->take(4)->get();
+
+        $best_selling = Product::query()->orderBy('orders', 'DESC')->skip(0)->take(4)->get();
+
+        return view('home', compact('arrivals', 'most_viewed', 'best_selling'));
     }
 
     public function shop()

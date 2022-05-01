@@ -23,6 +23,7 @@ class HomepageController extends Controller
 
         $latest_products = Product::query()->orderBy('id', 'DESC')->take(10)->get();
 
+
         return view('website.index', compact('pageItems', 'featured_products', 'hot_deals', 'latest_products'));
     }
 

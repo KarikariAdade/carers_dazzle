@@ -149,81 +149,31 @@
                         <div class="row">
                             <div class="col-sm-6 col-lg-12">
                                 <div class="widget widget-products">
-                                    <h4 class="widget-title">Best Selling</h4><!-- End .widget-title -->
+                                    <h4 class="widget-title">Best Selling</h4>
+                                    <!-- End .widget-title -->
 
                                     <div class="products">
+                                        @foreach($best_selling as $item)
                                         <div class="product product-sm">
                                             <figure class="product-media">
                                                 <a href="{{ route('website.shop.index') }}">
-                                                    <img src="website_assets/images/demos/demo-18/products/small/product-1.jpg" alt="Product image" class="product-image">
+                                                    <img src="{{ asset($item->getSingleImage()) }}" alt="Product image" class="product-image">
                                                 </a>
                                             </figure>
 
                                             <div class="product-body">
                                                 <div class="product-cat">
-                                                    <a href="#">Clothing</a>
+                                                    <a href="{{ $item->getCategory->generateCategoryRoute() }}">{{ $item->getCategory->name }}</a>
                                                 </div><!-- End .product-cat -->
-                                                <h5 class="product-title"><a href="{{ route('website.shop.index') }}">V-neck buttoned blouse</a></h5><!-- End .product-title -->
+                                                <h5 class="product-title"><a href="{{ $item->generateRoute() }}">{{ $item->name }}</a></h5><!-- End .product-title -->
                                                 <div class="product-price">
-                                                    <span class="new-price">Now $17.99</span>
-                                                    <span class="old-price">Was $32.99</span>
+                                                    <span class="new-price">Now {{ $item->convertCurrency() }}</span>
+{{--                                                    <span class="old-price">Was $32.99</span>--}}
                                                 </div><!-- End .product-price -->
                                             </div><!-- End .product-body -->
                                         </div><!-- End .product product-sm -->
+                                        @endforeach
 
-                                        <div class="product product-sm">
-                                            <figure class="product-media">
-                                                <a href="{{ route('website.shop.index') }}">
-                                                    <img src="website_assets/images/demos/demo-18/products/small/product-2.jpg" alt="Product image" class="product-image">
-                                                </a>
-                                            </figure>
-
-                                            <div class="product-body">
-                                                <div class="product-cat">
-                                                    <a href="#">Shoes</a>
-                                                </div><!-- End .product-cat -->
-                                                <h5 class="product-title"><a href="{{ route('website.shop.index') }}">Slides with a bow</a></h5><!-- End .product-title -->
-                                                <div class="product-price">
-                                                    $17.99
-                                                </div><!-- End .product-price -->
-                                            </div><!-- End .product-body -->
-                                        </div><!-- End .product product-sm -->
-
-                                        <div class="product product-sm">
-                                            <figure class="product-media">
-                                                <a href="{{ route('website.shop.index') }}">
-                                                    <img src="website_assets/images/demos/demo-18/products/small/product-3.jpg" alt="Product image" class="product-image">
-                                                </a>
-                                            </figure>
-
-                                            <div class="product-body">
-                                                <div class="product-cat">
-                                                    <a href="#">Clothing</a>
-                                                </div><!-- End .product-cat -->
-                                                <h5 class="product-title"><a href="{{ route('website.shop.index') }}">Paper bag skirt</a></h5><!-- End .product-title -->
-                                                <div class="product-price">
-                                                    $19.99
-                                                </div><!-- End .product-price -->
-                                            </div><!-- End .product-body -->
-                                        </div><!-- End .product product-sm -->
-
-                                        <div class="product product-sm">
-                                            <figure class="product-media">
-                                                <a href="{{ route('website.shop.index') }}">
-                                                    <img src="website_assets/images/demos/demo-18/products/small/product-4.jpg" alt="Product image" class="product-image">
-                                                </a>
-                                            </figure>
-
-                                            <div class="product-body">
-                                                <div class="product-cat">
-                                                    <a href="#">Handbags</a>
-                                                </div><!-- End .product-cat -->
-                                                <h5 class="product-title"><a href="{{ route('website.shop.index') }}">Foldaway waist bag</a></h5><!-- End .product-title -->
-                                                <div class="product-price">
-                                                    $9.99
-                                                </div><!-- End .product-price -->
-                                            </div><!-- End .product-body -->
-                                        </div><!-- End .product product-sm -->
                                     </div><!-- End .products -->
                                 </div><!-- End .widget widget-products -->
                             </div><!-- End .col-sm-6 col-lg-12 -->
@@ -248,24 +198,26 @@
                                 <div class="widget widget-products">
                                     <h4 class="widget-title">Most Viewed</h4><!-- End .widget-title -->
                                     <div class="products">
-                                        <div class="product product-sm">
-                                            <figure class="product-media">
-                                                <a href="{{ route('website.shop.index') }}">
-                                                    <img src="website_assets/images/demos/demo-18/products/small/product-1.jpg" alt="Product image" class="product-image">
-                                                </a>
-                                            </figure>
+                                        @foreach($most_viewed as $item)
+                                            <div class="product product-sm">
+                                                <figure class="product-media">
+                                                    <a href="{{ route('website.shop.index') }}">
+                                                        <img src="{{ asset($item->getSingleImage()) }}" alt="Product image" class="product-image">
+                                                    </a>
+                                                </figure>
 
-                                            <div class="product-body">
-                                                <div class="product-cat">
-                                                    <a href="#">Clothing</a>
-                                                </div><!-- End .product-cat -->
-                                                <h5 class="product-title"><a href="{{ route('website.shop.index') }}">V-neck buttoned blouse</a></h5><!-- End .product-title -->
-                                                <div class="product-price">
-                                                    <span class="new-price">Now $17.99</span>
-                                                    <span class="old-price">Was $32.99</span>
-                                                </div><!-- End .product-price -->
-                                            </div><!-- End .product-body -->
-                                        </div><!-- End .product product-sm -->
+                                                <div class="product-body">
+                                                    <div class="product-cat">
+                                                        <a href="{{ $item->getCategory->generateCategoryRoute() }}">{{ $item->getCategory->name }}</a>
+                                                    </div><!-- End .product-cat -->
+                                                    <h5 class="product-title"><a href="{{ $item->generateRoute() }}">{{ $item->name }}</a></h5><!-- End .product-title -->
+                                                    <div class="product-price">
+                                                        <span class="new-price">Now {{ $item->convertCurrency() }}</span>
+                                                        {{--                                                    <span class="old-price">Was $32.99</span>--}}
+                                                    </div><!-- End .product-price -->
+                                                </div><!-- End .product-body -->
+                                            </div><!-- End .product product-sm -->
+                                        @endforeach
 
                                     </div><!-- End .products -->
                                 </div><!-- End .widget widget-products -->

@@ -405,6 +405,10 @@ class CheckoutController extends Controller
 
                 $payment->getOrder->update(['order_status' => 'Paid']);
 
+                foreach (json_decode($payment->getOrder->meta, false, 512, JSON_THROW_ON_ERROR) as $item) {
+                    $this->shop_helper->runOrderProcesses($item);
+                }
+
                 $payment->getInvoice->update(['payment_status' => 'Paid']);
 
             }

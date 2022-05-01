@@ -14,8 +14,11 @@
 
                     <div class="col-md-8 col-lg-9">
                         <div class="tab-content">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                             <div class="tab-pane fade active show" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
-                                <p>Hello <span class="font-weight-normal text-dark">User</span> (not <span class="font-weight-normal text-dark">User</span>? <a href="#">Log out</a>)
+                                <p>Hello <span class="font-weight-normal text-dark">User</span> (not <span class="font-weight-normal text-dark">User</span>? <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log out</a>)
                                     <br>
                                     From your account dashboard you can view your <a href="#tab-orders" class="tab-trigger-link link-underline">recent orders</a>, manage your <a href="#tab-address" class="tab-trigger-link">shipping and billing addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your password and account details</a>.</p>
                             </div><!-- .End .tab-pane -->

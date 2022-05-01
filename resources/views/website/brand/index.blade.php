@@ -19,7 +19,7 @@
     <div class="page-content">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <div class="toolbox">
                         <div class="toolbox-left">
                             <div class="toolbox-info">
@@ -31,8 +31,10 @@
                             <div class="toolbox-sort">
                                 <label for="sortby">Sort by:</label>
                                 <div class="select-custom">
+                                    <input type="hidden" id="filterUrl" value="{{ route('website.filter.index') }}">
                                     <select name="sortby" id="sortby" class="form-control">
-                                        <option value="popularity" selected="selected">Most Popular</option>
+                                        <option value="0">Filter Items</option>
+                                        <option value="popularity">Most Popular</option>
                                         <option value="rating">Most Rated</option>
                                         <option value="date">Date</option>
                                     </select>
@@ -96,7 +98,7 @@
                         {{ $products->links('vendor.pagination.bootstrap-4') }}
                     </div><!-- End .products -->
                 </div><!-- End .col-lg-9 -->
-                @include('layouts.product_sidebar')
+{{--                @include('layouts.product_sidebar')--}}
             </div><!-- End .row -->
         </div><!-- End .container -->
     </div><!-- End .page-content -->

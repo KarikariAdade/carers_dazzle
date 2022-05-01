@@ -28,10 +28,11 @@
                         <div class="toolbox-right">
                             <div class="toolbox-sort">
                                 <label for="sortby">Sort by:</label>
-                                <input type="text" id="filterUrl" value="{{ route('website.filter.index') }}">
+                                <input type="hidden" id="filterUrl" value="{{ route('website.filter.index') }}">
                                 <div class="select-custom">
                                     <select name="sortby" id="sortby" class="form-control">
-                                        <option value="popularity" selected="selected">Most Popular</option>
+                                        <option>Filter Items</option>
+                                        <option value="popularity">Most Popular</option>
                                         <option value="rating">Most Rated</option>
                                         <option value="date">Most Recent</option>
                                     </select>
