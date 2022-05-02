@@ -3,7 +3,7 @@
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>E-SQUARE ELECTRONICS | MANAGER</title>
+    <title>Carers Dazzle  | Admin</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -11,10 +11,14 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    {{--    <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">--}}
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/css/components.css')}}">
+    <link rel='shortcut icon' type='image/x-icon' href="{{asset('carers_dazzle_2.png')}}" />
+
+
+
     @stack('custom-css')
 </head>
 
@@ -155,7 +159,7 @@
                     </div>
                 </li>
                 <li class="dropdown"><a href="#" data-toggle="dropdown"
-                                        class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="assets/img/user.png"
+                                        class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="{{asset('carers_dazzle_2.png')}}"
                                                                                                          class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
                     <div class="dropdown-menu dropdown-menu-right pullDown">
                         <div class="dropdown-title">Hello Sarah Smith</div>
@@ -177,8 +181,9 @@
         <div class="main-sidebar sidebar-style-2">
             <aside id="sidebar-wrapper">
                 <div class="sidebar-brand">
-                    <a href="{{ route('admin.dashboard') }}"> <img alt="image" src="assets/img/logo.png" class="header-logo" /> <span
-                            class="logo-name">Otika</span>
+                    <a href="{{ route('admin.dashboard') }}"> <img alt="image" src="{{asset('carers_dazzle_2.png')}}" style="height: 100px" class="header-logo" /> <span
+                            class="logo-name">
+                        </span>
                     </a>
                 </div>
                 <ul class="sidebar-menu">
@@ -232,11 +237,11 @@
                     <li class="dropdown">
                         <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Payments</span></a>
                     </li>
-                    <li class="menu-header">Susu</li>
+{{--                    <li class="menu-header">Susu</li>--}}
 
-                    <li class="dropdown">
-                        <a href="{{ route('sales.susu.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Susu Management</span></a>
-                    </li>
+{{--                    <li class="dropdown">--}}
+{{--                        <a href="{{ route('sales.susu.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Susu Management</span></a>--}}
+{{--                    </li>--}}
                 </ul>
             </aside>
         </div>

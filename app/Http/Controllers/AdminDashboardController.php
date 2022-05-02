@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\DataTables\DashboardOrdersDataTable;
+
+
 
 class AdminDashboardController extends Controller
 {
@@ -11,9 +16,14 @@ class AdminDashboardController extends Controller
         $this->middleware('auth:admin');
     }
 
-    public function index()
+    public function index(DashboardOrdersDataTable $dataTable)
     {
-        return view('admin.dashboard');
+        $customers = User::all()->count();
+
+        $revenue = Order::all()->sum('net_total');
+
+
+        return $dataTable->render('admin.dashboard', compact('customers', 'revenue'));
     }
 
     public function updatePhone(Request $request)
