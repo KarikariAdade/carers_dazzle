@@ -119,9 +119,9 @@ Route::prefix('shop')->group(function(){
 
 
 
-Route::group(['prefix' => 'admin'], function () {
+//Route::group(['prefix' => 'admin'], function () {
 
-    Route::domain('admin.'.env('SUB_DOMAIN'))->group(function () {
+    Route::domain('admin.carersdazzle.com')->group(function () {
         Route::get('getProducts', [SusuController::class, 'fetchProducts'])->name('admin.fetch.products');
 
 
@@ -280,7 +280,7 @@ Route::group(['prefix' => 'admin'], function () {
         });
     });
 
-});
+//});
 
 
 
