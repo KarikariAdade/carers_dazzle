@@ -222,10 +222,10 @@ class ProductController extends Controller
             'category_id' => $data['category'],
             'brand_id' => $data['brand'],
             'price' => $data['price'],
-            'shelf_id' => $data['sub_category'],
+//            'shelf_id' => $data['sub_category'] ?? null,
             'description' => $data['description'],
             'quantity' => $data['quantity'],
-            'taxes' => $taxes,
+//            'taxes' => $taxes,
             'is_active' => $data['status']
         ];
     }
