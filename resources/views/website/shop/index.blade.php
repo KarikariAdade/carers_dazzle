@@ -17,7 +17,7 @@
     <div class="page-content">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <div class="toolbox">
                         <div class="toolbox-left">
                             <div class="toolbox-info">
@@ -90,7 +90,7 @@
                         {{ $products->links('vendor.pagination.bootstrap-4') }}
                     </div><!-- End .products -->
                 </div><!-- End .col-lg-9 -->
-                @include('layouts.product_sidebar')
+{{--                @include('layouts.product_sidebar')--}}
             </div><!-- End .row -->
         </div><!-- End .container -->
     </div><!-- End .page-content -->

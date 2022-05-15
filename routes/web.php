@@ -119,7 +119,7 @@ Route::prefix('shop')->group(function(){
 
 
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'domain' => 'admin'.env('SUB_DOMAIN')], function () {
 
 
     Route::get('getProducts', [SusuController::class, 'fetchProducts'])->name('admin.fetch.products');
