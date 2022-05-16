@@ -11,6 +11,15 @@
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-WZ8V4W7');</script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SETFED29J4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-SETFED29J4');
+    </script>
     <!-- End Google Tag Manager -->
     <meta name="google-site-verification" content="cxi1ovnjLe1jm5okexjrBncQ0LVulWQ5Shldw1tjAk8" />
     <meta name="keywords" content="Carers Dazzle, Artistic, Inspired, Inspired Handmade Hat, Handmade Hat, Fascinator, Bridal Pieces, Hair Pieces, More, Professional Makeup, Artistry, All Events, Hair Beauty, Bridal Beauty, Beauty Products, Assistance, Wedding, Beauty, Bridal, Wedding Planning, Wedding Gowns, Accessories">
