@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Carers Dazzle</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Carers Dazzle">
-    <meta name="author" content="p-themes">
+    <meta name="google-site-verification" content="cxi1ovnjLe1jm5okexjrBncQ0LVulWQ5Shldw1tjAk8" />
+    <meta name="keywords" content="Carers Dazzle, Artistic, Inspired, Inspired Handmade Hat, Handmade Hat, Fascinator, Bridal Pieces, Hair Pieces, More, Professional Makeup, Artistry, All Events, Hair Beauty, Bridal Beauty, Beauty Products, Assistance, Wedding, Beauty, Bridal, Wedding Planning, Wedding Gowns, Accessories">
+    <meta name="description" content="Carers Dazzle - Artistic and Inspired Handmade Hat, Fascinator, Bridal and Hair Pieces and More">
+    <meta name="author" content="Carers Dazzle">
     <!-- Favicon -->
+
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo.png') }}">
     <link rel="icon" type="img/png" sizes="32x32" href="{{ asset('logo.png') }}">
     <link rel="icon" type="img/png" sizes="16x16" href="{{ asset('logo.png') }}">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
-    <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="website_assets/images/icons/browserconfig.xml">
+    <meta name="apple-mobile-web-app-title" content="Carers Dazzle">
+    <meta name="application-name" content="Carers Dazzle">
     <meta name="theme-color" content="#ffffff">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Plugins CSS File -->
@@ -158,14 +157,14 @@
                     <div class="col-sm-6 col-lg-3">
                         <div class="widget widget-about">
                             <img src="{{ asset('logo.png') }}" class="footer-logo" alt="Footer Logo" width="105" height="25">
-                            <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+                            <p>Carers Dazzle - Artistic and Inspired Handmade Hat, Fascinator, Bridal and Hair Pieces and More </p>
 
                             <div class="social-icons">
-                                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-                                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-                                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-                                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
-                                <a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
+                                <a href="https://www.facebook.com/CarersDazzle/" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+{{--                                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>--}}
+                                <a href="https://www.instagram.com/carersdazzle/" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+{{--                                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>--}}
+{{--                                <a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>--}}
                             </div><!-- End .soial-icons -->
                         </div><!-- End .widget about-widget -->
                     </div><!-- End .col-sm-6 col-lg-3 -->
@@ -199,11 +198,10 @@
                             <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
 
                             <ul class="widget-list">
-                                <li><a href="#">Sign In</a></li>
-                                <li><a href="cart.html">View Cart</a></li>
-                                <li><a href="#">My Wishlist</a></li>
-                                <li><a href="#">Track My Order</a></li>
-                                <li><a href="#">Help</a></li>
+                                <li><a href="{{ route('login') }}">Sign In</a></li>
+                                <li><a href="{{ route('website.cart.index') }}">View Cart</a></li>
+                                <li><a href="{{ route('customer.wishlist.index') }}">My Wishlist</a></li>
+                                <li><a href="{{ route('website.contact.index') }}">Help</a></li>
                             </ul><!-- End .widget-list -->
                         </div><!-- End .widget -->
                     </div><!-- End .col-sm-6 col-lg-3 -->
@@ -261,10 +259,10 @@
         </nav><!-- End .mobile-nav -->
 
         <div class="social-icons">
-            <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+            <a href="https://www.facebook.com/CarersDazzle/" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
             <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
             <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-            <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+            <a href="https://www.instagram.com/carersdazzle/" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
         </div><!-- End .social-icons -->
     </div><!-- End .mobile-menu-wrapper -->
 </div><!-- End .mobile-menu-container -->

@@ -18,6 +18,11 @@
                 min-height: 84vh !important;
             }
         }
+        @media(min-width: 400px){
+            .intro-slider-container, .intro-slide{
+                min-height: 76vh !important;
+            }
+        }
     </style>
         <div class="intro-slider-container mb-3 mb-lg-5">
             <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" data-owl-options='{"dots": true, "nav": false}'>
