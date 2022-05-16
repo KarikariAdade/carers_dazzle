@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Helpers\ShopHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\InvoiceItems;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Regions;
@@ -133,7 +134,9 @@ class CheckoutController extends Controller
 
         $data['order_id'] = $order->order_id;
 
-        $pdf = PDF::loadView('emails.invoice_attach')->setPaper('A4');
+        $invoice_items = json_decode($invoice->meta, true);
+
+        $pdf = PDF::loadView('emails.invoice_attach', ['invoice' => $invoice, 'invoice_items' => $invoice_items])->setPaper('A4');
 
         $data['msg'] = 'Dear '.$data['name'].', your order('.$data['order_id'].') has been placed. Please visit your portal or your email to download your invoice.';
 

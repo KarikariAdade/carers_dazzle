@@ -38,7 +38,7 @@
                                             <strong>Order Date:</strong> {{ date('d-m-Y', strtotime($invoice->created_at))  }}<br>
                                             <strong>Invoice Number:</strong> {{ $invoice->invoice_number }}<br>
                                             <strong>Invoice Date:</strong> {{ date('d-m-Y', strtotime($invoice->created_at)) }}<br>
-                                            <strong>Order Status:</strong> @if($invoice->getOrder->payment_staus !== 'Paid') <span class="badge badge-danger">Unpaid</span> @else <span class="badge badge-success">Paid</span> @endif
+                                            <strong>Order Status:</strong> @if($invoice->getOrder->order_status !== 'Paid') <span class="badge badge-danger">Unpaid</span> @else <span class="badge badge-success">Paid</span> @endif
                                         </p>
                                     </div>
                                 </div><br>
@@ -55,16 +55,16 @@
                                         </thead>
                                         <tbody>
                                         @foreach($invoice_items as $item)
-                                            <tr>
-                                                <td class="pro-thumbnail p-3">
+                                            <tr class="text-center">
+                                                <td class="pro-thumbnail text-center p-3">
                                                     <a href="#">
-                                                        <img class="img-fluid" src="{{ asset($item['options']['product_image']) }}" alt="{{ $item['name'] }}" style="width:100%; height:100px; border-radius: 10px;">
+                                                        <img class="img-fluid" src="{{ asset($item['options']['product_image']) }}" alt="{{ $item['name'] }}" style="width:100px; height:100px; border-radius: 10px;">
                                                     </a>
                                                 </td>
                                                 <td class="pro-title"><a href="#">{{ $item['name'] }}</a></td>
-                                                <td class="pro-price"><span>GHS {{ number_format($item['price'], 2) }}</span></td>
+                                                <td class="pro-price"><span> {{ $shopHelper->calculateExchangeRate($item['price']) }}</span></td>
                                                 <td class="pro-quantity">{{ $item['qty'] }}</td>
-                                                <td class="pro-subtotal"><span>GHS {{ $item['subtotal'] }}</span></td>
+                                                <td class="pro-subtotal"><span> {{ $shopHelper->calculateExchangeRate($item['subtotal']) }}</span></td>
                                             </tr>
                                         @endforeach
                                         <tr>
@@ -74,23 +74,23 @@
                                         <tr>
                                             <td class="borderless" colspan="3"></td>
                                             <td>SUBTOTAL</td>
-                                            <td>GHS {{ number_format($invoice->getOrder->sub_total, 2) }}</td>
+                                            <td> {{ $shopHelper->calculateExchangeRate($invoice->getOrder->sub_total) }}</td>
                                         </tr>
                                         <tr>
                                             <td class="borderless" colspan="3"></td>
                                             <td>DISCOUNT</td>
-                                            <td>GHS {{ number_format($invoice->getOrder->discount, 2) }}</td>
+                                            <td> {{ $shopHelper->calculateExchangeRate($invoice->getOrder->discount) }}</td>
                                         </tr>
                                         <tr>
                                             <td class="borderless" colspan="3"></td>
                                             <td>SHIPPING</td>
-                                            <td>GHS {{ number_format($invoice->getOrder->shipping, 2) }}</td>
+                                            <td> {{ $shopHelper->calculateExchangeRate($invoice->getOrder->shipping) }}</td>
                                         </tr>
 
                                         <tr>
                                             <td class="borderless" colspan="3"></td>
                                             <td>NET TOTAL</td>
-                                            <td>GHS {{ number_format($invoice->getOrder->net_total, 2) }}</td>
+                                            <td> {{ $shopHelper->calculateExchangeRate($invoice->getOrder->net_total) }}</td>
                                         </tr>
                                         </tbody>
                                     </table>

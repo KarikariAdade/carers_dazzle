@@ -13,6 +13,11 @@
             bottom: 0 !important;
             background: rgba(0,0,0,.5) !important;
         }
+        @media(max-width: 700px){
+            .intro-slider-container, .intro-slide{
+                min-height: 84vh !important;
+            }
+        }
     </style>
         <div class="intro-slider-container mb-3 mb-lg-5">
             <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" data-owl-options='{"dots": true, "nav": false}'>
@@ -21,7 +26,7 @@
 
                 @if($promotional_banners->count() > 0)
                     @foreach($promotional_banners as $banner)
-                        <div class="intro-slide" style="background-image: url('{{ asset($banner->banner) }}'); background-position: center; background-size: 100%;">
+                        <div class="intro-slide" style="background-image: url('{{ asset($banner->banner) }}'); background-position: center; background-size: 100%;background-repeat:no-repeat;">
                             <div class="container">
                                 <div class="intro-content text-center">
                                     <h3 class="intro-subtitle cross-txt" style="color: #c96;">{{ $banner->header_message }}</h3><!-- End .h3 intro-subtitle -->
