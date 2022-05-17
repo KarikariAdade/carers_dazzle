@@ -78,7 +78,7 @@ class PagesController extends Controller
             return $this->failResponse($validate->errors()->first());
         }
 
-        Mail::to(env('SYSTEM_EMAIL'))->send(new ContactEmail($data));
+        Mail::to('support@carersdazzle.com')->send(new ContactEmail($data));
 
         return $this->successResponse('Thank you for contacting us. Your email has been sent and our sales team will get in touch soon');
 
