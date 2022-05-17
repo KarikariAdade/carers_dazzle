@@ -55,7 +55,7 @@
                     <h2 class="title mb-1">Got Any Questions?</h2><!-- End .title mb-2 -->
                     <p class="mb-2">Use the form below to get in touch with the sales team</p>
 
-                    <form action="{{ route('website.contact.submit') }}" class="contact-form mb-3 submitContact">
+                    <form method="POST" action="{{ route('website.contact.submit') }}" class="contact-form mb-3 submitContact">
                         @csrf
                         @method('POST')
                         <div class="row">
