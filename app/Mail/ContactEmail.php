@@ -34,6 +34,7 @@ class ContactEmail extends Mailable
 
         return $this->markdown('emails.contact_mail')
             ->from($data['email'])
+            ->to(env('SYSTEM_EMAIL'))
             ->with(['data' => $data])
             ->subject("Carers Dazzle: ".$data['subject']);
     }
