@@ -9,6 +9,8 @@ use App\Models\InvoiceItems;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Regions;
+use App\Models\Countries;
+
 use App\Models\Susu;
 use App\Models\Towns;
 use App\Models\User;
@@ -51,7 +53,7 @@ class CheckoutController extends Controller
             return redirect()->route('website.cart.index')->withErrors('Add shipping data before you checkout');
         }
 
-        $region = Regions::query()->where('id', $shipping_data['shipping']['region'])->first();
+        $region = Countries::query()->where('id', $shipping_data['shipping']['region'])->first();
 
         $town = Towns::query()->where('id', $shipping_data['shipping']['town'])->first();
 

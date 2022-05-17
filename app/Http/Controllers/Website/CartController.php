@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\Product;
-use App\Models\Regions;
+use App\Models\Countries;
 use App\Models\Shipping;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class CartController extends Controller
 
     public function index()
     {
-        $regions = Regions::query()->get();
+        $regions = Countries::query()->get();
 
         return view('website.cart.index', ['regions' => $regions]);
     }

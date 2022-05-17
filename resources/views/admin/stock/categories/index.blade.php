@@ -11,17 +11,26 @@
             <form class="row product_category_form" action="{{ route('product.category.store') }}" enctype="multipart/form-data">
                 @method('POST')
                 @csrf
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label>Category Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="name">
                 </div>
-                <div class="form-group col-md-3">
+
+                <div class="form-group col-md-4">
                     <label>Category Description</label>
                     <textarea class="form-control" name="description"></textarea>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label>Category Image </label>
-                    <input type="file" name="image[]" multiple class="form-control">
+                    <input type="file" name="image" class="form-control">
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Featured Category</label>
+                    <select class="status select2" name="featured_category">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
                 </div>
                 <div class="col-md-2 mt-4 pt-2">
                     <button type="submit" class="btn btn-success">Add Category</button>
@@ -54,6 +63,8 @@
                             <label>Name</label>
                             <input type="text" name="name" class="form-control" id="editName">
                         </div>
+
+
                         <div class="form-group">
                             <label>Description</label>
                             <textarea class="form-control" name="description" id="editDescription"></textarea>
@@ -61,7 +72,15 @@
 
                     <div class="form-group">
                         <label>Category Image </label>
-                        <input type="file" name="image[]" multiple class="form-control">
+                        <input type="file" name="image" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Featured Category</label>
+                        <select class="status select2" name="featured_category" id="featured_category">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">

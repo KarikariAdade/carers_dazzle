@@ -86,7 +86,7 @@
                                 <form method="POST" class="row shippingCart" action="{{ route('website.cart.shipping.calculate') }}">
                                     @csrf
                                     <div class="col-md-6 form-group">
-                                        <label>Region</label><br>
+                                        <label>Country</label><br>
                                         <select class="select2 form-control" name="region" id="shippingRegion" style="width: 100%;">
                                             <option></option>
                                             @foreach($regions as $region)
@@ -95,7 +95,7 @@
                                         </select>
                                     </div>
                                     <div class=" col-md-6 form-group">
-                                        <label>Town</label><br>
+                                        <label>Region</label><br>
                                         <select name="town" class="select2 form-control" style="width: 100%;" id="shippingTown">
                                         </select>
                                     </div>

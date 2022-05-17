@@ -260,6 +260,14 @@ Route::group(['prefix' => 'admin'], function () {
                     Route::get('/', [SalesController::class, 'index'])->name('sales.daily.index');
                 });
 
+                Route::prefix('sales')->group(function (){
+                    Route::get('/report', [SalesController::class, 'report'])->name('sales.report.index');
+                });
+
+                Route::prefix('payment')->group(function (){
+                    Route::get('/report', [SalesController::class, 'payment'])->name('sales.payment.index');
+                });
+
 
                 Route::prefix('orders')->group(function () {
                     Route::get('/', [OrderController::class, 'index'])->name('sales.order.index');

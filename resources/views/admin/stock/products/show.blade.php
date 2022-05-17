@@ -17,22 +17,22 @@
                             {{ $product->getBrand->name }}</td></tr>
                     </table>
                 </div>
-                <div class="col-md-6 table-responsive p-3">
-                    <table class="table table-bordered table-striped">
-                        <tr><td width="160"><h6><strong>Price</strong></h6></td><td style="font-size: 17px;">{{ 'GHS '.number_format($product->price, 2) }}</td></tr>
-                        <tr><td width="160"><h6><strong>Quantity/Stock </strong></h6></td><td style="font-size: 17px;">{{ $product->quantity }}</td></tr>
-                        <tr><td width="160"><h6><strong>Taxes</strong></h6></td><td style="font-size: 17px;">
-                                @if($product->taxes)
-                                    @foreach($taxes as $tax)
-                                        {{ $taxes->count() > 1 ? $tax->name. ', ' : $tax->name }}
-                                    @endforeach
-                                @endif
-                            </td></tr>
-                        <tr><td width="160"><h6><strong>Status</strong></h6></td><td>
-                                {!! $product->is_active == true ? '<span class=" shadow badge badge-success"> Active</span>' : '<span class="badge shadow badge-danger"> Inactive </span>' !!}
-                            </td></tr>
-                    </table>
-                </div>
+{{--                <div class="col-md-6 table-responsive p-3">--}}
+{{--                    <table class="table table-bordered table-striped">--}}
+{{--                        <tr><td width="160"><h6><strong>Price</strong></h6></td><td style="font-size: 17px;">{{ 'GHS '.number_format($product->price, 2) }}</td></tr>--}}
+{{--                        <tr><td width="160"><h6><strong>Quantity/Stock </strong></h6></td><td style="font-size: 17px;">{{ $product->quantity }}</td></tr>--}}
+{{--                        <tr><td width="160"><h6><strong>Taxes</strong></h6></td><td style="font-size: 17px;">--}}
+{{--                                @if($product->taxes)--}}
+{{--                                    @foreach($taxes as $tax)--}}
+{{--                                        {{ $taxes->count() > 1 ? $tax->name. ', ' : $tax->name }}--}}
+{{--                                    @endforeach--}}
+{{--                                @endif--}}
+{{--                            </td></tr>--}}
+{{--                        <tr><td width="160"><h6><strong>Status</strong></h6></td><td>--}}
+{{--                                {!! $product->is_active == true ? '<span class=" shadow badge badge-success"> Active</span>' : '<span class="badge shadow badge-danger"> Inactive </span>' !!}--}}
+{{--                            </td></tr>--}}
+{{--                    </table>--}}
+{{--                </div>--}}
                 <div class="col-md-12 table-responsive">
                     <table class="table table-bordered table-striped">
                         <tr><td width="170"><h6>Description</h6></td><td>{{ $product->description }}</td></tr>

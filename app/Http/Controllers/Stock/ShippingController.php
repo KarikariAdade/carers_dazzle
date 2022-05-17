@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Stock;
 
 use App\DataTables\ShippingDatatable;
 use App\Http\Controllers\Controller;
-use App\Models\Regions;
+use App\Models\Countries;
 use App\Models\Shipping;
 use App\Models\Towns;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class ShippingController extends Controller
 
     public function index(ShippingDatatable $datatable)
     {
-        $regions = Regions::query()->orderBy('name', 'ASC')->get();
+        $regions = Countries::query()->orderBy('name', 'ASC')->get();
 
         return $datatable->render('admin.stock.shipping.index', compact('regions'));
     }
@@ -52,7 +52,7 @@ class ShippingController extends Controller
 
     public function edit(Shipping $shipping)
     {
-        $regions = Regions::query()->orderBy('name', 'ASC')->get();
+        $regions = Countries::query()->orderBy('name', 'ASC')->get();
 
         return view('admin.stock.shipping.edit', compact('shipping', 'regions'));
     }
@@ -109,7 +109,7 @@ class ShippingController extends Controller
 
     public function getTowns(Request $request)
     {
-        $towns = Towns::query()->where('region_id', $request->get('item'))->get();
+        $towns = Towns::query()->where('country_id', $request->get('item'))->get();
 
         return $towns;
     }
