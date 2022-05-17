@@ -101,42 +101,42 @@
                             <h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <label>Full Name *</label>
+                                    <label>Full Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required name="name" value="{{ auth()->guard('web')->user()->name ?? '' }}">
                                 </div><!-- End .col-sm-6 -->
 
                                 <div class="col-sm-6">
-                                    <label>Email address *</label>
+                                    <label>Email address <span class="text-danger">*</span></label>
                                     <input type="email" class="form-control" name="email" required value="{{ auth()->guard('web')->user()->email ?? ''}}">
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
 
 
 
-                            <label>Street address *</label>
+                            <label>Street address <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="street_address" placeholder="Street Address 1" required value="{{ $user ? $user->street_address_1 : old('street_address')  }}">
                             <input type="text" class="form-control" name="street_address_secondary" placeholder="Street Address 2 (Optional)" value="{{ $user ? $user->street_address_2 : old('street_address')  }}">
 
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <label>Town / City *</label>
+                                    <label>Town / City <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="town" readonly required value="{{ $town->name }}">
                                 </div><!-- End .col-sm-6 -->
 
                                 <div class="col-sm-6">
-                                    <label>State / County *</label>
+                                    <label>State / County <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="region" readonly required value="{{ $region->name }}">
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
 
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <label>Postcode / ZIP *</label>
+                                    <label>Postcode / ZIP <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="postcode" required value="{{ $user ? $user->zip_code : old('postcode')  }}">
                                 </div><!-- End .col-sm-6 -->
 
                                 <div class="col-sm-6">
-                                    <label>Phone *</label>
+                                    <label>Phone <span class="text-danger">*</span></label>
                                     <input type="tel" class="form-control" required name="phone" value="{{ $user ? $user->phone : old('phone')  }}">
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
@@ -158,7 +158,7 @@
                             </div><!-- End .custom-checkbox -->
 
                             <div class="create_account" style="display:none;">
-                                <label>Password *</label>
+                                <label>Password <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="account_password" placeholder="Password">
                             </div>
                             @endif
@@ -170,24 +170,24 @@
 
 
                             <div class="ship_to_diff_address" style="display:none;">
-                                <label>Street address *</label>
+                                <label>Street address <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="diff_street_address" placeholder="Street Address 1">
 
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <label>Town / City *</label>
+                                        <label>Town / City <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="diff_town">
                                     </div><!-- End .col-sm-6 -->
 
                                     <div class="col-sm-6">
-                                        <label>State / County *</label>
+                                        <label>State / County <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="diff_city">
                                     </div><!-- End .col-sm-6 -->
                                 </div><!-- End .row -->
 
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <label>Postcode / ZIP *</label>
+                                        <label>Postcode / ZIP <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="diff_post_code">
                                     </div><!-- End .col-sm-6 -->
                                 </div>

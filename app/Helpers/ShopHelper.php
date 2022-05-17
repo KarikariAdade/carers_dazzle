@@ -16,7 +16,7 @@ class ShopHelper
                 ->amount($amount)
                 ->get();
 
-            return session()->get('sign').' '.number_format((float) $amount, 2);
+            return session()->get('sign').number_format((float) $amount, 2);
         }
 
         return 'GHS '.number_format((float) $amount, 2);

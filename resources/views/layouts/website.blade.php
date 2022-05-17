@@ -1,22 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Carers Dazzle</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Carers Dazzle">
-    <meta name="author" content="p-themes">
+    <title>Carers Dazzle - Artistic and Inspired Handmade Hat, Hair Pieces and More.</title>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WZ8V4W7');</script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SETFED29J4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-SETFED29J4');
+    </script>
+    <!-- End Google Tag Manager -->
+    <meta name="google-site-verification" content="cxi1ovnjLe1jm5okexjrBncQ0LVulWQ5Shldw1tjAk8" />
+    <meta name="keywords" content="Carers Dazzle, Artistic, Inspired, Inspired Handmade Hat, Handmade Hat, Fascinator, Bridal Pieces, Hair Pieces, More, Professional Makeup, Artistry, All Events, Hair Beauty, Bridal Beauty, Beauty Products, Assistance, Wedding, Beauty, Bridal, Wedding Planning, Wedding Gowns, Accessories">
+    <meta name="description" content="Carers Dazzle - Artistic and Inspired Handmade Hat, Fascinator, Bridal and Hair Pieces and More">
+    <meta name="author" content="Carers Dazzle">
     <!-- Favicon -->
+
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo.png') }}">
     <link rel="icon" type="img/png" sizes="32x32" href="{{ asset('logo.png') }}">
     <link rel="icon" type="img/png" sizes="16x16" href="{{ asset('logo.png') }}">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
-    <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="website_assets/images/icons/browserconfig.xml">
+    <meta name="apple-mobile-web-app-title" content="Carers Dazzle">
+    <meta name="application-name" content="Carers Dazzle">
     <meta name="theme-color" content="#ffffff">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Plugins CSS File -->
@@ -30,6 +45,10 @@
 </head>
 
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WZ8V4W7"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 @inject('shopHelper', 'App\Helpers\ShopHelper')
 <div class="page-wrapper">
     <header class="header header-11">
@@ -158,14 +177,14 @@
                     <div class="col-sm-6 col-lg-3">
                         <div class="widget widget-about">
                             <img src="{{ asset('logo.png') }}" class="footer-logo" alt="Footer Logo" width="105" height="25">
-                            <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+                            <p>Carers Dazzle - Artistic and Inspired Handmade Hat, Fascinator, Bridal and Hair Pieces and More </p>
 
                             <div class="social-icons">
-                                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-                                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-                                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-                                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
-                                <a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
+                                <a href="https://www.facebook.com/CarersDazzle/" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+{{--                                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>--}}
+                                <a href="https://www.instagram.com/carersdazzle/" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+{{--                                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>--}}
+{{--                                <a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>--}}
                             </div><!-- End .soial-icons -->
                         </div><!-- End .widget about-widget -->
                     </div><!-- End .col-sm-6 col-lg-3 -->
@@ -199,11 +218,10 @@
                             <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
 
                             <ul class="widget-list">
-                                <li><a href="#">Sign In</a></li>
-                                <li><a href="cart.html">View Cart</a></li>
-                                <li><a href="#">My Wishlist</a></li>
-                                <li><a href="#">Track My Order</a></li>
-                                <li><a href="#">Help</a></li>
+                                <li><a href="{{ route('login') }}">Sign In</a></li>
+                                <li><a href="{{ route('website.cart.index') }}">View Cart</a></li>
+                                <li><a href="{{ route('customer.wishlist.index') }}">My Wishlist</a></li>
+                                <li><a href="{{ route('website.contact.index') }}">Help</a></li>
                             </ul><!-- End .widget-list -->
                         </div><!-- End .widget -->
                     </div><!-- End .col-sm-6 col-lg-3 -->
@@ -261,10 +279,10 @@
         </nav><!-- End .mobile-nav -->
 
         <div class="social-icons">
-            <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+            <a href="https://www.facebook.com/CarersDazzle/" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
             <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
             <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-            <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+            <a href="https://www.instagram.com/carersdazzle/" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
         </div><!-- End .social-icons -->
     </div><!-- End .mobile-menu-wrapper -->
 </div><!-- End .mobile-menu-container -->
@@ -383,37 +401,7 @@
     </div><!-- End .modal-dialog -->
 </div><!-- End .modal -->
 
-{{--<div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">--}}
-{{--    <div class="row justify-content-center">--}}
-{{--        <div class="col-10">--}}
-{{--            <div class="row no-gutters bg-white newsletter-popup-content">--}}
-{{--                <div class="col-xl-3-5col col-lg-7 banner-content-wrap">--}}
-{{--                    <div class="banner-content text-center">--}}
-{{--                        <img src="website_assets/images/popup/newsletter/logo.png" class="logo" alt="logo" width="60" height="15">--}}
-{{--                        <h2 class="banner-title">get <span>25<light>%</light></span> off</h2>--}}
-{{--                        <p>Subscribe to the Molla eCommerce newsletter to receive timely updates from your favorite products.</p>--}}
-{{--                        <form action="#">--}}
-{{--                            <div class="input-group input-group-round">--}}
-{{--                                <input type="email" class="form-control form-control-white" placeholder="Your Email Address" aria-label="Email Adress" required>--}}
-{{--                                <div class="input-group-append">--}}
-{{--                                    <button class="btn" type="submit"><span>go</span></button>--}}
-{{--                                </div><!-- .End .input-group-append -->--}}
-{{--                            </div><!-- .End .input-group -->--}}
-{{--                        </form>--}}
-{{--                        <div class="custom-control custom-checkbox">--}}
-{{--                            <input type="checkbox" class="custom-control-input" id="register-policy-2" required>--}}
-{{--                            <label class="custom-control-label" for="register-policy-2">Do not show this popup again</label>--}}
-{{--                        </div><!-- End .custom-checkbox -->--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="col-xl-2-5col col-lg-5 ">--}}
-{{--                    <img src="website_assets/images/popup/newsletter/img-1.jpg" class="newsletter-img" alt="newsletter">--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
-<!-- Plugins JS File -->
+
 <script src="{{ asset('website_assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('website_assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('website_assets/js/jquery.hoverIntent.min.js') }}"></script>
@@ -427,6 +415,7 @@
 <script src="{{ asset('website_assets/js/demos/demo-18.js') }}"></script>
 <script src="{{ asset('assets/js/sweet_alert.min.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=62816b276dfd2e00199b1945&product=sop' async='async'></script>
 </body>
 
 </html>

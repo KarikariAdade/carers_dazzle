@@ -58,18 +58,27 @@
                                                             <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="{{ $lastname }}">
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email">Email Address</label>
+                                                            <input type="email" name="email" class="form-control" placeholder="Email Address" value="{{ auth()->guard('web')->user()->email }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email">Phone</label>
+                                                            <input type="tel" name="phone" class="form-control" placeholder="Phone Number" value="{{ auth()->guard('web')->user()->phone }}">
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label for="email">Email Address</label>
-                                                    <input type="email" name="email" class="form-control" placeholder="Email Address" value="{{ auth()->guard('web')->user()->email }}">
-                                                </div>
+
                                                 <fieldset class="mt-5 mb-5">
                                                     <legend><strong>Shipping Details</strong></legend>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="display-name">Street Address 1 {{ auth()->guard('web')->user()->street_address_1 }}</label>
+                                                                <label for="display-name">Street Address 1</label>
                                                                 <input type="text" name="street_address_1" class="form-control" placeholder="Street Address 1" value="{{ auth()->guard('web')->user()->street_address_1 ?? null }}">
                                                             </div>
                                                         </div>
@@ -85,7 +94,7 @@
                                                                 <select name="region" class="form-control" id="shippingRegion" style="width: 100%;">
                                                                     <option></option>
                                                                     @foreach($regions as $region)
-                                                                        <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                                                        <option {{ auth()->guard('web')->user()->region_id === $region->id ? 'selected' : null }} value="{{ $region->id }}">{{ $region->name }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -94,7 +103,7 @@
                                                             <div class="form-group">
                                                                 <label for="display-name">Town</label>
                                                                 <select id="shippingTown" class="select2 form-control" style="width:100%;" name="town">
-                                                                    <option>{{ auth()->guard('web')->user()->getTown()->name ?? null }}</option>
+                                                                    <option {{ auth()->guard('web')->user()->town_id !== null ? 'selected' : null }} value="{{ auth()->guard('web')->user()->town_id }}">{{ auth()->guard('web')->user()->getTown->name ?? null }}</option>
                                                                 </select>
                                                             </div>
                                                         </div>

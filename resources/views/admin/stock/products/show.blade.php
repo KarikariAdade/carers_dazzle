@@ -10,15 +10,9 @@
                     <table class=" table table-bordered table-striped">
                         <tr><td width="160"><h6><strong>Product Name</strong></h6></td><td style="font-size: 17px;">
                             {{ $product->name }}</td></tr>
-<<<<<<< HEAD
-{{--                        <tr><td width="160"><h6><strong>Product Category</strong></h6></td><td style="font-size: 17px;">{{ $product->getCategory->name }}</td></tr>--}}
-                        <tr><td width="160"><h6><strong>Product Sub-category</strong></h6></td><td style="font-size: 17px;">
-                            {{ $product->getSubCategory->name ?? 'N/A' }}</td></tr>
-=======
                         <tr><td width="160"><h6><strong>Product Category</strong></h6></td><td style="font-size: 17px;">{{ $product->getCategory->name }}</td></tr>
 {{--                        <tr><td width="160"><h6><strong>Product Sub-category</strong></h6></td><td style="font-size: 17px;">--}}
 {{--                            {{ $product->getSubCategory->name }}</td></tr>--}}
->>>>>>> origin/karikari
                         <tr><td width="160"><h6><strong>Brand </strong></h6></td><td style="font-size: 17px;">
                             {{ $product->getBrand->name }}</td></tr>
                     </table>

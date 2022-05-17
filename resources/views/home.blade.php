@@ -1,21 +1,66 @@
 @extends('layouts.website')
 @section('content')
+    <style>
+        .intro-slide{
+            position: relative !important;
+        }
+        .intro-slide .container::after{
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            background: rgba(0,0,0,.5) !important;
+        }
+        @media(max-width: 700px){
+            .intro-slider-container, .intro-slide{
+                min-height: 84vh !important;
+            }
+        }
+        @media(min-width: 400px){
+            .intro-slider-container, .intro-slide{
+                min-height: 76vh !important;
+            }
+        }
+    </style>
         <div class="intro-slider-container mb-3 mb-lg-5">
             <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" data-owl-options='{"dots": true, "nav": false}'>
-                <div class="intro-slide" style="background-image: url('website_assets/images/demos/demo-18/slider/slide-1.jpg');">
-                    <div class="container">
-                        <div class="intro-content text-center">
-                            <h3 class="intro-subtitle cross-txt" style="color: #c96;">SEASONAL PICKS</h3><!-- End .h3 intro-subtitle -->
-                            <h1 class="intro-title text-white">Summer Sale</h1><!-- End .intro-title -->
-                            <div class="intro-text text-white">up to 70% off</div><!-- End .intro-text -->
-                            <div class="intro-action cross-txt">
-                                <a href="category.html" class="btn btn-outline-white">
-                                    <span>Discover More</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div><!-- End .intro-content -->
-                </div><!-- End .intro-slide -->
+
+
+
+                @if($promotional_banners->count() > 0)
+                    @foreach($promotional_banners as $banner)
+                        <div class="intro-slide" style="background-image: url('{{ asset($banner->banner) }}'); background-position: center; background-size: 100%;background-repeat:no-repeat;">
+                            <div class="container">
+                                <div class="intro-content text-center">
+                                    <h3 class="intro-subtitle cross-txt" style="color: #c96;">{{ $banner->header_message }}</h3><!-- End .h3 intro-subtitle -->
+                                    <h1 class="intro-title text-white">{{ $banner->content_message }}</h1><!-- End .intro-title -->
+                                    <div class="intro-text text-white">{{ $banner->footer_message }}</div><!-- End .intro-text -->
+                                    <div class="intro-action cross-txt">
+                                        <a href="category.html" class="btn btn-outline-white">
+                                            <span>Discover More</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div><!-- End .intro-content -->
+                        </div><!-- End .intro-slide -->
+{{--                <div class="intro-slide" style="background-image: url('website_assets/images/demos/demo-18/slider/slide-1.jpg');">--}}
+{{--                    <div class="container">--}}
+{{--                        <div class="intro-content text-center">--}}
+{{--                            <h3 class="intro-subtitle cross-txt" style="color: #c96;">SEASONAL PICKS</h3><!-- End .h3 intro-subtitle -->--}}
+{{--                            <h1 class="intro-title text-white">Summer Sale</h1><!-- End .intro-title -->--}}
+{{--                            <div class="intro-text text-white">up to 70% off</div><!-- End .intro-text -->--}}
+{{--                            <div class="intro-action cross-txt">--}}
+{{--                                <a href="category.html" class="btn btn-outline-white">--}}
+{{--                                    <span>Discover More</span>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div><!-- End .intro-content -->--}}
+{{--                </div><!-- End .intro-slide -->--}}
+                    @endforeach
+                @else
 
                 <div class="intro-slide" style="background-image: url('website_assets/images/demos/demo-18/slider/slide-2.jpg');">
                     <div class="container">
@@ -31,6 +76,7 @@
                         </div>
                     </div><!-- End .intro-content -->
                 </div><!-- End .intro-slide -->
+                @endif
             </div><!-- End .intro-slider owl-carousel owl-simple -->
 
             <span class="slider-loader text-white"></span><!-- End .slider-loader -->

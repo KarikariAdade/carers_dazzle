@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brands;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\PromotionalBanner;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -19,7 +20,10 @@ class PagesController extends Controller
 
         $best_selling = Product::query()->orderBy('orders', 'DESC')->skip(0)->take(4)->get();
 
-        return view('home', compact('arrivals', 'most_viewed', 'best_selling'));
+        $promotional_banners = PromotionalBanner::query()->where('is_slider_featured', true)->where('is_active', true)->get();
+
+//        return $promotional_banners;
+        return view('home', compact('arrivals', 'most_viewed', 'best_selling', 'promotional_banners'));
     }
 
     public function shop()

@@ -105,6 +105,7 @@ class DashboardController extends Controller
             'last_name' => 'required',
             'email' => 'required|email',
             'region' => 'required',
+            'phone' => 'required',
             'street_address_1' => 'required',
             'street_address_2' => 'nullable',
             'town' => 'required',
@@ -139,6 +140,7 @@ class DashboardController extends Controller
             $user->update([
                 'name' => $data['first_name'].' '.$data['last_name'],
                 'email' => $data['email'],
+                'phone' => $data['phone'],
                 'region_id' => $data['region'],
                 'street_address_1' => $data['street_address_1'],
                 'street_address_2' => $data['street_address_2'],
