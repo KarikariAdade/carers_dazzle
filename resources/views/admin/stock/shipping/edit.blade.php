@@ -39,7 +39,7 @@
                     </select>
                 </div>
                 <div class="col-md-3 mt-4 pt-2">
-                    <button type="submit" class="btn btn-success">Add Shipping</button>
+                    <button type="submit" class="btn btn-success">Update Shipping</button>
                 </div>
             </form>
         </div>

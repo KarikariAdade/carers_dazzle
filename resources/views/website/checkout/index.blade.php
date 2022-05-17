@@ -118,15 +118,17 @@
                             <input type="text" class="form-control" name="street_address_secondary" placeholder="Street Address 2 (Optional)" value="{{ $user ? $user->street_address_2 : old('street_address')  }}">
 
                             <div class="row">
+
                                 <div class="col-sm-6">
-                                    <label>Town / City <span class="text-danger">*</span></label>
+                                    <label>Country <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="region" readonly required value="{{ $region->name }}">
+                                </div><!-- End .col-sm-6 -->
+                                <div class="col-sm-6">
+                                    <label>Region <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="town" readonly required value="{{ $town->name }}">
                                 </div><!-- End .col-sm-6 -->
 
-                                <div class="col-sm-6">
-                                    <label>State / County <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="region" readonly required value="{{ $region->name }}">
-                                </div><!-- End .col-sm-6 -->
+
                             </div><!-- End .row -->
 
                             <div class="row">

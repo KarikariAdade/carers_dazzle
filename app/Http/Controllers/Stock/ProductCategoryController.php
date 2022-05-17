@@ -26,6 +26,8 @@ class ProductCategoryController extends Controller
     {
         $data = $request->all();
 
+        $image = $request->file('image');
+
         $validate = Validator::make($data, [
             'name' => 'required',
             'description' => 'nullable',
@@ -36,25 +38,18 @@ class ProductCategoryController extends Controller
             return $this->failResponse($validate->errors()->first());
         }
 
+        if(!empty($image)) {
+
+            $data['image'] = $this->performUpload($request->file('image'), 'images/');
+        }
+
        $category = ProductCategory::query()->create([
             'name' => $data['name'],
-            'description' => $data['description']
+            'description' => $data['description'],
+            'featured_category' => $data['featured_category'],
+            'image' => $data['image'],
         ]);
 
-        if (!empty($request->file('image'))){
-
-            $images = collect();
-
-            foreach ($request->file('image') as $image){
-                $images->push([
-                    'category_id' => $category->id,
-                    'path' => $this->performUpload($image)
-                ]);
-            }
-
-            DB::table('product_pictures')->insert($images->toArray());
-
-        }
 
         return $this->successResponse('Product Category added successfully');
     }
@@ -65,6 +60,9 @@ class ProductCategoryController extends Controller
     {
         $data = $request->all();
 
+        $image = $request->file('image');
+
+
         $validate = Validator::make($data, [
             'name' => 'required',
             'description' => 'nullable'
@@ -74,25 +72,32 @@ class ProductCategoryController extends Controller
             return $this->failResponse($validate->errors()->first());
         }
 
+        if(!empty($image)) {
+
+            $data['image'] = $this->performUpload($request->file('image'), 'images/');
+        }
+
         $category->update([
             'name' => $data['name'],
-            'description' => $data['description']
+            'description' => $data['description'],
+            'featured_category' => $data['featured_category'],
+            'image' => $data['image'],
         ]);
 
-        if (!empty($request->file('image'))) {
-
-            $images = collect();
-
-            foreach ($request->file('image') as $image) {
-                $images->push([
-                    'category_id' => $category->id,
-                    'path' => $this->performUpload($image),
-                    'created_at' => now()
-                ]);
-            }
-
-            DB::table('product_pictures')->insert($images->toArray());
-        }
+//        if (!empty($request->file('image'))) {
+//
+//            $images = collect();
+//
+//            foreach ($request->file('image') as $image) {
+//                $images->push([
+//                    'category_id' => $category->id,
+//                    'path' => $this->performUpload($image),
+//                    'created_at' => now()
+//                ]);
+//            }
+//
+//            DB::table('product_pictures')->insert($images->toArray());
+//        }
 
         return $this->successResponse('Product Category updated successfully');
     }

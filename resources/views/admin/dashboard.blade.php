@@ -29,7 +29,7 @@
                                 <div class="card-icon card-icon-large"><i class="fa fa-award"></i></div>
                                 <div class="card-content">
                                     <h4 class="card-title">Total Customers </h4>
-                                    <span> {{number_format($customers, 2)}}</span>
+                                    <span> {{$customers}}</span>
 
                                 </div>
                             </div>

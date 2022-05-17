@@ -68,14 +68,14 @@
                             <label>Price <span class="text-danger">*</span></label>
                             <input type="number" name="price" step="0.1" class="form-control">
                         </div>
-                        <div class="form-group col-md-4">
-                            <label>Taxes </label>
-                            <select class="form-control select2" multiple="multiple" name="taxes[]" >
-                                @foreach($items['taxes'] as $tax)
-                                    <option value="{{ $tax->id }}">{{ $tax->name }} </option>
-                                @endforeach
-                            </select>
-                        </div>
+{{--                        <div class="form-group col-md-4">--}}
+{{--                            <label>Taxes </label>--}}
+{{--                            <select class="form-control select2" multiple="multiple" name="taxes[]" >--}}
+{{--                                @foreach($items['taxes'] as $tax)--}}
+{{--                                    <option value="{{ $tax->id }}">{{ $tax->name }} </option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
                         <div class="form-group col-md-4">
                             <label>Product Image </label>
                             <input type="file" name="image[]" multiple class="form-control">

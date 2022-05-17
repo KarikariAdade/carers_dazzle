@@ -51,14 +51,14 @@
                     <label>Price <span class="text-danger">*</span></label>
                     <input type="number" name="price" step="0.1" class="form-control" value="{{ $product->price }}">
                 </div>
-                <div class="form-group col-md-4">
-                    <label>Taxes </label>
-                    <select class="form-control" multiple="multiple" name="taxes[]" >
-                        @foreach($items['taxes'] as $tax)
-                            <option {{ in_array($tax->id, json_decode($product->taxes)) ? 'selected': null}} value="{{ $tax->id }}">{{ $tax->name }} </option>
-                        @endforeach
-                    </select>
-                </div>
+{{--                <div class="form-group col-md-4">--}}
+{{--                    <label>Taxes </label>--}}
+{{--                    <select class="form-control" multiple="multiple" name="taxes[]" >--}}
+{{--                        @foreach($items['taxes'] as $tax)--}}
+{{--                            <option {{ in_array($tax->id, json_decode($product->taxes)) ? 'selected': null}} value="{{ $tax->id }}">{{ $tax->name }} </option>--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
+{{--                </div>--}}
                 <div class="form-group col-md-4">
                     <label>Status</label>
                     <select class="status select2" name="status">

@@ -204,9 +204,9 @@
 {{--                    <li class="dropdown">--}}
 {{--                        <a href="{{ route('product.sub_category.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Sub Category</span></a>--}}
 {{--                    </li>--}}
-                    <li class="dropdown">
-                        <a href="{{ route('product.tax.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Taxes</span></a>
-                    </li>
+{{--                    <li class="dropdown">--}}
+{{--                        <a href="{{ route('product.tax.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Taxes</span></a>--}}
+{{--                    </li>--}}
                     <li class="dropdown">
                         <a href="{{ route('product.coupon.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Coupons</span></a>
                     </li>
@@ -223,7 +223,7 @@
                         <a href="{{ route('sales.daily.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Today's Sales</span></a>
                     </li>
                     <li class="dropdown">
-                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Sales Report</span></a>
+                        <a href="{{route('sales.report.index')}}" class="nav-link"><i data-feather="monitor"></i><span>Sales Report</span></a>
                     </li>
                     <li class="dropdown">
                         <a href="{{ route('sales.customer.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Customers</span></a>
@@ -235,7 +235,7 @@
                         <a href="{{ route('sales.order.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Orders</span></a>
                     </li>
                     <li class="dropdown">
-                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Payments</span></a>
+                        <a href="{{route('sales.payment.index')}}" class="nav-link"><i data-feather="monitor"></i><span>Payments</span></a>
                     </li>
 {{--                    <li class="menu-header">Susu</li>--}}
 

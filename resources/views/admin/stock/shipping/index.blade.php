@@ -12,8 +12,10 @@
                 @method('POST')
                 @csrf
                 <div class="form-group col-md-3">
-                    <label>Region <span class="text-danger">*</span></label>
-                    <select class="select2 form-control" name="region" id="shippingRegion">
+                    <label>Countries <span class="text-danger">*</span></label>
+{{--                    <select class="select2 form-control" name="region" id="shippingRegion">--}}
+                        <select class="select2 form-control" name="region" id="shippingRegion">
+
                         <option></option>
                         @foreach($regions as $region)
                             <option value="{{ $region->id }}">{{ $region->name }}</option>
@@ -21,7 +23,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Town <span class="text-danger">*</span></label>
+                    <label>Region <span class="text-danger">*</span></label>
                     <select class="form-control select2" name="town" id="shippingTown">
 
                     </select>
@@ -64,7 +66,7 @@
                         @csrf
                         <div class="row">
                             <div class="form-group col-md-3">
-                            <label>Region <span class="text-danger">*</span></label>
+                            <label>Country <span class="text-danger">*</span></label>
                             <select class="select2 form-control" name="region" id="shippingRegion">
                                 <option></option>
                                 @foreach($regions as $region)
@@ -73,7 +75,7 @@
                             </select>
                         </div>
                         <div class="form-group col-md-3">
-                            <label>Town <span class="text-danger">*</span></label>
+                            <label>Region <span class="text-danger">*</span></label>
                             <select class="form-control select2" name="town" id="shippingTown">
 
                             </select>
