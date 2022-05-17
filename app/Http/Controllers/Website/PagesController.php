@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactEmail;
 use App\Models\Brands;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\PromotionalBanner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class PagesController extends Controller
 {
@@ -22,7 +25,6 @@ class PagesController extends Controller
 
         $promotional_banners = PromotionalBanner::query()->where('is_slider_featured', true)->where('is_active', true)->get();
 
-//        return $promotional_banners;
         return view('home', compact('arrivals', 'most_viewed', 'best_selling', 'promotional_banners'));
     }
 
@@ -56,7 +58,6 @@ class PagesController extends Controller
         $product->update(['views' => $product->views + 1]);
 
         $rating = number_format($product->averageRating, 0);
-//        return $rating;
 
         return view('website.shop.detail', compact('product', 'rating'));
     }
@@ -64,6 +65,35 @@ class PagesController extends Controller
     public function contact()
     {
         return view('website.contact.index');
+    }
+
+
+    public function submitContact(Request $request)
+    {
+        $data = $request->only(['name', 'email', 'phone', 'subject', 'message']);
+
+        $validate = Validator::make($data, $this->validateContactFields());
+
+        if ($validate->fails()){
+            return $this->failResponse($validate->errors()->first());
+        }
+
+        Mail::to(env('SYSTEM_EMAIL'))->send(new ContactEmail($data));
+
+        return $this->successResponse('Thank you for contacting us. Your email has been sent and our sales team will get in touch soon');
+
+    }
+
+
+    public function validateContactFields()
+    {
+        return [
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'subject' => 'required',
+            'message' => 'required',
+        ];
     }
 
 }

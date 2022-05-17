@@ -67,6 +67,8 @@ Route::any('payment/callback', [CheckoutController::class, 'callback'])->name('w
 
 Route::get('contact', [PagesController::class, 'contact'])->name('website.contact.index');
 
+Route::post('contact/submit', [PagesController::class, 'submitContact'])->name('website.contact.submit');
+
 
 Route::get('payment/status', [CheckoutController::class, 'status'])->name('website.checkout.payment.status');
 

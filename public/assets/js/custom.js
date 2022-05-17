@@ -109,7 +109,6 @@ $(document).ready(function (){
 
 
         form.prop('action', url);
-        console.log(form.prop('action'))
 
         showModal($('#'+modal));
     }
@@ -213,7 +212,6 @@ $(document).ready(function (){
         }).then((result) => {
             if (result.isConfirmed) {
                 $.post(url, function (response){
-                    console.log(response)
                     if(response.code == '200'){
                         runToast(response.msg, response.code)
                         $('#dataTable').DataTable().ajax.reload();
@@ -294,7 +292,6 @@ $(document).ready(function (){
         e.preventDefault();
         url = $(this).attr('action');
         let formData = new FormData(this);
-        console.log(url)
 
         runSubmission(url, formData, true);
 
@@ -319,8 +316,6 @@ $(document).ready(function (){
         let name = $(this).closest('tr').children('td:eq(0)').text(),
             amount = $(this).closest('tr').children('td:eq(1)').text().replace(/[^0-9\.]+/g, "")
             description = $(this).closest('tr').children('td:eq(2)').text();
-
-        alert(amount)
 
         $('#editName').val(name);
         $('#editAmount').val(amount);
@@ -429,7 +424,6 @@ $(document).ready(function (){
 
     function runRawAjaxPost(url, withDatatable = false){
         $.post(url, function (response){
-            console.log(response)
             if(response.code == '200'){
                 runToast(response.msg, response.code)
                 if(withDatatable == true){
@@ -452,7 +446,6 @@ $(document).ready(function (){
             cache: false,
             processData: false,
         }).done((response) => {
-            console.log(response)
             if(response.code == '200'){
                 runToast(response.msg, response.code)
                 if(withDatatable == true){
@@ -503,7 +496,6 @@ $(document).ready(function (){
             method: 'POST',
             data: $(this).serialize()
         }).done((response) =>{
-            console.log(response)
             if(response.code == '200'){
                 $('#customer').append(`<option selected value="${response.user.id}">${response.user.name}</option>`)
                 runToast(response.msg, response.code)
@@ -526,7 +518,6 @@ $(document).ready(function (){
 
         let total = calculatePrice($(this).val(), $('#itemPriceData').val());
 
-        console.log(total)
         $('#itemPrice').html('GHS '+total);
     })
 
@@ -568,7 +559,6 @@ $(document).ready(function (){
 
 
         $.post(url, function (response){
-            console.log(response)
             if(response.code == '200'){
                 if (path == '/shop/cart'){
                     window.location.reload();
@@ -589,7 +579,6 @@ $(document).ready(function (){
         url = $(this).attr('href');
 
         $.post(url, function (response){
-            console.log(response)
             if(response.code == '200'){
                 window.location.reload();
             }else{
@@ -603,7 +592,6 @@ $(document).ready(function (){
     function addToCart(url, withValues = false, formdata = null){
 
         if (withValues == true){
-            console.log('Form Data', formdata)
             $.ajax({
                 url: url,
                 method: 'POST',
@@ -611,10 +599,7 @@ $(document).ready(function (){
                     'item_value': formdata
                 },
             }).done((response) => {
-                console.log('ajax response',response)
                 if(response.code == '200'){
-                    console.log('change list')
-                    console.log('list changed')
                     runToast(response.msg, response.code)
                     runCartUpdate(response)
 
@@ -625,7 +610,6 @@ $(document).ready(function (){
         }else{
 
             $.post(url, function (response){
-                console.log(response)
                 if(response.code == '200'){
                     runToast(response.msg, response.code)
                     runCartUpdate(response);
@@ -656,7 +640,6 @@ $(document).ready(function (){
             method: 'POST',
             data: {'fields': form_data}
         }).done((response) => {
-            console.log(response)
             if(response.code == '200'){
                 window.location = response.url
             }else{
@@ -674,7 +657,6 @@ $(document).ready(function (){
             method: 'POST',
             data: data,
         }).done((response) => {
-            console.log(response)
             if (response.code == '200'){
                 runToast(response.msg, response.code)
                 window.location.reload();
@@ -738,7 +720,6 @@ $(document).ready(function (){
             $.each(item.options, function (option, items_option){
                 item_image = item.options['product_image']
 
-                console.log('item_option', item.options['product_image'])
             })
             route = response.base_path+item.rowId+'/remove';
 
@@ -764,7 +745,6 @@ $(document).ready(function (){
 
         });
 
-        console.log('item image', item_image)
 
         $('.dropdown-cart-products').html(cart_dropdown)
         $('.cart-count').html(response.cart_count)
@@ -806,8 +786,6 @@ $(document).ready(function (){
             method: 'POST',
             data: $(this).serialize(),
         }).done((response) => {
-            console.log(response)
-
             if (response.code == '200'){
                 runToast(response.msg, response.code)
                 window.location.href = response.url;
@@ -839,14 +817,11 @@ $(document).ready(function (){
         e.preventDefault();
         url = $(this).attr('action');
 
-        console.log(url)
-
         $.ajax({
             url: url,
             method: 'POST',
             data: $(this).serialize(),
         }).done((response) => {
-            console.log(response)
             if(response.code == '200'){
                 window.location = response.msg
             }else {
@@ -888,11 +863,9 @@ $(document).ready(function (){
         element = $(`#${element}`);
 
         if(is_not_switched === true){
-            console.log('button not swtiched to switch it')
             element.prop('disabled', true);
             element.text('Processing...')
         }else{
-            console.log('button back to default')
             element.prop('disabled', false);
             element.text(text)
         }
@@ -945,6 +918,41 @@ $(document).ready(function (){
         url = $('#filterUrl').val();
 
         window.location.href = url+'?sort='+$(this).val();
+    })
+
+
+    $('.submitContact').submit(function (e){
+        e.preventDefault();
+
+        url = $(this).attr('action');
+
+        let formData = new FormData(this);
+
+        $('#contactBtn').html('Processing...')
+        $('#contactBtn').prop('disabled', true)
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: formData,
+            dataType: 'JSON',
+            contentType: false,
+            cache: false,
+            processData: false,
+        }).done((response) => {
+            if(response.code == '200'){
+                runToast(response.msg, response.code)
+                $('#contactBtn').html('Submit')
+                $('#contactBtn').prop('disabled', false)
+            }else{
+                runToast(response.msg, response.code)
+                $('#contactBtn').html('Submit')
+                $('#contactBtn').prop('disabled', false)
+            }
+        })
+
+
+
     })
 });
 
