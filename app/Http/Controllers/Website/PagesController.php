@@ -78,7 +78,12 @@ class PagesController extends Controller
             return $this->failResponse($validate->errors()->first());
         }
 
-        Mail::to('iamkarikari98@gmail.com')->send(new ContactEmail($data));
+        Mail::send('emails.contact_mail', ['data'=>$data], function ($message) use ($data) {
+            $message->to('iamkarikari98@gmail.com', 'Karikari Adade')
+                ->subject($data['subject']);
+        });
+
+//        Mail::to('iamkarikari98@gmail.com')->send(new ContactEmail($data));
 
         return $this->successResponse('Thank you for contacting us. Your email has been sent and our sales team will get in touch soon');
 
