@@ -81,7 +81,7 @@ class PagesController extends Controller
         $system_email = 'support@carersdazzle.com';
 
         Mail::send('emails.contact_mail', ['data'=>$data], function ($message) use ($data, $system_email) {
-            $message->to($system_email, 'Carers Dazzle')
+            $message->to('support@carersdazzle.com', 'Carers Dazzle')
                 ->from($data['email'], $data['name'])
                 ->subject("Client Message: ".$data['subject']);
         });
