@@ -100,6 +100,72 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15884.432834922956!2d-0.2660198!3d5.5509731!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6e3a1384ebfd99ac!2sCARER&#39;S%20DAZZLE!5e0!3m2!1sen!2sgh!4v1646604065908!5m2!1sen!2sgh"  height="450" style="border:0;width: 100%;" allowfullscreen="" loading="lazy"></iframe>
         </div>
         </div>
+@push('custom-js')
+    <script>
+        $('.submitContact').submit(function (e){
+            e.preventDefault();
 
+            url = $(this).attr('action');
+
+            let formData = new FormData(this);
+
+            $('#contactBtn').html('Processing...')
+            $('#contactBtn').prop('disabled', true)
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: formData,
+                dataType: 'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+            }).done((response) => {
+
+                console.log('some response', response)
+                if(response.code == '200'){
+                    runToast(response.msg, response.code)
+                    $('#contactBtn').html('Submit')
+                    $('#contactBtn').prop('disabled', false)
+                }else{
+                    runToast(response.msg, response.code)
+                    $('#contactBtn').html('Submit')
+                    $('#contactBtn').prop('disabled', false)
+                }
+            })
+
+
+
+        })
+
+
+        function runToast(msg, code){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-right',
+                iconColor: 'white',
+                customClass: {
+                    popup: 'colored-toast'
+                },
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true
+            })
+
+            if (code == "200"){
+                Toast.fire({
+                    icon: 'success',
+                    title: msg
+                })
+            }else{
+                Toast.fire({
+                    icon: 'error',
+                    title: msg
+                })
+            }
+        }
+
+    </script>
+    @endpush
 
 @endsection

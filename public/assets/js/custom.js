@@ -921,38 +921,40 @@ $(document).ready(function (){
     })
 
 
-    $('.submitContact').submit(function (e){
-        e.preventDefault();
-
-        url = $(this).attr('action');
-
-        let formData = new FormData(this);
-
-        $('#contactBtn').html('Processing...')
-        $('#contactBtn').prop('disabled', true)
-
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: formData,
-            dataType: 'JSON',
-            contentType: false,
-            cache: false,
-            processData: false,
-        }).done((response) => {
-            if(response.code == '200'){
-                runToast(response.msg, response.code)
-                $('#contactBtn').html('Submit')
-                $('#contactBtn').prop('disabled', false)
-            }else{
-                runToast(response.msg, response.code)
-                $('#contactBtn').html('Submit')
-                $('#contactBtn').prop('disabled', false)
-            }
-        })
-
-
-
-    })
+    // $('.submitContact').submit(function (e){
+    //     e.preventDefault();
+    //
+    //     url = $(this).attr('action');
+    //
+    //     let formData = new FormData(this);
+    //
+    //     $('#contactBtn').html('Processing...')
+    //     $('#contactBtn').prop('disabled', true)
+    //
+    //     $.ajax({
+    //         url: url,
+    //         method: 'POST',
+    //         data: formData,
+    //         dataType: 'JSON',
+    //         contentType: false,
+    //         cache: false,
+    //         processData: false,
+    //     }).done((response) => {
+    //
+    //         console.log('some response', response)
+    //         if(response.code == '200'){
+    //             runToast(response.msg, response.code)
+    //             $('#contactBtn').html('Submit')
+    //             $('#contactBtn').prop('disabled', false)
+    //         }else{
+    //             runToast(response.msg, response.code)
+    //             $('#contactBtn').html('Submit')
+    //             $('#contactBtn').prop('disabled', false)
+    //         }
+    //     })
+    //
+    //
+    //
+    // })
 });
 

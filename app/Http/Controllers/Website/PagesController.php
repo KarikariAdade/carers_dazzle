@@ -78,8 +78,10 @@ class PagesController extends Controller
             return $this->failResponse($validate->errors()->first());
         }
 
-        Mail::send('emails.contact_mail', ['data'=>$data], function ($message) use ($data) {
-            $message->to(env('SYSTEM_EMAIL'), 'Carers Dazzle')
+        $system_email = env('SYSTEM_EMAIL');
+
+        Mail::send('emails.contact_mail', ['data'=>$data], function ($message) use ($data, $system_email) {
+            $message->to($system_email, 'Carers Dazzle')
                 ->from($data['email'], $data['name'])
                 ->subject("Client Message: ".$data['subject']);
         });
