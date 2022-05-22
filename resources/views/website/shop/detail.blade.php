@@ -213,7 +213,11 @@
             </div><!-- End .product-details-tab -->
 
             <h2 class="title text-center mb-4">You May Also Like</h2><!-- End .title text-center -->
-
+            <style>
+                .owl-simple .owl-nav .owl-next{
+                    right: 0 !important;
+                }
+            </style>
             <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow owl-loaded owl-drag" data-toggle="owl" data-owl-options="{
                             &quot;nav&quot;: false,
                             &quot;dots&quot;: true,
@@ -221,7 +225,7 @@
                             &quot;loop&quot;: false,
                             &quot;responsive&quot;: {
                                 &quot;0&quot;: {
-                                    &quot;items&quot;:1
+                                    &quot;items&quot;:2
                                 },
                                 &quot;480&quot;: {
                                     &quot;items&quot;:2
