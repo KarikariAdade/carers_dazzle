@@ -1,230 +1,184 @@
 @inject('shopHelper', 'App\Helpers\ShopHelper')
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style>
-        body{
-            padding: 0 5%;
-        }
-        .mb-5{
-            margin-bottom: 4%;
-        }
-        .text-right{
-            float: right;
-        }
-        .table-responsive{
-            width: 800px;
-            display: block;
-        }
-        table{
-            margin-top: 5%;
-            width:700px;
-        }
 
-        table tr{
-            text-align: center;
+        .noborder td, .noborder th {
+            border: none !important;
         }
-        .table-bordered {
-            border: 1px solid #dee2e6;
-        }
-        .table-bordered th{
-            border-right: 1px solid #dee2e6;
-            border-bottom: 1px solid #dee2e6;
-        }
-        table tr td, table tr th{
-            padding: 10px;
-        }
+        @media print {
+            ::-webkit-scrollbar {
+                width: 0px;
+                background: transparent;
+            }
 
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: rgba(0,0,0,0.02);
-        }
-        .c-brown{
-            color: sandybrown;
-        }
-        .invoice_type{
-            font-size: 55px;
-        }
-        .invoice_sub_details h1{
-            font-weight: bold;
-        }
-        .invoice_sub_details p{
-            margin-top: -15px;
-        }
-        *{
-            font-family: Sans-Serif, serif;
-        }
-        .row{
-            display:flex !important;
-            width: 100%;
-        }
-        .row .col-md-4{
-            width: 100%;
-        }
-        .col-lg-12{
-            width: 100%;
-        }
-        .invoice_sub_details.mt-5 h4{
-            font-size: 20px;
-        }
-        .invoice_sub_details .col-md-4 h4{
-            font-size: 20px;
-        }
-        .invoice-total{
-            font-size: 17px;
-            text-align: justify;
-        }
+            .terms{
+                overflow-x: hidden !important;
+                word-break: break-all !important;
+            }
 
-        .invoice-total span{
-            float: right;
-            margin-left: 10px;
-            font-weight: normal;
-        }
-        img{
-            width: 200px !important;
-            height: 200px !important;
-            margin-top: -10% !important;
-        }
-        #invoice-section{
-            position: absolute !important;
-            right: 5% !important;
-            top:20% !important;
-        }
-        .column-3 {
-            float: left;
-            width: 33.333%;
-            font-size: 20px;
-        }
-
-        .column-2{
-            float: left;
-            width: 50%;
-            font-size: 17px;
-        }
-
-        .row h4{
-            font-weight: bold;
-        }
-
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
         }
     </style>
 </head>
-<body>
+<body class="container">
+<h4 style="text-align: center;">Carers Dazzle | Dansoman, Accra - Ghana | +233 24 532 2103</h4>
+<h1 style="font-size:60px; text-align: center; width:90%; font-weight:bold">INVOICE</h1>
+{{--<table style="margin-top: 10%;">--}}
+{{--    <tr style="#background-color:red">--}}
+{{--        <td><h1 style="font-size:60px; width:90%; font-weight:bold">INVOICE</h1></td>--}}
+{{--        --}}
+{{--    </tr>--}}
+{{--</table>--}}
 
-<div class="section-body p-3">
-    <div class="invoice">
-        <div class="invoice-print">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="invoice-title">
-                        <h1 class="invoice_type">Invoice</h1>
-                        <div id="invoice-section" style="float: right; margin-top: -25%;">
-                            <h4>Carers Dazzle <br>Dansoman, Accra - Ghana<br>+233 24 532 2103</h4>
-                            <div class="col-md-4" style="font-size: 18px;"><br><br>
-                                <address>
-                                    <b>{{ $invoice->getOrder->name }}</b><br>
-                                    {{ $invoice->getOrder->email }}<br>
-                                    {{ $invoice->getOrder->street_address_1 }},<br>
-                                    {{ $invoice->getOrder->getTown->name.', '.$invoice->getOrder->getRegion->name }}<br>
-                                </address>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div style="display: flex;">
-                        <div style="font-size: 18px; margin-top: 5% !important;">
-                            <b>Name</b>
-                            <p>{{ $invoice->getOrder->name }}</p>
-                        </div>
-                        {{--                        <div class="" style="margin-top: -10.5%; font-size: 20px; padding-left: 65%">--}}
-                        {{--                            <h4>Quotation Date</h4>--}}
-                        {{--                            <p>{{ \Carbon\Carbon::now()->format('D, d F Y') }}</p>--}}
-                        {{--                        </div>--}}
-                    </div>
-                    <div class="row mb-4 mt-4" style="width: 90%;">
-                        <div class="column-3">
-                            <h4 class="c-brown">Invoice Date</h4>
-                            <p>{{ date('l M d, Y', strtotime($invoice->created_at)) }}</p>
-                        </div>
-                        <div class="column-3">
-                            <h4 class="c-brown">Invoice Number</h4>
-                            <p>{{ $invoice->invoice_number }}</p>
-                        </div>
-                    </div>
+<table style="margin-top: 6%;">
+    <tr style="#background-color:yellow">
+        <td width="85%">
+            <b>NAME</b>
+            <br>
+            <br>
+            {{ $invoice->getOrder->name }}
+        </td>
+
+    </tr>
+</table>
+<hr>
+
+<div class="col-md-12" style="padding-top:1%">
+    <table class="table noborder" >
+        <tr style="font-weight:bold; color: #FFA900; font-size: 18px;">
+            <td>Invoice Date</td>
+            <td>Invoice Number</td>
+        </tr>
+
+        <tr style="font-weight:bold">
+            <td>{{ date('l M d, Y', strtotime($invoice->created_at)) }}</td>
+            <td>{{ $invoice->invoice_number }}</td>
+        </tr>
+    </table>
+</div>
+
+<hr>
+<div class="col-md-12" align=""  style="padding-top:1%; #background-color:green">
+    <table class="">
+        <tr>
+            <td style="#font-weight:bold">
+                <b>Billed To</b> :<br>
+
+                <b>{{ $invoice->getOrder->name }}</b><br>
+                {{ $invoice->getOrder->email  }}<br>
+                {{ $invoice->getOrder->street_address_1 }}<br>
+                {{ $invoice->getOrder->getTown->name ?? ' '.', '.$invoice->getOrder->getRegion->name ?? '' }}<br>
+            </td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            <td width="100"></td>
+            {{--                    <td style="#font-weight:bold">--}}
+            {{--                        <b>Shipped To</b> :<br>--}}
+            {{--                        @if($data->has_shipping_details == true)--}}
+            {{--                            {!!   str_replace(',', '<br>', $data->shipping_details) !!}--}}
+            {{--                        @else--}}
+            {{--                            {{ $data->customer->company_name }},<br>--}}
+            {{--                            {{ $data->customer->address }},<br>--}}
+            {{--                            {{ $data->customer->city }}, {{ $data->customer->region->name }} - {{ $data->customer->country->name }}<br>--}}
+            {{--                            {{ $data->customer->official_phone }},<br>--}}
+            {{--                            {{ $data->customer->full_name() }}--}}
+            {{--                            @endif--}}
+
+
+            {{--                    </td>--}}
+        </tr>
+    </table>
+</div>
+<hr>
+<div class="col-md-12 container" style="width: 100% !important;">
+    <div class="" style="width: 100% !important;">
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Item</th>
+                <th>Unit Price </th>
+                <th>Quantity</th>
+                <th>Amount </th>
+            </tr>
+            </thead>
+            <tbody>
+            @php $item_counter = 1; @endphp
+            @foreach($invoice_items as $item)
+                <tr>
+                    <td>{{$item_counter++}}</td>
+                    <td>
+                        {{ $item['name'] }}
+                    </td>
+                    <td>{{ $shopHelper->calculateExchangeRate($item['price']) }}</td>
+                    <td>{{ $item['qty'] }}</td>
+                    <td>
+                        {{ $shopHelper->calculateExchangeRate($item['subtotal']) }}
+                    </td>
+                </tr>
+            @endforeach
+
+
+            {{--            @php $vat_total =  number_format ($data->vat_total, 2) @endphp--}}
+
+            <tr class="noborder" style="background-color: white">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td align="left" style="font-size:13px; font-weight:bold">SUB TOTAL</td>
+                <td>{{ $shopHelper->calculateExchangeRate($invoice->getOrder->sub_total) }}</td>
+            </tr>
+            <tr class="noborder" style="background-color: white">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td align="left" style="font-size:13px; font-weight:bold">DISCOUNT </td>
+                <td>{{ $shopHelper->calculateExchangeRate($invoice->getOrder->discount) }}</td>
+
+            </tr>
+            <tr class="noborder" style="background-color: white">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td align="left" style="font-size:13px; font-weight:bold">SHIPPING</td>
+                <td>{{ $shopHelper->calculateExchangeRate($invoice->getOrder->shipping) }}</td>
+            </tr>
+
+            <tr class="noborder">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="background-color: black;color:white; font-weight:bold"  align="left" style="font-size:20px">NET TOTAL</td>
+                <td style="background-color: black;color:white; font-weight:bold">
+                    {{ $shopHelper->calculateExchangeRate($invoice->getOrder->net_total) }}
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+
+        <hr>
+
+
+        @if(!empty($invoice->getOrder->order_notes))
+            <div class="table-responsive">
+                <div class="noborder" style="font-size: 13px;padding: 10px;">
+                    <p style="font-weight: bold;">Remarks</p>
+                    <p>{{ $invoice->getOrder->order_notes ?? 'N/A' }}</p>
                 </div>
             </div>
-            <div class="row mt-4">
-                <div class="">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover table-bordered">
-                            <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Unit Price</th>
-                                <th>Quantity</th>
-                                <th>Amount</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($invoice_items as $item)
-                                <tr class="table-bordered">
-                                    <td>
-                                        {{ $item['name'] }}
-                                    </td>
-                                    <td>
-                                        {{ $shopHelper->calculateExchangeRate($item['price']) }}
-                                    </td>
-                                    <td>{{ $item['qty'] }}</td>
-                                    <td>
-                                        {{ $shopHelper->calculateExchangeRate($item['subtotal']) }}
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="" style="margin-left: 50%;">
-                        <div class="invoice-total">
-                            <h4>Subtotal: <span> {{ $shopHelper->calculateExchangeRate($invoice->getOrder->sub_total) }}</span></h4>
-                        </div>
-                        <div class="invoice-total">
-                            <h4>Discount: <span> {{ $shopHelper->calculateExchangeRate($invoice->getOrder->discount) }}</span></h4>
-                        </div>
-                        <div class="invoice-total">
-                            <h4>Shipping: <span> {{ $shopHelper->calculateExchangeRate($invoice->getOrder->shipping) }}</span></h4>
-                        </div>
-                        <div class="invoice-total" style="background: black;color: #fff; padding: 3px;">
-                            <h4>Net Total: <span style="font-weight: bold;"> {{ $shopHelper->calculateExchangeRate($invoice->getOrder->net_total) }}</span></h4>
-                        </div>
-                    </div>
-                    <div style="width:100%; display: inline-block;">
-                        @if(!empty($invoice->getOrder->order_notes))
-                            <div class="mb-5">
-                                <h4>Remarks</h4>
-                                <p>{{ $invoice->getOrder->order_notes }}</p>
-                            </div>
-                        @endif
-                        <div class="mb-5">
-                            <h4>Payment Options</h4>
-                            <p>{{ ucwords(str_replace('_', ' ', $invoice->getOrder->payment_type)) }}</p>
-                        </div>
-
-                        {{--                            <div class="mb-5">--}}
-                        {{--                                <h4>Terms & Conditions</h4>--}}
-                        {{--                                <p style="width: 80%;">Terms and condition</p>--}}
-                        {{--                            </div>--}}
-
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
 </div>
+
+
 </body>
 </html>
+
+
 
 

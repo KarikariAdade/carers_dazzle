@@ -70,7 +70,7 @@ class DashboardController extends Controller
 
 //        return view('customers.prints.invoice', ['invoice' => $invoice, 'invoice_items' => $invoice_items]);
         $file = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('customers.prints.invoice', ['invoice' => $invoice, 'invoice_items' => $invoice_items])->setPaper('A4');
-        return $file->download($invoice->invoice_number.'.pdf');
+        return $file->stream($invoice->invoice_number.'.pdf');
     }
 
 
