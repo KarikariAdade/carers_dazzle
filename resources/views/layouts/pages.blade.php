@@ -19,7 +19,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo.png') }}">
     <link rel="icon" type="img/png" sizes="32x32" href="{{ asset('logo.png') }}">
     <link rel="icon" type="img/png" sizes="16x16" href="{{ asset('logo.png') }}">
-    meta property
+
     <link rel="shortcut icon" href="{{ asset('logo.png') }}">
     <meta name="apple-mobile-web-app-title" content="Carers Dazzle">
     <meta name="application-name" content="Carers Dazzle">
