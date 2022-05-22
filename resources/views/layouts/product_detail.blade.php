@@ -24,6 +24,11 @@
     <meta name="application-name" content="{{ $product->name }}">
     <meta name="msapplication-TileColor" content="#cc9966">
     <meta name="theme-color" content="#ffffff">
+    <meta property="og:title" content="{{ $product->title }}">
+    <meta property="og:image" content="{{ asset($product->getSingleImage()) }}">
+    <meta property="og:url" content="{{ $product->generateRoute() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:image:type" content="image/jpg">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="{{ asset('website_assets/css/bootstrap.min.css') }}">
