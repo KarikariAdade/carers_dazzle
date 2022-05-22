@@ -211,21 +211,21 @@
                             </div><!-- End .col-sm-6 col-lg-12 -->
 
 
-                            <div class="col-sm-6 col-lg-12">
-                                <div class="widget widget-banner">
-                                    <div class="banner banner-overlay">
-                                        <a href="#">
-                                            <img src="website_assets/images/demos/demo-18/banners/banner-5.jpg" alt="Banner">
-                                        </a>
+{{--                            <div class="col-sm-6 col-lg-12">--}}
+{{--                                <div class="widget widget-banner">--}}
+{{--                                    <div class="banner banner-overlay">--}}
+{{--                                        <a href="#">--}}
+{{--                                            <img src="website_assets/images/demos/demo-18/banners/banner-5.jpg" alt="Banner">--}}
+{{--                                        </a>--}}
 
-                                        <div class="banner-content">
-                                            <h4 class="banner-subtitle"><a href="#">Spring 2019</a></h4><!-- End .banner-title -->
-                                            <h3 class="banner-title"><a href="#">SAVE UP TO <br>50% OFF</a></h3><!-- End .banner-title -->
-                                            <a href="#" class="banner-link">Shop Now</a>
-                                        </div><!-- End .banner-content -->
-                                    </div><!-- End .banner -->
-                                </div><!-- End .widget widget-banner -->
-                            </div><!-- End .col-sm-6 col-lg-12 -->
+{{--                                        <div class="banner-content">--}}
+{{--                                            <h4 class="banner-subtitle"><a href="#">Spring 2019</a></h4><!-- End .banner-title -->--}}
+{{--                                            <h3 class="banner-title"><a href="#">SAVE UP TO <br>50% OFF</a></h3><!-- End .banner-title -->--}}
+{{--                                            <a href="#" class="banner-link">Shop Now</a>--}}
+{{--                                        </div><!-- End .banner-content -->--}}
+{{--                                    </div><!-- End .banner -->--}}
+{{--                                </div><!-- End .widget widget-banner -->--}}
+{{--                            </div><!-- End .col-sm-6 col-lg-12 -->--}}
                             <div class="col-sm-6 col-lg-12">
                                 <div class="widget widget-products">
                                     <h4 class="widget-title">Most Viewed</h4><!-- End .widget-title -->
