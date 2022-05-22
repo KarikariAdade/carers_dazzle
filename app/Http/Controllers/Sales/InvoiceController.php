@@ -205,58 +205,66 @@ class InvoiceController extends Controller
         return $invoice;
     }
 
-
-
-    public function verifyPayment(Request $request, Invoice $invoice)
+    public function verifyPayment(Invoice $invoice)
     {
-        $order_trans_id = null;
+        $invoice->update(['payment_status' => "Paid"]);
 
-        $transaction_id = $request->get('transaction_id');
+        $invoice->getOrder->update(['order_status' => "Paid"]);
 
-        if (empty($transaction_id)) {
-
-            return $this->failResponse("Transaction ID field should not be empty");
-
-        }
-
-        if (!empty($invoice->getOrder)){
-
-            $order_trans_id = $invoice->getOrder->trans_code;
-
-        }
-
-        if(empty($order_trans_id)){
-
-            $new_trans_code = random_int(111111, 999999);
-
-            $sms_data = [
-                'phone' => auth()->guard('admin')->user()->phone,
-                'msg' => "Hello ".auth()->guard('admin')->user()->name.", trans code for invoice (".$invoice->invoice_number.") is ".$new_trans_code,
-            ];
-
-            $this->sendSMS($sms_data);
-
-            $invoice->getOrder->update(['trans_code' => $new_trans_code]);
-
-            return $this->successResponse("A new Transaction Code has been sent to ".auth()->guard('admin')->user()->phone." Kindly use it to verify payment");
-        }
-
-
-        if ($invoice->getOrder->trans_code === $transaction_id){
-
-            $invoice->update(['payment_status' => "Paid"]);
-
-            $invoice->getOrder->update(['order_status' => "Paid"]);
-
-            return $this->successResponse("Payment verified successfully");
-
-        }
-
-
-        return $this->failResponse("Invalid Transaction Code");
-
-
+        return $this->successResponse("Payment verified successfully");
     }
+
+
+//    public function verifyPayment(Request $request, Invoice $invoice)
+//    {
+//        $order_trans_id = null;
+//
+//        $transaction_id = $request->get('transaction_id');
+//
+//        if (empty($transaction_id)) {
+//
+//            return $this->failResponse("Transaction ID field should not be empty");
+//
+//        }
+//
+//        if (!empty($invoice->getOrder)){
+//
+//            $order_trans_id = $invoice->getOrder->trans_code;
+//
+//        }
+//
+//        if(empty($order_trans_id)){
+//
+//            $new_trans_code = random_int(111111, 999999);
+//
+//            $sms_data = [
+//                'phone' => auth()->guard('admin')->user()->phone,
+//                'msg' => "Hello ".auth()->guard('admin')->user()->name.", trans code for invoice (".$invoice->invoice_number.") is ".$new_trans_code,
+//            ];
+//
+//            $this->sendSMS($sms_data);
+//
+//            $invoice->getOrder->update(['trans_code' => $new_trans_code]);
+//
+//            return $this->successResponse("A new Transaction Code has been sent to ".auth()->guard('admin')->user()->phone." Kindly use it to verify payment");
+//        }
+//
+//
+//        if ($invoice->getOrder->trans_code === $transaction_id){
+//
+//            $invoice->update(['payment_status' => "Paid"]);
+//
+//            $invoice->getOrder->update(['order_status' => "Paid"]);
+//
+//            return $this->successResponse("Payment verified successfully");
+//
+//        }
+//
+//
+//        return $this->failResponse("Invalid Transaction Code");
+//
+//
+//    }
 
 
 

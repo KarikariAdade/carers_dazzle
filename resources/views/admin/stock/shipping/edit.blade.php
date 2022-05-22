@@ -12,8 +12,8 @@
                 @method('POST')
                 @csrf
                 <div class="form-group col-md-3">
-                    <label>Region <span class="text-danger">*</span></label>
-                    <select class="select2 form-control" name="region" id="shippingRegion">
+                    <label>Country <span class="text-danger">*</span></label>
+                    <select class="select2 form-control" name="country" id="shippingRegion">
                         <option></option>
                         @foreach($regions as $region)
                             <option {{ $region->id == $shipping->region_id ? 'selected' : null }} value="{{ $region->id }}">{{ $region->name }}</option>
@@ -21,8 +21,8 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Town <span class="text-danger">*</span></label>
-                    <select class="form-control select2" id="shippingTown" name="town">
+                    <label>Region/State <span class="text-danger">*</span></label>
+                    <select class="form-control select2" id="shippingTown" name="region">
                         <option selected value="{{ $shipping->town_id }}">{{ $shipping->getTown->name }}</option>
                     </select>
                 </div>

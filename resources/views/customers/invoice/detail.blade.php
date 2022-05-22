@@ -22,10 +22,12 @@
                                         <h6 class="f-bold">SHIPPING DETAILS</h6><br>
                                         <p>
                                             {{ $invoice->getOrder->name }}<br>
+                                            @if($invoice->getOrder->getRegion && $invoice->getOrder->getTown)
                                             {{ $invoice->getOrder->getRegion->name.', '.$invoice->getOrder->getTown->name }}<br>
+                                            @endif
                                             @if(!empty($invoice->getOrder->user_id))
                                                 @if(!empty($invoice->getOrder->getUser->phone))
-                                                    {{ $invoice->getOrder->getUser->phone.'<br>' }}
+                                                    {{ $invoice->getOrder->getUser->phone }}<br>
                                                 @endif
                                             @endif
                                             {{ $invoice->getOrder->email }}

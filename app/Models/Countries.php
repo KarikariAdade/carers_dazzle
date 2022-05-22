@@ -10,4 +10,9 @@ class Countries extends Model
     use HasFactory;
 
     protected $table = 'countries';
+
+    public function getRegions()
+    {
+        return $this->hasMany(Regions::class, 'country_id');
+    }
 }

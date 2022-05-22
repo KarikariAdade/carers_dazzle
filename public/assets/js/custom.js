@@ -201,6 +201,11 @@ $(document).ready(function (){
         if (type == 'shipping'){
             msg = 'Default shipping charges would be used in all instances where this shipping charge is used';
         }
+
+        if (type == 'payment'){
+            msg = 'Are you sure you want to verify payment of this invoice? Further actions cannot be reversed.';
+        }
+
         Swal.fire({
             title: 'Are you sure?',
             text: msg,
@@ -208,7 +213,7 @@ $(document).ready(function (){
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes, Confirm'
         }).then((result) => {
             if (result.isConfirmed) {
                 $.post(url, function (response){
@@ -463,7 +468,8 @@ $(document).ready(function (){
 
     dataTable.on('click', '#verifyPayment', function (e){
         e.preventDefault();
-        updateSubmitAttrAndShowModal('confirmPaymentForm', $(this).attr('href'), 'verifyPaymentModal', 'class')
+        runAjaxPrompt($(this).attr('href'), 'payment')
+        // updateSubmitAttrAndShowModal('confirmPaymentForm', $(this).attr('href'), 'verifyPaymentModal', 'class')
     })
 
 
@@ -657,6 +663,7 @@ $(document).ready(function (){
             method: 'POST',
             data: data,
         }).done((response) => {
+            console.log('SHIPPING RESPONSE', response)
             if (response.code == '200'){
                 runToast(response.msg, response.code)
                 window.location.reload();

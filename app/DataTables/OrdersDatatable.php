@@ -42,7 +42,7 @@ class OrdersDatatable extends DataTable
 
             })
             ->editColumn('payment_type', function ($query){
-                return ucfirst($query->payment_type);
+                return ucwords(str_replace('_', ' ', $query->payment_type));
             })
             ->editColumn('order_status', function ($query){
                 if($query->order_status === 'Paid'){

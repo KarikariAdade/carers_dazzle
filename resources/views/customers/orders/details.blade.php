@@ -28,10 +28,10 @@
                                         <h6 class="f-bold">SHIPPING DETAILS</h6><br>
                                         <p>
                                             {{ $order->name }}<br>
-                                            {{ $order->getRegion->name.', '.$order->getTown->name }}<br>
+                                            {{ $order->getRegion->name ?? ' '.', '.$order->getTown->name ?? ' ' }}<br>
                                             @if(!empty($order->user_id))
                                             @if(!empty($order->getUser->phone))
-                                                    {{ $order->getUser->phone.'<br>' }}
+                                                    {{ $order->getUser->phone }}<br>
                                                 @endif
                                             @endif
                                             {{ $order->email }}

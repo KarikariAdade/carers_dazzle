@@ -122,8 +122,8 @@
                 <div class="col-lg-12">
                     <div class="invoice-title">
                         <h1 class="invoice_type">Invoice</h1>
-                        <div id="invoice-section" style="float: right; margin-top: -18%;">
-                            <img class="img-flid" width="400"  style="" alt="AVATAR" src="">
+                        <div id="invoice-section" style="float: right; margin-top: -25%;">
+                            <h4>Carers Dazzle <br>Dansoman, Accra - Ghana<br>+233 24 532 2103</h4>
                             <div class="col-md-4" style="font-size: 18px;"><br><br>
                                 <address>
                                     <b>{{ $invoice->getOrder->name }}</b><br>
@@ -136,7 +136,7 @@
                     </div>
 
                     <div style="display: flex;">
-                        <div style="font-size: 18px; margin-top: 13.5% !important;">
+                        <div style="font-size: 18px; margin-top: 5% !important;">
                             <b>Name</b>
                             <p>{{ $invoice->getOrder->name }}</p>
                         </div>
@@ -164,7 +164,7 @@
                             <thead>
                             <tr>
                                 <th>Item</th>
-                                <th>Unit Price (GHS)</th>
+                                <th>Unit Price</th>
                                 <th>Quantity</th>
                                 <th>Amount</th>
                             </tr>
@@ -176,9 +176,9 @@
                                         {{ $item['name'] }}
                                     </td>
                                     <td>
-                                        {{ $item['price'] }}
+                                        {{ $shopHelper->calculateExchangeRate($item['price']) }}
                                     </td>
-                                    <td>{{ $shopHelper->calculateExchangeRate($item['qty']) }}</td>
+                                    <td>{{ $item['qty'] }}</td>
                                     <td>
                                         {{ $shopHelper->calculateExchangeRate($item['subtotal']) }}
                                     </td>
@@ -210,7 +210,7 @@
                         @endif
                         <div class="mb-5">
                             <h4>Payment Options</h4>
-                            <p>{{ ucfirst(str_replace('_', ' ', $invoice->getOrder->payment_type)) }}</p>
+                            <p>{{ ucwords(str_replace('_', ' ', $invoice->getOrder->payment_type)) }}</p>
                         </div>
 
                         {{--                            <div class="mb-5">--}}

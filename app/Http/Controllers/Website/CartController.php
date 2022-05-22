@@ -255,6 +255,7 @@ class CartController extends Controller
 
         $shipping = Shipping::query()->where('region_id', $data['region']);
 
+
         if ($shipping->get()->count() > 0){
             $town = $shipping->where('town_id', $data['town']);
 
@@ -265,7 +266,7 @@ class CartController extends Controller
 
             }
 
-            $shipping = Shipping::query()->where('region_id', $data['region'])->get();
+            $shipping = Shipping::query()->where('region_id', $data['region'])->first();
 
             return $this->addShippingData($data, $shipping->amount);
 

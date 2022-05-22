@@ -76,6 +76,8 @@
                                 </ul>
                             </li>
                             <li><a href="{{ route('website.shop.index') }}">Shop</a></li>
+                            <li><a href="{{ route('website.contact.index') }}">Contact</a></li>
+
                         </ul><!-- End .menu -->
                     </nav><!-- End .main-nav -->
 
@@ -275,6 +277,7 @@
                     </ul>
                 </li>
                 <li><a href="{{ route('website.shop.index') }}">Shop</a></li>
+                <li><a href="{{ route('website.contact.index') }}">Contact</a></li>
             </ul>
         </nav><!-- End .mobile-nav -->
 

@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Stock;
 use App\DataTables\ClientInvoiceDatatable;
 use App\DataTables\CustomersDatatable;
 use App\Http\Controllers\Controller;
+use App\Mail\AddCustomerEmail;
 use App\Models\Customer;
 use App\Models\User;
 use Cassandra\Custom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class CustomersController extends Controller
@@ -46,20 +48,22 @@ class CustomersController extends Controller
 
             $user = User::query()->create($this->dumpData($data));
 
-            $this->sendSMS($data);
+            Mail::send(new AddCustomerEmail($data));
+
+//            $this->sendSMS($data);
 
             DB::commit();
 
-            if ($request->get('source') === 'susu'){
-                return response()->json(['code' => 200, 'user' => $user,  'msg' => 'User created successfully']);
-            }
+//            if ($request->get('source') === 'susu'){
+//                return response()->json(['code' => 200, 'user' => $user,  'msg' => 'User created successfully']);
+//            }
 
             return $this->successResponse('Customer created successfully');
 
         }catch (\Exception $e){
             DB::rollback();
 
-            Log::error($e->getMessage());
+            Log::error($e->getMessage().' LINE: '.$e->getLine());
         }
 
         return $this->failResponse("Customer could not be created");

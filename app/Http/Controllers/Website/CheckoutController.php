@@ -331,11 +331,11 @@ class CheckoutController extends Controller
     public function computeTownAndRegion($data, $type)
     {
         if ($type === 'town'){
-            return Towns::query()->where('name', 'LIKE', '%'.$data.'%')->first()->id ?? null;
+            return Regions::query()->where('name', 'LIKE', '%'.$data.'%')->first()->id ?? null;
 
         }
 
-        return Regions::query()->where('name', 'LIKE', $data)->first()->id ?? null;
+        return Countries::query()->where('name', 'LIKE', $data)->first()->id ?? null;
     }
 
 

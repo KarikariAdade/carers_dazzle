@@ -33,7 +33,7 @@ class InvoiceDatatable extends DataTable
                 return $query->getOrder->order_id ?? 'N/A';
             })
             ->editColumn('payment_type', function ($query){
-                return ucfirst($query->payment_type);
+                return ucwords(str_replace('_', ' ', $query->payment_type));
             })
 //            ->editColumn('item_number', function ($query){
 //                $items = json_decode($query->meta, true);

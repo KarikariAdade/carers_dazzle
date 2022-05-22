@@ -87,8 +87,8 @@ class ShippingDatatable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('region_id')->title('Region'),
-            Column::make('town_id')->title('Town'),
+            Column::make('region_id')->title('Country'),
+            Column::make('town_id')->title('Region'),
             Column::make('amount'),
             Column::make('is_default')->title('Default'),
             Column::make('created_at')->title('Data Created'),

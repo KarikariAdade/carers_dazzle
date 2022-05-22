@@ -63,8 +63,8 @@ class ShippingController extends Controller
         $data = $request->all();
 
         $validate = Validator::make($data,[
+            'country' => 'required',
             'region' => 'required',
-            'town' => 'required',
             'amount' => 'required',
             'set_default' => 'nullable'
         ]);
@@ -119,8 +119,8 @@ class ShippingController extends Controller
     public function validateFields($town = null)
     {
         return [
-            'region' => 'required',
-            'town' => 'required|unique:shippings,town_id,'.$town,
+            'country' => 'required',
+            'region' => 'required|unique:shippings,town_id,'.$town,
             'amount' => 'required',
             'set_default' => 'nullable'
         ];
@@ -130,8 +130,8 @@ class ShippingController extends Controller
     public function dumpData($data)
     {
         return [
-            'region_id' => $data['region'],
-            'town_id' => $data['town'],
+            'region_id' => $data['country'],
+            'town_id' => $data['region'],
             'amount' => $data['amount'],
             'is_default' => $data['set_default'] ?? false
         ];

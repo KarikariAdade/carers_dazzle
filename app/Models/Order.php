@@ -24,12 +24,12 @@ class Order extends Model
 
     public function getRegion()
     {
-        return $this->belongsTo(Regions::class, 'region_id');
+        return $this->belongsTo(Countries::class, 'region_id');
     }
 
     public function getTown()
     {
-        return $this->belongsTo(Towns::class, 'town_id');
+        return $this->belongsTo(Regions::class, 'town_id');
     }
 
     public function getUser()

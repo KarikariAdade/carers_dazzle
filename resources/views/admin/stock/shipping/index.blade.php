@@ -14,7 +14,7 @@
                 <div class="form-group col-md-3">
                     <label>Countries <span class="text-danger">*</span></label>
 {{--                    <select class="select2 form-control" name="region" id="shippingRegion">--}}
-                        <select class="select2 form-control" name="region" id="shippingRegion">
+                        <select class="select2 form-control" name="country" id="shippingRegion">
 
                         <option></option>
                         @foreach($regions as $region)
@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label>Region <span class="text-danger">*</span></label>
-                    <select class="form-control select2" name="town" id="shippingTown">
+                    <select class="form-control select2" name="region" id="shippingTown">
 
                     </select>
                 </div>
@@ -107,6 +107,7 @@
 @push('custom-js')
     {!! $dataTable->scripts() !!}
     <script>
+        $('.select2').select2();
         $('#shippingRegion').change(function () {
             if ($(this).val() !== ''){
                 let url = `{{ route('product.shipping.get.town') }}`,
