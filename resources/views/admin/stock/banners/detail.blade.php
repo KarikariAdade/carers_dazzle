@@ -25,6 +25,21 @@
                                     <span class="badge badge-danger shadow">Not Featured</span>
                                 @endif
                             </td></tr>
+                        @if(!empty($banner->product_id))
+                        <tr><td>Associated Products</td>
+
+                            <td>
+                               @foreach($banner->getProducts() as $product)
+                                   <a href="{{ route('product.details', $product->id) }}">
+                                       <span class="badge badge-light shadow">{{ $product->name }}</span>
+                                   </a>
+                                @endforeach
+                            </td>
+                        </tr>
+                        @endif
+                        <tr><td>Header Message</td><td>{{ $banner->header_message }}</td></tr>
+                        <tr><td>Footer Message</td><td>{{ $banner->footer_message }}</td></tr>
+                        <tr><td>Content Message</td><td>{{ $banner->content_message }}</td></tr>
                         <tr><td width="160"><h6><strong>Description </strong></h6></td><td style="font-size: 17px;">
                                 {{ $banner->description ?? 'N/A' }}</td></tr>
                     </table>

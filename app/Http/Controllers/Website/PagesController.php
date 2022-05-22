@@ -25,7 +25,9 @@ class PagesController extends Controller
 
         $promotional_banners = PromotionalBanner::query()->where('is_slider_featured', true)->where('is_active', true)->get();
 
-        return view('home', compact('arrivals', 'most_viewed', 'best_selling', 'promotional_banners'));
+        $featured_categories = ProductCategory::query()->where('featured_category', '=', 1)->get();
+
+        return view('home', compact('arrivals', 'featured_categories', 'most_viewed', 'best_selling', 'promotional_banners'));
     }
 
     public function shop()

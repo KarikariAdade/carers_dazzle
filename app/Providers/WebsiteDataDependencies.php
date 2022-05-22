@@ -29,7 +29,7 @@ class WebsiteDataDependencies extends ServiceProvider
     public function boot()
     {
 
-        view()->composer(['layouts.website', 'layouts.pages', 'home'], function ($view) {
+        view()->composer(['layouts.website', 'layouts.pages', 'home', 'layouts.product_detail'], function ($view) {
 
             $categories = ProductCategory::query()->orderBy('id', 'DESC')->get();
 

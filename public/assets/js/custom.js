@@ -451,6 +451,7 @@ $(document).ready(function (){
             cache: false,
             processData: false,
         }).done((response) => {
+            console.log('AJAX RESPONSE:' ,response)
             if(response.code == '200'){
                 runToast(response.msg, response.code)
                 if(withDatatable == true){

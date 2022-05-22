@@ -1,4 +1,4 @@
-@extends('layouts.pages')
+@extends('layouts.product_detail')
 @section('content')
     <div class="page-header text-center" style="background-img: url({{ asset('website_assets
 /images/page-header-bg.jpg') }})">

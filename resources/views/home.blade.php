@@ -23,6 +23,25 @@
                 min-height: 76vh !important;
             }
         }
+         #categoryBanner{
+             position:relative;
+             border-radius: 10px;
+         }
+
+        #categoryBanner:hover::after{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,.5);
+            border-radius: 10px;
+        }
+        #bannerContent h3{
+            position: relative;
+            z-index: 3;
+        }
     </style>
         <div class="intro-slider-container mb-3 mb-lg-5">
             <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" data-owl-options='{"dots": true, "nav": false}'>
@@ -38,7 +57,7 @@
                                     <h1 class="intro-title text-white">{{ $banner->content_message }}</h1><!-- End .intro-title -->
                                     <div class="intro-text text-white">{{ $banner->footer_message }}</div><!-- End .intro-text -->
                                     <div class="intro-action cross-txt">
-                                        <a href="category.html" class="btn btn-outline-white">
+                                        <a href="{{ !empty($banner->product_id) ? $banner->getProducts()->first()->generateRoute() : route('website.shop.index') }}" class="btn btn-outline-white">
                                             <span>Discover More</span>
                                         </a>
                                     </div>
@@ -69,7 +88,7 @@
                             <h1 class="intro-title text-white">Save up to</h1><!-- End .intro-title -->
                             <div class="intro-text text-white">30-50% off</div><!-- End .intro-text -->
                             <div class="intro-action cross-txt">
-                                <a href="category.html" class="btn btn-outline-white">
+                                <a href="#" class="btn btn-outline-white">
                                     <span>Discover More</span>
                                 </a>
                             </div>
@@ -82,59 +101,26 @@
             <span class="slider-loader text-white"></span><!-- End .slider-loader -->
         </div><!-- End .intro-slider-container -->
 
+    @if(!empty($featured_categories))
         <div class="container banners">
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="banner banner-hover">
+                @foreach($featured_categories as $featured_category)
+                <div class="col-sm-6 col-lg-3 col-4">
+                    <div class="banner banner-hover" id="categoryBanner">
                         <a href="#">
-                            <img src="website_assets/images/demos/demo-18/banners/banner-1.jpg" alt="Banner">
+                            <img src="{{ asset($featured_category->image) }}" alt="Banner" style="border-radius: 10px;">
                         </a>
 
-                        <div class="banner-content">
-                            <h3 class="banner-title text-white"><a href="#">Sweatshirts & Hoodies</a></h3><!-- End .banner-title -->
-                            <a href="#" class="banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
-                        </div><!-- End .banner-content -->
-                    </div><!-- End .banner -->
-                </div><!-- End .col-lg-6 -->
-
-                <div class="col-sm-6 col-lg-3">
-                    <div class="banner banner-hover">
-                        <a href="#">
-                            <img src="website_assets/images/demos/demo-18/banners/banner-2.jpg" alt="Banner">
-                        </a>
-
-                        <div class="banner-content">
-                            <h3 class="banner-title text-white"><a href="#">Men’s Jacket</a></h3><!-- End .banner-title -->
-                            <a href="#" class="banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
+                        <div class="banner-content" id="bannerContent">
+                            <h3 class="banner-title text-white"><a href="{{ $featured_category->generateCategoryRoute() }}">{{ $featured_category->name }}</a></h3><!-- End .banner-title -->
+                            <a href="{{ $featured_category->generateCategoryRoute() }}" class="banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
                         </div><!-- End .banner-content -->
                     </div><!-- End .banner -->
                 </div><!-- End .col-sm-6 -->
-
-                <div class="col-sm-6 col-lg-3">
-                    <div class="banner banner-hover">
-                        <a href="#">
-                            <img src="website_assets/images/demos/demo-18/banners/banner-3.jpg" alt="Banner">
-                        </a>
-
-                        <div class="banner-content">
-                            <h3 class="banner-title text-white"><a href="#">Women’s jackets</a></h3><!-- End .banner-title -->
-                            <a href="#" class="banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
-                        </div><!-- End .banner-content -->
-                    </div><!-- End .banner -->
-
-                    <div class="banner banner-hover">
-                        <a href="#">
-                            <img src="website_assets/images/demos/demo-18/banners/banner-4.jpg" alt="Banner">
-                        </a>
-
-                        <div class="banner-content">
-                            <h3 class="banner-title text-white"><a href="#">Accessories</a></h3><!-- End .banner-title -->
-                            <a href="#" class="banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
-                        </div><!-- End .banner-content -->
-                    </div><!-- End .banner -->
-                </div><!-- End .col-sm-6 -->
+                    @endforeach
             </div><!-- End .row -->
         </div><!-- End .container -->
+        @endif
 
         <div class="container">
             <div class="row">

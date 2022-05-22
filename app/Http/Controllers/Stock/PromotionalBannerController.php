@@ -64,6 +64,7 @@ class PromotionalBannerController extends Controller
 
     public function details(PromotionalBanner $banner)
     {
+
         return view('admin.stock.banners.detail', compact('banner'));
     }
 

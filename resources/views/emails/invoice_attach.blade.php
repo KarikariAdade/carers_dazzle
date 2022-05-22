@@ -2,7 +2,7 @@
     <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    @include('layouts.printcss')
     <style>
 
         .noborder td, .noborder th {
@@ -22,7 +22,7 @@
         }
     </style>
 </head>
-<body class="container">
+<body class="container" style="font-family: 'Poppins',serif">
 <h4 style="text-align: center;">Carers Dazzle | Dansoman, Accra - Ghana | +233 24 532 2103</h4>
 <h1 style="font-size:60px; text-align: center; width:90%; font-weight:bold">INVOICE</h1>
 {{--<table style="margin-top: 10%;">--}}
@@ -162,8 +162,6 @@
         </table>
 
         <hr>
-
-
         @if(!empty($invoice->getOrder->order_notes))
             <div class="table-responsive">
                 <div class="noborder" style="font-size: 13px;padding: 10px;">

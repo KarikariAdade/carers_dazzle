@@ -123,6 +123,8 @@
                                 </ul>
                             </li>
                             <li><a href="{{ route('website.shop.index') }}">Shop</a></li>
+                            <li><a href="{{ route('website.contact.index') }}">Contact</a></li>
+
                         </ul><!-- End .menu -->
                     </nav><!-- End .main-nav -->
                 </div><!-- End .header-left -->

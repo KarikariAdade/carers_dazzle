@@ -138,7 +138,7 @@ class CheckoutController extends Controller
 
         $invoice_items = json_decode($invoice->meta, true);
 
-        $pdf = PDF::setOptions(['defaultFont' => 'sans-serif'])->loadView('emails.invoice_attach', ['invoice' => $invoice, 'invoice_items' => $invoice_items])->setPaper('A4');
+        $pdf = PDF::loadView('emails.invoice_attach', ['invoice' => $invoice, 'invoice_items' => $invoice_items])->setOptions(['defaultFont' => 'sans-serif'])->setPaper('A4');
 
         $data['msg'] = 'Dear '.$data['name'].', your order('.$data['order_id'].') has been placed. Please visit your portal or your email to download your invoice.';
 

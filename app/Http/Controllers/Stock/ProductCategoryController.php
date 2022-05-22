@@ -75,6 +75,10 @@ class ProductCategoryController extends Controller
         if(!empty($image)) {
 
             $data['image'] = $this->performUpload($request->file('image'), 'images/');
+        }else{
+
+            $data['image'] = $category->image;
+
         }
 
         $category->update([
@@ -84,20 +88,6 @@ class ProductCategoryController extends Controller
             'image' => $data['image'],
         ]);
 
-//        if (!empty($request->file('image'))) {
-//
-//            $images = collect();
-//
-//            foreach ($request->file('image') as $image) {
-//                $images->push([
-//                    'category_id' => $category->id,
-//                    'path' => $this->performUpload($image),
-//                    'created_at' => now()
-//                ]);
-//            }
-//
-//            DB::table('product_pictures')->insert($images->toArray());
-//        }
 
         return $this->successResponse('Product Category updated successfully');
     }

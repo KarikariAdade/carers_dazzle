@@ -24,23 +24,23 @@
                     <label>Feature as Slider</label>
                     <select name="slider_feature" class="form-control select2">
                         <option></option>
-                        <option value="1">Yes, Feature</option>
-                        <option value="0">No</option>
+                        <option {{ $banner->is_slider_feature == 1 ? 'selected' : null }} value="1">Yes, Feature</option>
+                        <option {{ $banner->is_slider_feature == 0 ? 'selected' : null }} value="0">No</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label>Mark Active</label>
                     <select name="mark_active" class="form-control select2">
                         <option></option>
-                        <option value="1">Yes, Mark Active</option>
-                        <option value="0">No</option>
+                        <option {{ $banner->is_active == 1 ? 'selected' : null }} value="1">Yes, Mark Active</option>
+                        <option {{ $banner->is_active == 0 ? 'selected' : null }} value="0">No</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label>Associated Product</label>
-                    <select multiple="multiple" class="form-control select2" name="associated_product[]">
+                    <select multiple class="form-control select2" name="associated_product[]">
                         @foreach($products as $product)
-                            <option value="{{ in_array($product->id, json_decode($banner->product_id)) ? 'selected' : null }}">{{ $product->name }}</option>
+                            <option {{ in_array($product->id, json_decode($banner->product_id)) ? 'selected' : null }} value="{{ $product->id }}">{{ $product->name }}</option>
                         @endforeach
                     </select>
                 </div>
