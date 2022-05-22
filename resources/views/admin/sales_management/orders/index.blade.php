@@ -26,6 +26,22 @@
                     <button class="btn mt-1 btn-success" id="generate">Generate Entries</button>
                 </div>
             </div>
+            <form class="row"  action="" method="GET">
+
+                <div class="col-md-4" style="padding-right: 10px">
+                    <label>Start Date</label>
+                    <input class="form-control" type="date" name="start_month" id="start_month" value="{{request()->start_month}}">
+                </div>
+                <div class="col-md-4" style="padding-right: 10px">
+                    <label>End Date</label>
+                    <input class="form-control" type="date" name="end_month" id="end_month" value="{{request()->end_month}}">
+                </div>
+                <div class="col-md-4" style="margin-top: 35px">
+                    <button type="submit" class="btn btn-primary">Generate</button>
+                </div>
+
+
+            </form>
             <div class="row">
                 <div class="col-md-12 table-responsive p-3">
                     {!! $dataTable->table(['class' => 'table table-hover table-striped']) !!}

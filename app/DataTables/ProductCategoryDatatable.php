@@ -23,13 +23,47 @@ class ProductCategoryDatatable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->editColumn('image', function ($query) {
+
+                if (!empty($query->image)){
+                    $image = (string) $query->image;
+                    $url = asset($query->image);
+                    $output = '<img class="" style="width: 70px; height:70px" src="'.$url.'" alt="image">';
+                    return $output;
+                }
+                else{
+                    return 'N/A';
+                }
+
+
+            })
+
+            ->editColumn('featured_category', function ($query) {
+
+                if($query->featured_category == true){
+                    return  '<span class="badge badge-success shadow">Featured</span>';
+
+                }
+                elseif ($query->featured_category == false)
+
+                    return '<span class="badge badge-danger shadow">Not Featured</span>';
+
+
+                else{
+                        return 'N/A';
+                    }
+
+            })
+
             ->addColumn('action', function ($query){
                 return '
                         <div style="display: inline-flex;">
                         <a href="'.route('product.category.update', $query->id).'" title="Edit Category" id="updateCategory" class="btn table-btn btn-icon btn-warning btn-sm shadow-warning mr-2"><i class="fa mt-2 fa-edit"></i></a>
                         <a href="'.route('product.category.delete', $query->id).'" title="Delete Category" id="deleteCategory" class="btn text-white table-btn btn-icon btn-danger btn-sm shadow-danger"><i class="fa mt-2 fa-trash"></i></a>
                         </div>';
-            });
+            })
+            ->rawColumns(['image','action', 'featured_category']);
+
     }
 
     /**
@@ -66,7 +100,9 @@ class ProductCategoryDatatable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('image'),
             Column::make('name'),
+            Column::make('featured_category'),
             Column::make('description'),
             Column::computed('action')
                 ->exportable(false)

@@ -76,7 +76,24 @@ class SalesReportDataTable extends DataTable
      */
     public function query()
     {
-        $query = Order::query()->orderBy('order_status', 'ASC');
+
+        $start_date = $this->request()->get('start_month');
+        $end_date = $this->request()->get('end_month');
+
+
+        if ( !empty($start_date) && !empty($end_date) ) {
+
+            $query = Order::query()->whereBetween('created_at',[$start_date, $end_date] );
+
+
+        }
+        else {
+
+            $query = Order::query()->orderBy('order_status', 'ASC');
+
+        }
+
+
 
         return $query;
     }

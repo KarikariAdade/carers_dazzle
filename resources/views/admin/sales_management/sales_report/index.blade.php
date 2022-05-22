@@ -14,8 +14,8 @@
                         <div class="card-statistic-3">
                             <div class="card-icon card-icon-large"><i class="fa fa-award"></i></div>
                             <div class="card-content">
-                                <h4 class="card-title"> Orders ({{ $pageData['daily_orders'][0]->count }})</h4>
-                                <span>GHS {{ number_format($pageData['daily_orders'][0]->net_total) ?? 0.00 }}</span>
+                                <h4 class="card-title"> Orders ({{ $daily_orders[0]->count }})</h4>
+                                <span>GHS {{ number_format($daily_orders[0]->net_total) ?? 0.00 }}</span>
 {{--                                <p class="mb-0 text-sm">--}}
 {{--                                    <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>--}}
 {{--                                    <span class="text-nowrap">Since last month</span>--}}
@@ -29,8 +29,8 @@
                         <div class="card-statistic-3">
                             <div class="card-icon card-icon-large"><i class="fa fa-award"></i></div>
                             <div class="card-content">
-                                <h4 class="card-title">Unpaid Orders ({{ $pageData['unpaid_orders'][0]->count }})</h4>
-                                <span>GHS {{ number_format($pageData['unpaid_orders'][0]->net_total) ?? 0.00 }}</span>
+                                <h4 class="card-title">Unpaid Orders ({{ $unpaid_orders[0]->count }})</h4>
+                                <span>GHS {{ number_format($unpaid_orders[0]->net_total) ?? 0.00 }}</span>
                                 {{--                                <p class="mb-0 text-sm">--}}
                                 {{--                                    <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>--}}
                                 {{--                                    <span class="text-nowrap">Since last month</span>--}}
@@ -44,8 +44,8 @@
                         <div class="card-statistic-3">
                             <div class="card-icon card-icon-large"><i class="fa fa-award"></i></div>
                             <div class="card-content">
-                                <h4 class="card-title">Paid Orders ({{ $pageData['paid_orders'][0]->count }})</h4>
-                                <span>GHS {{ number_format($pageData['paid_orders'][0]->net_total, 2) ?? 0.00 }}</span>
+                                <h4 class="card-title">Paid Orders ({{ $paid_orders[0]->count }})</h4>
+                                <span>GHS {{ number_format($paid_orders[0]->net_total, 2) ?? 0.00 }}</span>
                                 {{--                                <p class="mb-0 text-sm">--}}
                                 {{--                                    <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>--}}
                                 {{--                                    <span class="text-nowrap">Since last month</span>--}}
@@ -54,9 +54,56 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 table-responsive p-3">
-                    {!! $dataTable->table(['class' => 'text-center table table-hover table-striped']) !!}
+
+                <div class="card-body">
+                    <div class="tab-content" id="myTabContent2">
+                        <div class="tab-pane fade show active" id="home3" role="tabpanel" aria-labelledby="home-tab3">
+                            {{--                                        <div class="row" style="padding-left: 15px">--}}
+                            <form class="row"  action="" method="GET">
+
+                                <div class="col-md-4" style="padding-right: 10px">
+                                    <label>Start Date</label>
+                                    <input class="form-control" type="date" name="start_month" id="start_month" value="{{request()->start_month}}">
+                                </div>
+                                <div class="col-md-4" style="padding-right: 10px">
+                                    <label>End Date</label>
+                                    <input class="form-control" type="date" name="end_month" id="end_month" value="{{request()->end_month}}">
+                                </div>
+                                <div class="col-md-4" style="margin-top: 35px">
+                                    <button type="submit" class="btn btn-primary">Generate</button>
+                                </div>
+
+
+                            </form>
+
+                            {{--                                        </div>--}}
+                            <br>
+                            <div class="table-responsive">
+                                {!! $dataTable->table(['class' => 'table','id'=>'dataTable']) !!}
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+{{--                <form class="row"  action="" method="GET">--}}
+
+{{--                    <div class="col-md-4" style="padding-right: 10px">--}}
+{{--                        <label>Start Date</label>--}}
+{{--                        <input class="form-control" type="date" name="start_month" id="start_month" value="{{request()->start_month}}">--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-4" style="padding-right: 10px">--}}
+{{--                        <label>End Date</label>--}}
+{{--                        <input class="form-control" type="date" name="end_month" id="end_month" value="{{request()->end_month}}">--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-4" style="margin-top: 35px">--}}
+{{--                        <button type="submit" class="btn btn-primary">Generate</button>--}}
+{{--                    </div>--}}
+
+
+{{--                </form>--}}
+{{--                <div class="col-md-12 table-responsive p-3">--}}
+{{--                    {!! $dataTable->table(['class' => 'text-center table table-hover table-striped']) !!}--}}
+{{--                </div>--}}
             </div>
         </div>
     </section>

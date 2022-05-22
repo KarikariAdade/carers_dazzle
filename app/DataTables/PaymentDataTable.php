@@ -8,6 +8,8 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use App\Models\Payment;
+use App\Models\Invoice;
+use App\Models\Order;
 
 
 class PaymentDataTable extends DataTable
@@ -22,6 +24,28 @@ class PaymentDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+
+            ->editColumn('invoice_id' , function ($query) {
+
+                if(!empty($query->invoice_id)) {
+
+                    $invoice_id = Invoice::query()->where('id', $query->invoice_id)->first();
+
+                    return $invoice_id->invoice_number;
+                }
+
+            })
+
+            ->editColumn('order_id' , function ($query) {
+
+                if(!empty($query->order_id)) {
+
+                    $order_id = Order::query()->where('id', $query->order_id)->first();
+
+                    return $order_id->order_id;
+                }
+
+            })
             ->editColumn('created_at', function ($query){
                 return date('l M d, Y', strtotime($query->created_at));
             })
@@ -45,7 +69,27 @@ class PaymentDataTable extends DataTable
      */
     public function query(Payment $model)
     {
-        return $model->newQuery();
+
+        $start_date = $this->request()->get('start_month');
+        $end_date = $this->request()->get('end_month');
+
+
+        if ( !empty($start_date) && !empty($end_date) ) {
+
+            $query = $model->newQuery()->whereBetween('created_at',[$start_date, $end_date] );
+
+
+        }
+
+        else{
+
+            $query = $model->newQuery();
+
+        }
+
+        return $query;
+
+
     }
 
     /**
