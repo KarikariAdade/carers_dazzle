@@ -409,7 +409,7 @@
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 <script src="{{ asset('website_assets/js/starrr.js') }}"></script>
 <script src="{{ asset('website_assets/js/all.min.js') }}"></script>
-<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=62816b276dfd2e00199b1945&product=sop' async='async'></script>
+{{--<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=62816b276dfd2e00199b1945&product=sop' async='async'></script>--}}
 @stack('custom-js')
 </body>
 
