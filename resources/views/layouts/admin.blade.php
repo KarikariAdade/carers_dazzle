@@ -193,49 +193,17 @@
                     <li class="dropdown">
                         <a href="{{ route('product.category.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Category</span></a>
                     </li>
-                    <li class="dropdown">
-                        <a href="{{ route('product.brands.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Brands</span></a>
-                    </li>
-{{--                    <li class="dropdown">--}}
-{{--                        <a href="{{ route('product.sub_category.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Product Sub Category</span></a>--}}
-{{--                    </li>--}}
-                    <li class="dropdown">
-                        <a href="{{ route('product.tax.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Taxes</span></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="{{ route('product.coupon.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Coupons</span></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="{{ route('product.shipping.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Shipping</span></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="{{ route('product.banner.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Promotional Banners</span></a>
-                    </li>
-
 
                     <li class="menu-header">Sales Management</li>
                     <li class="dropdown">
                         <a href="{{ route('sales.daily.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Today's Sales</span></a>
                     </li>
                     <li class="dropdown">
-                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Sales Report</span></a>
-                    </li>
-                    <li class="dropdown">
                         <a href="{{ route('sales.customer.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Customers</span></a>
                     </li>
-                    <li class="dropdown">
-                        <a href="{{ route('invoice.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Invoices</span></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="{{ route('sales.order.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Orders</span></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Payments</span></a>
-                    </li>
-                    <li class="menu-header">Susu</li>
 
                     <li class="dropdown">
-                        <a href="{{ route('sales.susu.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Susu Management</span></a>
+                        <a href="{{ route('sales.order.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Orders</span></a>
                     </li>
                 </ul>
             </aside>
